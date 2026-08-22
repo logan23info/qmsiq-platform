@@ -3,6 +3,7 @@ import { FileText, Loader2, CheckCircle2, Clock, Edit2, Save, X, Trash2, FileDow
 import PageHeader from '../../components/PageHeader'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { useToast } from '../../components/Toast'
+import { useTeam } from '../../context/TeamContext'
 import { exportToCSV, WORKPAPER_COLUMNS } from '../../utils/exportCSV'
 import ConfirmModal from '../../components/ConfirmModal'
 import { getWorkpapers, updateWorkpaper, deleteWorkpaperRecord } from '../../lib/supabase'
@@ -18,6 +19,7 @@ const phaseColors = { TOD: 'bg-blue-900/40 text-blue-300', TOI: 'bg-purple-900/4
 
 function SignOffModal({ wp, onSignOff, onClose }) {
   const { toast } = useToast()
+  const { canDelete, canEdit } = useTeam()
   const [auditor, setAuditor] = useState('')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
   const [saving, setSaving] = useState(false)
@@ -76,6 +78,7 @@ export default function WorkpaperIndex() {
   const [editingId, setEditingId] = useState(null)
   const [editForm, setEditForm] = useState({})
   const { toast } = useToast()
+  const { canDelete, canEdit } = useTeam()
   const [saving, setSaving] = useState(false)
   const [confirmDel, setConfirmDel] = useState(null)
   const [signoffModal, setSignoffModal] = useState(null)

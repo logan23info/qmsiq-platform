@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getFindings, createFinding, updateFinding, deleteFinding } from '../../lib/supabase'
 import { useToast } from '../../components/Toast'
+import { useTeam } from '../../context/TeamContext'
 import ConfirmModal from '../../components/ConfirmModal'
 import AIPanel from '../../components/AIPanel'
 import { exportToCSV, FINDING_COLUMNS } from '../../utils/exportCSV'
@@ -24,6 +25,7 @@ const statusConfig = {
 
 function FindingCard({ finding, onUpdate, onDelete }) {
   const { toast } = useToast()
+  const { canDelete, canEdit, myRole } = useTeam()
   const [expanded, setExpanded] = useState(false)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -127,6 +129,7 @@ function FindingCard({ finding, onUpdate, onDelete }) {
 
 function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
   const { toast } = useToast()
+  const { canDelete, canEdit, myRole } = useTeam()
   const [form, setForm] = useState({ title: '', standard: 'ISO 9001:2015', clause_control: '', rating: 'Minor NC', condition_text: '', criteria_text: '', cause_text: '', consequence_text: '' })
   const [saving, setSaving] = useState(false)
 
@@ -199,6 +202,7 @@ export default function FindingRegister() {
   const { user } = useAuth()
   const { activeProgramme } = useProgramme()
   const { toast } = useToast()
+  const { canDelete, canEdit, myRole } = useTeam()
   const [findings, setFindings] = useState([])
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -279,7 +283,7 @@ export default function FindingRegister() {
             disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5">
             <FileDown size={12} /> Export CSV
           </button>
-          <button onClick={() => setShowModal(true)} disabled={!activeProgramme} className="btn-primary text-xs py-1.5">
+          <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5">
             <Plus size={13} /> New Finding
           </button>
         </div>

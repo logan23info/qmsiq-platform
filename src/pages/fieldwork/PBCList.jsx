@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getPBCItems, createPBCItem, updatePBCItem, deletePBCItem } from '../../lib/supabase'
 import { useToast } from '../../components/Toast'
+import { useTeam } from '../../context/TeamContext'
 import AIPanel from '../../components/AIPanel'
 import { exportToCSV, PBC_COLUMNS } from '../../utils/exportCSV'
 import ConfirmModal from '../../components/ConfirmModal'
@@ -13,6 +14,7 @@ const phaseColors = { TOD: 'bg-blue-900/40 text-blue-300', TOI: 'bg-purple-900/4
 
 function NewPBCModal({ programmeId, userId, onCreated, onClose }) {
   const { toast } = useToast()
+  const { canDelete, canEdit } = useTeam()
   const [form, setForm] = useState({ description: '', control_ref: '', phase: 'TOD', domain: 'Governance', priority: 'High', notes: '' })
   const [saving, setSaving] = useState(false)
   const save = async () => {
@@ -46,6 +48,7 @@ export default function PBCList() {
   const { user } = useAuth()
   const { activeProgramme } = useProgramme()
   const { toast } = useToast()
+  const { canDelete, canEdit } = useTeam()
   const [items, setItems] = useState([])
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -118,7 +121,7 @@ export default function PBCList() {
             </div>
           ))}
           <button onClick={() => exportToCSV(filtered, `PBC_${activeProgramme?.programme_id}`, PBC_COLUMNS)} disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5"><FileDown size={12} /> Export CSV</button>
-          <button onClick={() => setShowModal(true)} disabled={!activeProgramme} className="btn-primary text-xs py-1.5"><Plus size={12} /> Add PBC Item</button>
+          <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5"><Plus size={12} /> Add PBC Item</button>
         </div>
       </div>
 
