@@ -15,7 +15,7 @@ const roleColors = {
 
 const emptyForm = {
   name: '', scope: '', audit_period_start: '', audit_period_end: '',
-  lead_auditor: '', status: 'Planning',
+  lead_auditor: '', status: 'Planning', programme_type: 'Internal Audit',
 }
 
 export default function ProgrammeSelector({ onClose }) {
@@ -39,19 +39,37 @@ export default function ProgrammeSelector({ onClose }) {
     setInviteEmail('')
   }
 
-  const sendInvites = async (programmeId) => {
+  const sendInvites = async (programmeId, programmeName) => {
+    if (invites.length === 0) return
+    let sent = 0
     for (const invite of invites) {
       try {
-        await supabase.from('programme_members').insert({
-          programme_id: programmeId,
-          user_id: user.id,
-          role: invite.role,
-          invited_by: user.id,
-          invited_email: invite.email,
-        })
+        const { data: { session } } = await supabase.auth.getSession()
+        const res = await fetch(
+          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/invite-member`,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${session?.access_token}`,
+              'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+            },
+            body: JSON.stringify({
+              email: invite.email,
+              role: invite.role,
+              programmeId,
+              programmeName,
+              inviterName: user?.email || 'QMSiQ Lead Auditor',
+            }),
+          }
+        )
+        const result = await res.json()
+        if (result.success) sent++
+        else console.error('Invite failed for', invite.email, result.error)
       } catch (e) { console.error('Invite failed:', invite.email, e) }
     }
-    if (invites.length > 0) toast(`${invites.length} invite${invites.length > 1 ? 's' : ''} sent`)
+    if (sent > 0) toast(`${sent} invite email${sent > 1 ? 's' : ''} sent`)
+    if (sent < invites.length) toast(`${invites.length - sent} invite(s) failed — check emails`, 'error')
   }
 
   const save = async () => {
@@ -67,11 +85,12 @@ export default function ProgrammeSelector({ onClose }) {
         audit_period_end: form.audit_period_end || null,
         lead_auditor: form.lead_auditor || '',
         status: form.status,
+        programme_type: form.programme_type || 'Internal Audit',
       }
 
       if (mode === 'new') {
         const prog = await createProgramme(payload)
-        await sendInvites(prog.id)
+        await sendInvites(prog.id, form.name)
         const updated = await reload()
         const created = updated?.find(p => p.id === prog.id)
         if (created) setActiveProgramme(created)
@@ -80,7 +99,7 @@ export default function ProgrammeSelector({ onClose }) {
         delete payload.user_id
         delete payload.programme_id
         const prog = await updateProgramme(activeProgramme.id, payload)
-        await sendInvites(activeProgramme.id)
+        await sendInvites(activeProgramme.id, form.name || activeProgramme.name)
         await reload()
         setActiveProgramme(prog)
         toast('Programme updated')
@@ -98,6 +117,7 @@ export default function ProgrammeSelector({ onClose }) {
       audit_period_end: p.audit_period_end || '',
       lead_auditor: p.lead_auditor || '',
       status: p.status || 'Planning',
+      programme_type: p.programme_type || 'Internal Audit',
     })
     setInvites([])
     setMode('edit')
@@ -157,6 +177,14 @@ export default function ProgrammeSelector({ onClose }) {
                   onChange={e => set('lead_auditor', e.target.value)} />
               </div>
               <div>
+                <label className="block text-xs text-steel-400 mb-1">Programme Type</label>
+                <select className="input-field" value={form.programme_type}
+                  onChange={e => set('programme_type', e.target.value)}>
+                  {['Internal Audit', 'Gap Analysis', 'Surveillance Audit', 'Recertification Audit', 'Supplier Audit', 'Follow-up Audit'].map(t =>
+                    <option key={t}>{t}</option>)}
+                </select>
+              </div>
+            <div>
                 <label className="block text-xs text-steel-400 mb-1">Status</label>
                 <select className="input-field" value={form.status}
                   onChange={e => set('status', e.target.value)}>
