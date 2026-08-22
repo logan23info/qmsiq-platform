@@ -48,6 +48,7 @@ export const navSections = [
     id: 'review', label: 'Review Your QMS — ISO 9001',
     items: [
       { id: 'gap', label: 'Gap Analysis ⭐', path: '/fieldwork/gap-analysis', icon: 'CheckSquare', tooltip: 'ISO 9001:2015 clause-by-clause readiness assessment — RAG status with notes' },
+      { id: 'supplier', label: 'Supplier Audit Template', path: '/fieldwork/supplier-audit', icon: 'Truck', tooltip: 'ISO 9001 Cl.8.4 supplier audit — loads 12 PBC items and 6 workpapers into your programme' },
       { id: 'risks', label: 'Risk Register ⭐ Live', path: '/reporting/risks', icon: 'AlertOctagon', tooltip: 'Quality risk register — process risks, supplier risks, customer risks' },
       { id: 'capa', label: 'CAPA Tracker ⭐ Live', path: '/reporting/capa', icon: 'CheckCircle', tooltip: 'Track corrective actions from nonconformity to verified closure' },
       { id: 'kpi', label: 'KPI Dashboard ⭐ Live', path: '/reporting/kpi', icon: 'Activity', tooltip: 'Live quality KPIs — CAPA closure, customer complaints, nonconformity rates' },
