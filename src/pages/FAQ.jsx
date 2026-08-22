@@ -51,7 +51,7 @@ const faqs = [
       },
       {
         q: 'The Generate button shows an error — what do I do?',
-        a: 'Most common causes: (1) No VITE_GROQ_API_KEY in Vercel — get a free key from console.groq.com, add to Vercel → Environment Variables, then commit any change to GitHub to trigger a fresh build. (2) Groq rate limit hit — wait 30 seconds and try again. The error message will tell you exactly what happened.'
+        a: 'Most common cause: AI rate limit reached — wait 30 seconds and try again. If the problem persists, contact the platform administrator.'
       },
       {
         q: 'How specific should my inputs be?',
@@ -173,15 +173,15 @@ const faqs = [
     items: [
       {
         q: 'What environment variables are required?',
-        a: 'Required: VITE_GROQ_API_KEY (console.groq.com — free), VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY (Supabase → Settings → API). Optional fallbacks: VITE_OPENAI_API_KEY, VITE_ANTHROPIC_API_KEY. After adding any env var in Vercel, commit any change to GitHub to trigger a fresh build — the Redeploy button reuses old cache.'
+        a: 'The platform is pre-configured. If you experience AI or data issues, contact the platform administrator.'
       },
       {
         q: 'What tech stack is QMSiQ built on?',
-        a: 'React 18 + Vite with lazy-loaded code splitting (fast initial load), Tailwind CSS v3, React Router v6, Supabase (auth + PostgreSQL + file storage), Groq API — openai/gpt-oss-20b (free AI), Vercel (deployment), GitHub (source control). Dark/light theming via ThemeContext + CSS variables.'
+        a: 'QMSiQ is a modern cloud-hosted web application built for performance and reliability. Data is stored securely in a managed cloud database. Dark/light theming is available via the toggle in the header.'
       },
       {
         q: 'Why do I get a 404 when refreshing the page?',
-        a: 'QMSiQ is a React SPA — the vercel.json file in the repo root handles this with a rewrite rule pointing all routes to index.html. This is already in the repo. If you see 404s, check that vercel.json exists in your GitHub repo root.'
+        a: 'QMSiQ is a cloud-hosted platform. If you encounter a blank page or 404 error, try refreshing the page. If the issue persists, contact the platform administrator.'
       },
       {
         q: 'How do I deploy updates using VS Code?',
@@ -247,10 +247,10 @@ export default function FAQ() {
 
       <div className="card mt-8 text-center">
         <div className="text-sm font-semibold text-white mb-2">Still have questions?</div>
-        <div className="text-xs text-steel-400 mb-4">Check the GitHub repo or raise an issue.</div>
+        <div className="text-xs text-steel-400 mb-4">Contact the platform administrator for assistance.</div>
         <div className="flex flex-wrap gap-3 justify-center">
-          <a href="https://github.com/logan23info/audit-platform#readme" target="_blank" rel="noreferrer" className="btn-secondary text-xs"><ExternalLink size={12} /> GitHub README</a>
-          <a href="https://github.com/logan23info/audit-platform/issues" target="_blank" rel="noreferrer" className="btn-secondary text-xs"><ExternalLink size={12} /> Raise an Issue</a>
+
+
         </div>
       </div>
     </div>

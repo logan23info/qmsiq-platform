@@ -63,7 +63,7 @@ const standards = [
   { std: 'ISO 19011:2018', color: 'text-amber-audit', role: 'Audit backbone — HOW to audit', pages: 'Cl.4, 5, 6.2, 6.3, TOD, TOI, TOE, Findings, Meetings, Reporting, Cl.7, Annex A' },
   { std: 'ISO 9001:2015', color: 'text-emerald-400', role: 'QMS requirements — all 7 clauses with full audit testing guidance', pages: 'Clause 4 (Context), 5 (Leadership), 6 (Planning), 7 (Support), 8 (Operations), 9 (Performance), 10 (Improvement)' },
   { std: 'ISO 9001:2015', color: 'text-emerald-400', role: 'QMS — kept separate under IMS', pages: 'Clause 5, 7, 8, 9, 10' },
-  { std: 'IMS Cross-Walk', color: 'text-cyan-400', role: 'ISO 9001 × ISO 27001 — 18 shared clauses, 30-40% saving', pages: 'Cross-Walk Matrix (18 clauses), Joint Worksheets (Supplier, Management Review, CAPA, Document Control)' },
+
 ]
 
 export default function Wiki() {
@@ -82,8 +82,7 @@ export default function Wiki() {
 
       <div className="flex flex-wrap gap-2 mb-6">
         {[
-          { label: 'GitHub README', href: 'https://github.com/logan23info/audit-platform#readme' },
-          { label: 'GitHub Repo', href: 'https://github.com/logan23info/audit-platform' },
+
           { label: 'FAQ', path: '/faq' },
           { label: 'Live Platform', href: 'https://qmsiq.vercel.app' },
         ].map(l => l.href ? (
@@ -199,18 +198,16 @@ export default function Wiki() {
           <div className="flex items-center gap-2 mb-3"><Key size={15} className="text-red-400" /><h2 className="section-title mb-0">Required Environment Variables</h2></div>
           <div className="space-y-2">
             {[
-              { var: 'VITE_GROQ_API_KEY', source: 'console.groq.com → API Keys (free)', req: 'AI Generate buttons' },
-              { var: 'VITE_SUPABASE_URL', source: 'Supabase → Settings → API → Project URL', req: 'All live pages + login' },
-              { var: 'VITE_SUPABASE_ANON_KEY', source: 'Supabase → Settings → API → Publishable', req: 'All live pages + login' },
+
             ].map(r => (
               <div key={r.var} className="bg-navy-800 rounded p-2">
                 <div className="font-mono text-amber-audit text-xs">{r.var}</div>
-                <div className="text-xs text-steel-400 mt-0.5">{r.source}</div>
+
               </div>
             ))}
           </div>
           <div className="mt-3 bg-blue-900/20 border border-blue-800/50 rounded p-2 text-xs text-blue-200/80 flex gap-1.5">
-            <AlertCircle size={11} className="flex-shrink-0 mt-0.5" />After adding env vars — commit a change to GitHub for a fresh Vercel build.
+
           </div>
         </div>
       </div>
@@ -220,7 +217,7 @@ export default function Wiki() {
         <div className="text-xs text-steel-500 mb-4">ISO 9001 · ISO 19011 · IMS · Powered by AI</div>
         <div className="flex flex-wrap gap-2 justify-center">
           <button onClick={() => navigate('/faq')} className="btn-secondary text-xs">FAQ</button>
-          <a href="https://github.com/logan23info/audit-platform#readme" target="_blank" rel="noreferrer" className="btn-secondary text-xs"><ExternalLink size={11} /> GitHub README</a>
+
         </div>
       </div>
     </div>
