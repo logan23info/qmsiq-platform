@@ -7,6 +7,7 @@ export const navSections = [
       { id: 'faq', label: 'FAQ', path: '/faq', icon: 'HelpCircle', tooltip: 'Frequently asked questions about the platform and QMS audit methodology' },
       { id: 'profile', label: 'My Profile', path: '/profile', icon: 'User', tooltip: 'Edit your name, role, organisation, and change password' },
       { id: 'team', label: 'Team Members', path: '/team', icon: 'Users', tooltip: 'Manage team access — invite members, assign roles, share your User ID' },
+      { id: 'programmes', label: 'All Programmes', path: '/programmes', icon: 'LayoutGrid', tooltip: 'Overview of all audit programmes — status, quick access, client switcher' },
     ]
   },
   {
@@ -54,6 +55,7 @@ export const navSections = [
   {
     id: 'fieldwork', label: 'Fieldwork Operations',
     items: [
+      { id: 'gap', label: 'Gap Analysis ⭐', path: '/fieldwork/gap-analysis', icon: 'CheckSquare', tooltip: 'ISO 9001:2015 clause-by-clause readiness assessment — RAG status with notes' },
       { id: 'pbc', label: 'PBC Master List ⭐ Live', path: '/fieldwork/pbc', icon: 'List', tooltip: 'Provided-by-client evidence tracking — status, priority, domain, notes' },
       { id: 'tracker', label: 'Fieldwork Tracker ⭐ Live', path: '/fieldwork/tracker', icon: 'CheckSquare', tooltip: 'Workpaper tracking — TOD/TOI/TOE phase management per control' },
       { id: 'findings', label: 'Finding Register ⭐ Live', path: '/fieldwork/findings', icon: 'AlertTriangle', tooltip: '4Cs finding documentation — raise, track, and close quality findings' },

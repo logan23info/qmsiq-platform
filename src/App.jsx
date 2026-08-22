@@ -54,6 +54,8 @@ const ISO9001Clause10 = lazy_(() => import('./pages/iso9001/AllClauses').then(m 
 
 // Surveillance & Audit Types
 const SurveillanceAudit = lazy_(() => import('./pages/surveillance/SurveillanceAudit'))
+const GapAnalysis = lazy_(() => import('./pages/fieldwork/GapAnalysis'))
+const ProgrammesOverview = lazy_(() => import('./pages/ProgrammesOverview'))
 const Team = lazy_(() => import('./pages/Team'))
 
 // IMS
@@ -137,6 +139,7 @@ function AppShell() {
                 {/* Surveillance */}
                 <Route path="/surveillance" element={<SurveillanceAudit />} />
                 <Route path="/team" element={<Team />} />
+                <Route path="/programmes" element={<ProgrammesOverview />} />
 
                 {/* IMS */}
                 <Route path="/ims" element={<Navigate to="/ims/crosswalk" replace />} />
@@ -145,6 +148,7 @@ function AppShell() {
 
                 {/* Fieldwork */}
                 <Route path="/fieldwork" element={<Navigate to="/fieldwork/tracker" replace />} />
+                <Route path="/fieldwork/gap-analysis" element={<GapAnalysis />} />
                 <Route path="/fieldwork/pbc" element={<PBCList />} />
                 <Route path="/fieldwork/tracker" element={<FieldworkTracker />} />
                 <Route path="/fieldwork/findings" element={<FindingRegister />} />
