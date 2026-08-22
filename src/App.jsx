@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 import Breadcrumb from './components/Breadcrumb'
 import AuthPage from './pages/AuthPage'
+import OnboardingModal from './components/OnboardingModal'
 
 const lazy_ = (fn) => {
   const C = lazy(fn)
@@ -78,8 +79,9 @@ const AuditUniverseLive = lazy_(() => import('./pages/reporting/AuditUniverseLiv
 const RiskRegisterLive = lazy_(() => import('./pages/reporting/RiskRegisterLive'))
 
 function AppShell() {
-  const { user, loading } = useAuth()
+  const { user, loading, profile } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [showOnboarding, setShowOnboarding] = useState(false)
 
   if (loading) return (
     <div className="min-h-screen bg-navy-950 flex items-center justify-center">
@@ -90,7 +92,19 @@ function AppShell() {
     </div>
   )
 
+  // Check if first login
+  useState(() => {
+    if (profile && !profile.full_name && !profile.onboarded) {
+      setShowOnboarding(true)
+    }
+  })
+
   if (!user) return <AuthPage />
+
+  // Show onboarding on first login (no name set yet)
+  if (showOnboarding) return (
+    <OnboardingModal onClose={() => setShowOnboarding(false)} />
+  )
 
   return (
     <ProgrammeProvider>
