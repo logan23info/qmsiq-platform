@@ -16,14 +16,26 @@ const roleConfig = {
 async function getMembers(programmeId) {
   const { data, error } = await supabase
     .from('programme_members')
-    .select('*, profiles(full_name, role, organisation)')
+    .select('id, programme_id, user_id, role, invited_by, invited_email, joined_at')
     .eq('programme_id', programmeId)
     .order('joined_at', { ascending: true })
   if (error) throw error
-  return data || []
+  if (!data || data.length === 0) return []
+
+  // Fetch profiles separately for each member
+  const members = await Promise.all(data.map(async (m) => {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('full_name, role, organisation')
+      .eq('id', m.user_id)
+      .maybeSingle()
+    return { ...m, profiles: profile || null }
+  }))
+  return members
 }
 
 async function getMyRole(programmeId, userId) {
+  if (!programmeId || !userId) return null
   const { data } = await supabase
     .from('programme_members')
     .select('role')
