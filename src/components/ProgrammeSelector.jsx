@@ -4,7 +4,7 @@ import { useProgramme } from '../context/ProgrammeContext'
 import { useAuth } from '../context/AuthContext'
 import { createProgramme, updateProgramme } from '../lib/supabase'
 
-const STANDARDS = ['ISO 27001', 'ISO 27002', 'ISO 27005', 'ISO 9001', 'ISO 19011', 'IMS']
+const STANDARDS = ['ISO 9001:2015', 'ISO 19011:2018', 'ISO 14001:2015', 'IMS', 'ISO 45001', 'Other']
 
 export default function ProgrammeSelector() {
   const { user } = useAuth()
@@ -25,7 +25,7 @@ export default function ProgrammeSelector() {
     if (!activeProgramme) return
     setForm({
       name: activeProgramme.name || '',
-      standards: activeProgramme.standards || ['ISO 27001'],
+      standards: activeProgramme.standards || ['ISO 9001:2015'],
       audit_period_start: activeProgramme.audit_period_start || '',
       audit_period_end: activeProgramme.audit_period_end || '',
       lead_auditor: activeProgramme.lead_auditor || '',

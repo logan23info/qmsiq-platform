@@ -1,11 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
-import { Menu, Bell, Search, X, ArrowRight, LogOut, User, Sun, Moon, Users } from 'lucide-react'
+import { Menu, Bell, Search, X, ArrowRight, LogOut, User, Sun, Moon } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { navSections } from '../navConfig'
 import ProgrammeSelector from './ProgrammeSelector'
 import { useAuth } from '../context/AuthContext'
-import { lazy, Suspense } from 'react'
-const TeamPanel = lazy(() => import('./TeamPanel').catch(() => ({ default: () => null })))
 import { useTheme } from '../context/ThemeContext'
 import Tooltip from './Tooltip'
 import { useProgramme } from '../context/ProgrammeContext'
@@ -34,7 +32,6 @@ export default function Header({ onMenuClick }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [notifOpen, setNotifOpen] = useState(false)
   const [userOpen, setUserOpen] = useState(false)
-  const [showTeam, setShowTeam] = useState(false)
   const [notifications, setNotifications] = useState([])
 
   const searchRef = useRef(null)
@@ -188,15 +185,7 @@ export default function Header({ onMenuClick }) {
         )}
       </div>
 
-      {activeProgramme && (
-            <button onClick={() => setShowTeam(true)}
-              className="flex items-center gap-1.5 text-xs text-steel-400 hover:text-white transition-colors px-2 py-1.5 rounded-lg hover:bg-navy-700"
-              title="Manage team members">
-              <Users size={14} />
-              <span className="hidden sm:inline">Team</span>
-            </button>
-          )}
-          {/* Theme toggle */}
+      {/* Theme toggle */}
       <button onClick={toggleTheme} className="p-2 rounded-lg hover:bg-navy-800 text-steel-400 hover:text-steel-200 transition-colors">
         {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
       </button>
@@ -270,11 +259,6 @@ export default function Header({ onMenuClick }) {
         )}
       </div>
     </header>
-    {showTeam && activeProgramme && (
-      <Suspense fallback={null}>
-        <TeamPanel programmeId={activeProgramme.id} onClose={() => setShowTeam(false)} />
-      </Suspense>
-    )}
     </>
   )
 }
