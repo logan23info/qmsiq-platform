@@ -64,8 +64,15 @@ export default function ProgrammeSelector({ onClose }) {
           }
         )
         const result = await res.json()
-        if (result.success) sent++
-        else console.error('Invite failed for', invite.email, result.error)
+        if (result.success) {
+          sent++
+          if (result.existingUser) {
+            toast(`${invite.email} already registered — added as ${invite.role}`)
+          }
+        } else {
+          console.error('Invite failed for', invite.email, result.error)
+          toast(`Failed for ${invite.email}: ${result.error}`, 'error')
+        }
       } catch (e) { console.error('Invite failed:', invite.email, e) }
     }
     if (sent > 0) toast(`${sent} invite email${sent > 1 ? 's' : ''} sent`)
