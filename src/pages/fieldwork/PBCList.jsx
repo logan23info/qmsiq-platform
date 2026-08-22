@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader'
 import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getPBCItems, createPBCItem, updatePBCItem, deletePBCItem } from '../../lib/supabase'
+import ExportMenu from '../../components/ExportMenu'
 import { useToast } from '../../components/Toast'
 import { useTeam } from '../../context/TeamContext'
 import AIPanel from '../../components/AIPanel'
@@ -121,7 +122,7 @@ export default function PBCList() {
             </div>
           ))}
           <button onClick={() => exportToCSV(filtered, `PBC_${activeProgramme?.programme_id}`, PBC_COLUMNS)} disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5"><FileDown size={12} /> Export CSV</button>
-          <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5"><Plus size={12} /> Add PBC Item</button>
+          <ExportMenu type="pbc" data={items} programme={activeProgramme} /> <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5"><Plus size={12} /> Add PBC Item</button>
         </div>
       </div>
 

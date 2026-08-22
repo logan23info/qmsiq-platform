@@ -6,6 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import { Save, RefreshCw } from 'lucide-react'
+import ExportMenu from '../../components/ExportMenu'
 
 const clauses = [
   { id: 'cl4', clause: '4', title: 'Context of the organisation',
@@ -166,6 +167,7 @@ export default function GapAnalysis() {
             </div>
           </div>
           <div className="ml-auto flex gap-2">
+            <ExportMenu type="gap" gapRatings={ratings} gapNotes={notes} programme={activeProgramme} />
             <button onClick={reset} className="btn-secondary text-xs py-1.5">
               <RefreshCw size={12} /> Reset
             </button>

@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader'
 import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getFindings, createFinding, updateFinding, deleteFinding } from '../../lib/supabase'
+import ExportMenu from '../../components/ExportMenu'
 import { useToast } from '../../components/Toast'
 import { useTeam } from '../../context/TeamContext'
 import ConfirmModal from '../../components/ConfirmModal'
@@ -283,7 +284,7 @@ export default function FindingRegister() {
             disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5">
             <FileDown size={12} /> Export CSV
           </button>
-          <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5">
+          <ExportMenu type="findings" data={findings} programme={activeProgramme} /> <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5">
             <Plus size={13} /> New Finding
           </button>
         </div>
