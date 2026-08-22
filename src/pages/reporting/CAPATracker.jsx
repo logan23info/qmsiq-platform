@@ -75,7 +75,7 @@ function CAPARow({ finding, onUpdate }) {
               <div className="grid grid-cols-3 gap-3">
                 <div><label className="block text-xs text-steel-400 mb-1">Action Owner</label><input className="input-field" value={form.action_owner} onChange={e => setForm(p => ({ ...p, action_owner: e.target.value }))} /></div>
                 <div><label className="block text-xs text-steel-400 mb-1">Due Date</label><input className="input-field" type="date" value={form.due_date} onChange={e => setForm(p => ({ ...p, due_date: e.target.value }))} /></div>
-                <div><label className="block text-xs text-steel-400 mb-1">Status</label><select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}><option>Open</option><option>In Progress</option><option>Closed</option></select></div>
+                <div><label className="block text-xs text-steel-400 mb-1">Status</label><select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}><option>Open</option><option>CAPA Raised</option><option>Verified Effective</option><option>Closed</option></select></div>
               </div>
               <div className="flex gap-2">
                 <button onClick={save} disabled={saving} className="btn-primary text-xs py-1.5">{saving ? <><Loader2 size={12} className="animate-spin" /> Saving...</> : <><Save size={12} /> Save CAPA</>}</button>
