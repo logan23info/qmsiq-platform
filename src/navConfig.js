@@ -3,15 +3,15 @@ export const navSections = [
     id: 'core', label: 'Platform',
     items: [
       { id: 'dashboard', label: 'Dashboard', path: '/', icon: 'LayoutDashboard', tooltip: 'QMS audit programme overview — live stats and recent activity' },
-      { id: 'wiki', label: 'How to Use (Wiki)', path: '/wiki', icon: 'BookOpen', tooltip: 'Platform guide — full audit workflow from planning to reporting' },
-      { id: 'faq', label: 'FAQ', path: '/faq', icon: 'HelpCircle', tooltip: 'Frequently asked questions about the platform and QMS audit methodology' },
+      { id: 'programmes', label: 'All Programmes', path: '/programmes', icon: 'LayoutGrid', tooltip: 'Overview of all audit programmes — status, quick access, client switcher' },
+      { id: 'wiki', label: 'How to Use (Wiki)', path: '/wiki', icon: 'BookOpen', tooltip: 'Platform guide — full audit and review workflow from planning to improvement' },
+      { id: 'faq', label: 'FAQ', path: '/faq', icon: 'HelpCircle', tooltip: 'Frequently asked questions about QMSiQ and ISO 9001 audit methodology' },
       { id: 'profile', label: 'My Profile', path: '/profile', icon: 'User', tooltip: 'Edit your name, role, organisation, and change password' },
       { id: 'team', label: 'Team Members', path: '/team', icon: 'Users', tooltip: 'Manage team access — invite members, assign roles, share your User ID' },
-      { id: 'programmes', label: 'All Programmes', path: '/programmes', icon: 'LayoutGrid', tooltip: 'Overview of all audit programmes — status, quick access, client switcher' },
     ]
   },
   {
-    id: 'iso19011', label: 'ISO 19011 — Audit Methodology',
+    id: 'audit-methodology', label: 'Conduct an Audit — Methodology',
     items: [
       { id: '19011-cl4', label: 'Clause 4 — Principles', path: '/iso19011/clause4', icon: 'Shield', tooltip: '7 principles of auditing per ISO 19011:2018' },
       { id: '19011-cl5', label: 'Clause 5 — Programme Mgmt', path: '/iso19011/clause5', icon: 'CalendarDays', tooltip: 'Audit programme objectives, resources, scheduling and monitoring' },
@@ -28,14 +28,37 @@ export const navSections = [
     ]
   },
   {
-    id: 'iso9000', label: 'ISO 9000 — Terminology',
+    id: 'audit-types', label: 'Conduct an Audit — Audit Types',
     items: [
-      { id: '9000', label: 'QMS Terminology Dictionary', path: '/iso9000', icon: 'BookMarked', tooltip: '44 key quality management terms from ISO 9000:2015 — searchable by category' },
+      { id: 'surveillance', label: 'Surveillance & Recertification', path: '/surveillance', icon: 'RefreshCw', tooltip: 'Surveillance (Year 1 & 2), recertification (Year 3), internal audit, and supplier audit guidance' },
     ]
   },
   {
-    id: 'iso9001', label: 'ISO 9001 — QMS',
+    id: 'audit-execution', label: 'Conduct an Audit — Execution',
     items: [
+      { id: 'pbc', label: 'PBC Evidence List ⭐ Live', path: '/fieldwork/pbc', icon: 'List', tooltip: 'Provided-by-client evidence tracking — status, priority, domain, notes' },
+      { id: 'tracker', label: 'Fieldwork Tracker ⭐ Live', path: '/fieldwork/tracker', icon: 'CheckSquare', tooltip: 'Workpaper tracking — TOD/TOI/TOE phase management per control' },
+      { id: 'findings', label: 'Finding Register ⭐ Live', path: '/fieldwork/findings', icon: 'AlertTriangle', tooltip: '4Cs finding documentation — raise, track, and close quality findings' },
+      { id: 'workpapers', label: 'Workpaper Index', path: '/fieldwork/workpapers', icon: 'FolderOpen', tooltip: 'Workpaper register with formal sign-off (auditor + date)' },
+      { id: 'library', label: 'Workpaper Library', path: '/fieldwork/library', icon: 'CloudUpload', tooltip: 'Cloud evidence storage — upload, download, delete audit files' },
+      { id: 'report-builder', label: 'Audit Report Builder', path: '/reporting/builder', icon: 'FileText', tooltip: 'Pull live findings into a formal quality audit report — 6 sections' },
+    ]
+  },
+  {
+    id: 'review', label: 'Review Your QMS — ISO 9001',
+    items: [
+      { id: 'gap', label: 'Gap Analysis ⭐', path: '/fieldwork/gap-analysis', icon: 'CheckSquare', tooltip: 'ISO 9001:2015 clause-by-clause readiness assessment — RAG status with notes' },
+      { id: 'risks', label: 'Risk Register ⭐ Live', path: '/reporting/risks', icon: 'AlertOctagon', tooltip: 'Quality risk register — process risks, supplier risks, customer risks' },
+      { id: 'capa', label: 'CAPA Tracker ⭐ Live', path: '/reporting/capa', icon: 'CheckCircle', tooltip: 'Track corrective actions from nonconformity to verified closure' },
+      { id: 'kpi', label: 'KPI Dashboard ⭐ Live', path: '/reporting/kpi', icon: 'Activity', tooltip: 'Live quality KPIs — CAPA closure, customer complaints, nonconformity rates' },
+      { id: 'mgmt-review', label: 'Management Review Pack', path: '/reporting/management-review', icon: 'BarChart2', tooltip: 'ISO 9001 Cl.9.3 management review — all mandatory inputs and outputs' },
+      { id: 'universe', label: 'Audit Universe ⭐ Live', path: '/reporting/universe', icon: 'Globe', tooltip: 'Risk-ranked annual QMS audit schedule with status tracking' },
+    ]
+  },
+  {
+    id: 'iso9001', label: 'Review Your QMS — ISO 9001 Reference',
+    items: [
+      { id: '9000', label: 'QMS Terminology Dictionary', path: '/iso9000', icon: 'BookMarked', tooltip: '44 key quality management terms from ISO 9000:2015 — searchable by category' },
       { id: '9001-cl4', label: 'Clause 4 — Context & Scope', path: '/iso9001/clause4', icon: 'Map', tooltip: 'Internal/external context, interested parties, QMS scope, process approach' },
       { id: '9001-cl5', label: 'Clause 5 — Leadership', path: '/iso9001/clause5', icon: 'Crown', tooltip: 'Top management commitment, quality policy, roles and responsibilities' },
       { id: '9001-cl6', label: 'Clause 6 — Planning', path: '/iso9001/clause6', icon: 'Target', tooltip: 'Risk-based thinking, quality objectives, planning of changes' },
@@ -43,35 +66,6 @@ export const navSections = [
       { id: '9001-cl8', label: 'Clause 8 — Operations', path: '/iso9001/clause8', icon: 'Settings', tooltip: 'Operational planning, customer requirements, supplier control, production' },
       { id: '9001-cl9', label: 'Clause 9 — Performance', path: '/iso9001/clause9', icon: 'TrendingUp', tooltip: 'Customer satisfaction, KPIs, internal audit, management review' },
       { id: '9001-cl10', label: 'Clause 10 — Improvement', path: '/iso9001/clause10', icon: 'RefreshCw', tooltip: 'Nonconformity, corrective action, continual improvement' },
-    ]
-  },
-  {
-    id: 'audit-types', label: 'QMS Audit Types',
-    items: [
-      { id: 'surveillance', label: 'Surveillance & Recertification', path: '/surveillance', icon: 'RefreshCw', tooltip: 'Surveillance (Year 1 & 2), recertification (Year 3), internal audit, and supplier audit guidance' },
-
-    ]
-  },
-  {
-    id: 'fieldwork', label: 'Fieldwork Operations',
-    items: [
-      { id: 'gap', label: 'Gap Analysis ⭐', path: '/fieldwork/gap-analysis', icon: 'CheckSquare', tooltip: 'ISO 9001:2015 clause-by-clause readiness assessment — RAG status with notes' },
-      { id: 'pbc', label: 'PBC Master List ⭐ Live', path: '/fieldwork/pbc', icon: 'List', tooltip: 'Provided-by-client evidence tracking — status, priority, domain, notes' },
-      { id: 'tracker', label: 'Fieldwork Tracker ⭐ Live', path: '/fieldwork/tracker', icon: 'CheckSquare', tooltip: 'Workpaper tracking — TOD/TOI/TOE phase management per control' },
-      { id: 'findings', label: 'Finding Register ⭐ Live', path: '/fieldwork/findings', icon: 'AlertTriangle', tooltip: '4Cs finding documentation — raise, track, and close quality findings' },
-      { id: 'workpapers', label: 'Workpaper Index', path: '/fieldwork/workpapers', icon: 'FolderOpen', tooltip: 'Workpaper register with formal sign-off (auditor + date)' },
-      { id: 'library', label: 'Workpaper Library ☁️', path: '/fieldwork/library', icon: 'CloudUpload', tooltip: 'Cloud evidence storage — upload, download, delete audit files' },
-    ]
-  },
-  {
-    id: 'reporting', label: 'Reporting & Governance',
-    items: [
-      { id: 'report-builder', label: 'Audit Report Builder', path: '/reporting/builder', icon: 'FileText', tooltip: 'Pull live findings into a formal quality audit report — 6 sections' },
-      { id: 'mgmt-review', label: 'Management Review Pack', path: '/reporting/management-review', icon: 'BarChart2', tooltip: 'ISO 9001 Cl.9.3 management review — all mandatory inputs and outputs' },
-      { id: 'kpi', label: 'KPI Dashboard ⭐ Live', path: '/reporting/kpi', icon: 'Activity', tooltip: 'Live quality KPIs — CAPA closure, customer complaints, nonconformity rates' },
-      { id: 'capa', label: 'CAPA Tracker ⭐ Live', path: '/reporting/capa', icon: 'CheckCircle', tooltip: 'Track corrective actions from nonconformity to verified closure' },
-      { id: 'universe', label: 'Audit Universe ⭐ Live', path: '/reporting/universe', icon: 'Globe', tooltip: 'Risk-ranked annual QMS audit schedule with status tracking' },
-      { id: 'risks', label: 'Risk Register ⭐ Live', path: '/reporting/risks', icon: 'AlertOctagon', tooltip: 'Quality risk register — process risks, supplier risks, customer risks' },
     ]
   },
 ]
