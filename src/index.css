@@ -1,0 +1,406 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base ─────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+body { @apply bg-navy-950 text-steel-200 antialiased; font-family: 'Inter', system-ui, sans-serif; }
+html { scroll-behavior: smooth; }
+
+/* ── Typography ───────────────────────────────────────── */
+.font-display { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; }
+
+/* ── Cards ────────────────────────────────────────────── */
+.card {
+  @apply bg-navy-900 border border-navy-700 rounded-xl p-5;
+}
+.card-sm {
+  @apply bg-navy-800 border border-navy-700 rounded-lg p-3;
+}
+
+/* ── Navigation ───────────────────────────────────────── */
+.nav-section {
+  @apply text-xs font-semibold uppercase tracking-widest px-3 py-2 mt-2 flex items-center justify-between;
+}
+.nav-item {
+  @apply flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-steel-400 hover:text-steel-200 hover:bg-navy-800 transition-colors w-full text-left cursor-pointer border-none bg-transparent;
+}
+.nav-item.active {
+  @apply bg-navy-800 text-white border-l-2 border-amber-audit;
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+.btn-primary {
+  @apply inline-flex items-center gap-1.5 px-4 py-2 bg-amber-audit text-navy-950 font-semibold text-sm rounded-lg hover:bg-amber-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+}
+.btn-secondary {
+  @apply inline-flex items-center gap-1.5 px-3 py-2 bg-navy-800 border border-navy-600 text-steel-200 font-medium text-sm rounded-lg hover:bg-navy-700 transition-colors disabled:opacity-50;
+}
+
+/* ── Form fields ──────────────────────────────────────── */
+.input-field {
+  @apply w-full bg-navy-800 border border-navy-600 text-white text-sm rounded-lg py-2 px-3 outline-none focus:border-steel-400 transition-colors placeholder-steel-400;
+}
+.textarea-field {
+  @apply w-full bg-navy-800 border border-navy-600 text-white text-sm rounded-lg px-3 py-2 outline-none focus:border-steel-400 focus:ring-1 focus:ring-navy-600 transition-colors placeholder-steel-400 resize-none;
+}
+select.input-field {
+  @apply appearance-none cursor-pointer;
+}
+
+/* ── Badges ───────────────────────────────────────────── */
+.badge {
+  @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+}
+.badge-steel { @apply bg-navy-700 text-steel-300; }
+.badge-amber { @apply bg-amber-900/40 text-amber-300; }
+
+/* ── Page headers ─────────────────────────────────────── */
+.section-title {
+  @apply text-xs font-semibold uppercase tracking-wider text-steel-400 mb-4;
+}
+.clause-tag {
+  @apply inline-flex items-center px-2.5 py-1 bg-amber-900/30 text-amber-audit text-xs font-mono font-semibold rounded-lg border border-amber-800/40;
+}
+
+/* ── AI Panel ─────────────────────────────────────────── */
+.ai-panel {
+  @apply bg-navy-800/50 border border-navy-600 rounded-xl p-5;
+}
+
+/* ── Colours (Tailwind extension via CSS vars) ────────── */
+:root {
+  --color-amber-audit: #F59E0B;
+  --color-emerald-audit: #10B981;
+}
+.text-amber-audit { color: #F59E0B; }
+.bg-amber-audit { background-color: #F59E0B; }
+.border-amber-audit { border-color: #F59E0B; }
+.text-emerald-audit { color: #10B981; }
+
+/* ── Light Mode ───────────────────────────────────────── */
+.light body { background-color: #f0f4f8; color: #1e293b; }
+.light .card { background: #ffffff; border-color: #e2e8f0; }
+.light .card-sm { background: #f8fafc; border-color: #e2e8f0; }
+.light .nav-item { color: #334155 !important; }
+.light .nav-item:hover, .light .nav-item.active { background: #dbeafe; color: #1e40af; }
+.light aside { background: #ffffff; border-color: #e2e8f0; }
+.light header { background: #ffffff; border-color: #e2e8f0; }
+.light .input-field { background: #f8fafc; border-color: #e2e8f0; color: #1e293b; }
+.light .textarea-field { background: #f8fafc; border-color: #e2e8f0; color: #1e293b; }
+.light .ai-panel { background: #f8fafc; border-color: #e2e8f0; }
+.light pre { background: #f1f5f9 !important; color: #334155 !important; }
+
+/* ── Light Mode — Full Text Fix ───────────────────────── */
+.light { color-scheme: light; }
+
+/* Text colors */
+.light .text-white { color: #0f172a !important; }
+.light .text-steel-200 { color: #1e293b !important; }
+.light .text-steel-300 { color: #334155 !important; }
+.light .text-steel-400 { color: #64748b !important; }
+.light .text-steel-500 { color: #94a3b8 !important; }
+.light .text-steel-600 { color: #cbd5e1 !important; }
+
+/* Backgrounds */
+.light .bg-navy-950 { background-color: #f0f4f8 !important; }
+.light .bg-navy-900 { background-color: #ffffff !important; }
+.light .bg-navy-800 { background-color: #f1f5f9 !important; }
+.light .bg-navy-800\/50 { background-color: rgba(241,245,249,0.5) !important; }
+.light .bg-navy-800\/20 { background-color: rgba(241,245,249,0.2) !important; }
+.light .bg-navy-700 { background-color: #e2e8f0 !important; }
+
+/* Borders */
+.light .border-navy-700 { border-color: #e2e8f0 !important; }
+.light .border-navy-600 { border-color: #cbd5e1 !important; }
+.light .border-navy-800 { border-color: #f1f5f9 !important; }
+
+/* Buttons */
+.light .btn-secondary { background: #f1f5f9; border-color: #cbd5e1; color: #334155; }
+.light .btn-secondary:hover { background: #e2e8f0; }
+
+/* Badges */
+.light .badge-steel { background: #e2e8f0; color: #475569; }
+
+/* Section titles */
+.light .section-title { color: #475569; }
+
+/* Clause tags */
+.light .clause-tag { background: #fef3c7; color: #d97706; border-color: #fde68a; }
+
+/* Cards */
+.light .card { background: #ffffff; border-color: #e2e8f0; }
+.light .card-sm { background: #f8fafc; border-color: #e2e8f0; }
+
+/* Sidebar */
+.light aside { background: #ffffff; border-color: #e2e8f0; }
+.light .nav-section { color: #475569 !important; }
+.light .nav-item { color: #334155 !important; }
+.light .nav-item:hover { background: #dbeafe !important; color: #1e40af !important; }
+.light .nav-item.active { background: #fef3c7 !important; color: #92400e !important; border-color: #d97706 !important; }
+.light .nav-item svg { color: inherit !important; }
+.light .nav-item.active { background: #fef3c7; color: #d97706; border-color: #d97706; }
+
+/* Header */
+.light header { background: #ffffff; border-color: #e2e8f0; }
+.light header h1 { color: #0f172a !important; }
+.light header button { color: #475569; }
+.light header button:hover { background: #f1f5f9; color: #0f172a; }
+
+/* Inputs */
+.light .input-field { background: #ffffff; border-color: #cbd5e1; color: #0f172a; }
+.light .input-field::placeholder { color: #94a3b8; }
+.light .textarea-field { background: #ffffff; border-color: #cbd5e1; color: #0f172a; }
+.light select.input-field { background: #ffffff; color: #0f172a; }
+
+/* AI Panel */
+.light .ai-panel { background: #f8fafc; border-color: #e2e8f0; }
+.light pre { background: #f1f5f9 !important; color: #334155 !important; border-color: #e2e8f0 !important; }
+
+/* Modals / dropdowns */
+.light .bg-navy-900.border-navy-600 { background: #ffffff !important; border-color: #cbd5e1 !important; }
+.light .divide-navy-800 > * { border-color: #f1f5f9 !important; }
+
+/* Amber/gold stays visible in both modes */
+.light .text-amber-audit { color: #d97706 !important; }
+.light .bg-amber-audit { background-color: #d97706 !important; }
+.light .border-amber-audit { border-color: #d97706 !important; }
+
+/* Status colours stay vivid */
+.light .text-emerald-400 { color: #059669 !important; }
+.light .text-red-400 { color: #dc2626 !important; }
+.light .text-blue-400 { color: #2563eb !important; }
+.light .text-purple-400 { color: #7c3aed !important; }
+.light .text-orange-400 { color: #ea580c !important; }
+.light .text-cyan-400 { color: #0891b2 !important; }
+
+/* Progress bars */
+.light .bg-navy-700.rounded-full { background: #e2e8f0 !important; }
+
+/* Scrollbar */
+.light ::-webkit-scrollbar-track { background: #f1f5f9; }
+.light ::-webkit-scrollbar-thumb { background: #cbd5e1; }
+
+/* ── Tooltip ───────────────────────────────────────────── */
+.tooltip-wrap { position: relative; display: inline-flex; }
+.tooltip-wrap .tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0a1628;
+  color: #c8d9ec;
+  font-size: 11px;
+  line-height: 1.4;
+  padding: 5px 9px;
+  border-radius: 6px;
+  white-space: nowrap;
+  max-width: 220px;
+  white-space: normal;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 9999;
+  border: 1px solid #162d5e;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.tooltip-wrap .tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #162d5e;
+}
+.tooltip-wrap:hover .tooltip { opacity: 1; }
+
+/* Light mode tooltip */
+.light .tooltip-wrap .tooltip {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #334155;
+}
+.light .tooltip-wrap .tooltip::after { border-top-color: #334155; }
+
+/* Tooltip position variants */
+.tooltip-wrap .tooltip.tooltip-right {
+  left: calc(100% + 8px);
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.tooltip-wrap .tooltip.tooltip-right::after {
+  top: 50%; left: 0;
+  transform: translate(-100%, -50%);
+  border-top-color: transparent;
+  border-right-color: #162d5e;
+}
+.tooltip-wrap .tooltip.tooltip-bottom {
+  top: calc(100% + 6px);
+  bottom: auto;
+}
+.tooltip-wrap .tooltip.tooltip-bottom::after {
+  top: auto; bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: #162d5e;
+}
+
+/* ── Light mode nav section colours ──────────────────── */
+.light .text-amber-audit { color: #b45309 !important; }
+.light .nav-section.text-amber-audit { color: #b45309 !important; }
+.light .nav-section.text-blue-400 { color: #1d4ed8 !important; }
+.light .nav-section.text-purple-400 { color: #7c3aed !important; }
+.light .nav-section.text-red-400 { color: #b91c1c !important; }
+.light .nav-section.text-emerald-400 { color: #047857 !important; }
+.light .nav-section.text-cyan-400 { color: #0e7490 !important; }
+.light .nav-section.text-orange-400 { color: #c2410c !important; }
+.light .nav-section.text-pink-400 { color: #be185d !important; }
+.light .nav-section.text-steel-400 { color: #475569 !important; }
+
+/* ── Light mode — card hover and content fixes ────────── */
+
+/* Quick access cards hover — override dark navy hover */
+.light .card:hover { background: #f8fafc !important; }
+.light .card-sm:hover { background: #f1f5f9 !important; }
+
+/* Quick access grid buttons hover — the dark card issue */
+.light button.card-sm:hover,
+.light button.card:hover {
+  background: #eff6ff !important;
+  border-color: #93c5fd !important;
+  color: #1e40af !important;
+}
+.light button.card-sm .text-white,
+.light button.card .text-white {
+  color: #1e293b !important;
+}
+
+/* Amber warning/info boxes — too dark in light mode */
+.light .bg-amber-900\/20 { background-color: #fef9c3 !important; }
+.light .bg-amber-900\/30 { background-color: #fef3c7 !important; }
+.light .bg-amber-900\/40 { background-color: #fde68a !important; }
+.light .border-amber-800\/50 { border-color: #f59e0b !important; }
+.light .border-amber-800 { border-color: #f59e0b !important; }
+.light .text-amber-200\/80 { color: #92400e !important; }
+.light .text-amber-300 { color: #92400e !important; }
+
+/* Blue info boxes */
+.light .bg-blue-900\/20 { background-color: #eff6ff !important; }
+.light .border-blue-800\/50 { border-color: #93c5fd !important; }
+.light .text-blue-200\/80 { color: #1d4ed8 !important; }
+.light .text-blue-300 { color: #1d4ed8 !important; }
+
+/* Red boxes */
+.light .bg-red-900\/20 { background-color: #fef2f2 !important; }
+.light .bg-red-900\/30 { background-color: #fee2e2 !important; }
+.light .border-red-800 { border-color: #f87171 !important; }
+.light .text-red-400 { color: #dc2626 !important; }
+.light .text-red-300 { color: #b91c1c !important; }
+
+/* Green boxes */
+.light .bg-emerald-900\/20 { background-color: #f0fdf4 !important; }
+.light .bg-emerald-900\/30 { background-color: #dcfce7 !important; }
+.light .border-emerald-700 { border-color: #4ade80 !important; }
+.light .text-emerald-300 { color: #047857 !important; }
+.light .text-emerald-400 { color: #059669 !important; }
+
+/* Purple boxes */
+.light .bg-purple-900\/40 { background-color: #f5f3ff !important; }
+.light .text-purple-300 { color: #6d28d9 !important; }
+.light .text-purple-400 { color: #7c3aed !important; }
+
+/* Clause tags — amber on beige is unreadable */
+.light .clause-tag { 
+  background: #fff7ed !important; 
+  color: #c2410c !important; 
+  border-color: #fed7aa !important; 
+}
+
+/* Badge colours in light mode */
+.light .bg-blue-900\/40 { background-color: #dbeafe !important; }
+.light .text-blue-300 { color: #1d4ed8 !important; }
+.light .bg-emerald-900\/40 { background-color: #d1fae5 !important; }
+.light .bg-red-900\/40 { background-color: #fee2e2 !important; }
+.light .bg-orange-900\/40 { background-color: #fff7ed !important; }
+.light .text-orange-400 { color: #c2410c !important; }
+.light .text-orange-300 { color: #ea580c !important; }
+
+/* Navy dark sections used as code/pre backgrounds */
+.light .bg-navy-950 { background-color: #f8fafc !important; }
+
+/* Border left accent colours — keep vivid */
+.light .border-l-amber-audit { border-color: #d97706 !important; }
+.light .border-l-blue-400 { border-color: #2563eb !important; }
+.light .border-l-red-400 { border-color: #dc2626 !important; }
+.light .border-l-emerald-400 { border-color: #059669 !important; }
+.light .border-l-purple-400 { border-color: #7c3aed !important; }
+.light .border-l-cyan-400 { border-color: #0891b2 !important; }
+.light .border-l-steel-400 { border-color: #64748b !important; }
+
+/* PageHeader badges */
+.light .badge-amber { background: #fef3c7 !important; color: #92400e !important; }
+
+/* Table rows */
+.light tbody tr:hover { background: #f1f5f9 !important; }
+.light thead { background: #f8fafc !important; }
+
+/* ── Missing classes ──────────────────────────────────── */
+.page-title {
+  @apply text-2xl font-bold text-white;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.light .page-title { color: #0f172a !important; }
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #162d5e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #1e3a7a; }
+
+/* Toast animations */
+@keyframes slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-out {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+.toast-enter { animation: slide-in 0.25s ease forwards; }
+.toast-exit { animation: slide-out 0.25s ease forwards; }
+
+/* ── Print CSS ────────────────────────────────────────── */
+@media print {
+  /* Hide navigation and controls */
+  aside, header, .btn-primary, .btn-secondary,
+  .ai-panel, button:not(.print-show),
+  .badge-steel, nav { display: none !important; }
+
+  /* Full width content */
+  body { background: white !important; color: black !important; }
+  main { padding: 0 !important; }
+  .card { border: 1px solid #e2e8f0 !important; background: white !important; break-inside: avoid; }
+  .card-sm { border: 1px solid #e2e8f0 !important; background: #f8fafc !important; }
+
+  /* Text colours for print */
+  .text-white { color: #0f172a !important; }
+  .text-steel-300, .text-steel-400 { color: #475569 !important; }
+  .text-amber-audit { color: #d97706 !important; }
+  .text-emerald-400 { color: #059669 !important; }
+  .text-red-400 { color: #dc2626 !important; }
+
+  /* Pre/code blocks */
+  pre { background: #f8fafc !important; color: #334155 !important; border: 1px solid #e2e8f0 !important; white-space: pre-wrap !important; font-size: 10px !important; }
+
+  /* Page breaks */
+  .card { page-break-inside: avoid; }
+  h1, h2, h3 { page-break-after: avoid; }
+
+  /* Show page header clearly */
+  .page-title { font-size: 20pt !important; }
+
+  /* Report builder specific */
+  #main-content { max-width: 100% !important; }
+}
