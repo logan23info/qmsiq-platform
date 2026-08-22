@@ -28,9 +28,9 @@ function MarkdownOutput({ text }) {
 }
 
 async function callAI(systemPrompt, userMessage) {
-  const groqKey = import.meta.env.AI_KEY
-  const openaiKey = import.meta.env.AI_KEY
-  const anthropicKey = import.meta.env.AI_KEY
+  const groqKey = import.meta.env.VITE_GROQ_API_KEY
+  const openaiKey = import.meta.env.VITE_OPENAI_API_KEY
+  const anthropicKey = import.meta.env.VITE_ANTHROPIC_API_KEY
 
   if (groqKey) {
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -123,7 +123,7 @@ export default function AIPanel({ title, systemPrompt, placeholder, contextField
     setLoading(true); setError(''); setOutput(''); setSaved(null); setSaveError('')
     try { setOutput(await callAI(systemPrompt, buildUserMessage())) }
     catch (e) {
-      if (e.message === 'NO_KEY') setError('No AI key configured. Add AI_KEY to Vercel → Settings → Environment Variables.')
+      if (e.message === 'NO_KEY') setError('AI service unavailable. Please contact the platform administrator.')
       else if (e.message.includes('429') || e.message.includes('quota')) setError('Rate limit reached. Wait 30 seconds and try again.')
       else if (e.message.includes('401') || e.message.includes('403')) setError('Invalid API key. Check your key in Vercel → Settings → Environment Variables.')
       else setError(`Error: ${e.message}`)
@@ -152,7 +152,7 @@ export default function AIPanel({ title, systemPrompt, placeholder, contextField
     const a = document.createElement('a'); a.href = url; a.download = `${title.replace(/\s+/g, '_')}.txt`; a.click(); URL.revokeObjectURL(url)
   }
 
-  const activeProvider = import.meta.env.AI_KEY ? 'AI-Powered' : import.meta.env.AI_KEY ? 'GPT-4o mini' : import.meta.env.AI_KEY ? 'Claude' : 'No AI key'
+  const activeProvider = import.meta.env.VITE_GROQ_API_KEY ? 'AI-Powered' : import.meta.env.VITE_OPENAI_API_KEY ? 'AI-Powered' : import.meta.env.VITE_ANTHROPIC_API_KEY ? 'AI-Powered' : 'No AI key'
 
   return (
     <div className="ai-panel mt-6">
