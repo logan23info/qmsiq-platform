@@ -7,6 +7,7 @@ import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
 import Tooltip from './Tooltip'
 import { useProgramme } from '../context/ProgrammeContext'
+import { useTeam } from '../context/TeamContext'
 import { getFindings, getPBCItems } from '../lib/supabase'
 
 function getPageTitle(pathname) {
@@ -26,6 +27,7 @@ export default function Header({ onMenuClick }) {
   const { user, profile, signOut } = useAuth()
   const { theme, toggleTheme } = useTheme()
   const { activeProgramme } = useProgramme()
+  const { myRole, isLead } = useTeam()
   const title = getPageTitle(location.pathname)
 
   const [searchOpen, setSearchOpen] = useState(false)
@@ -137,6 +139,13 @@ export default function Header({ onMenuClick }) {
         <span className="text-xs text-white truncate">
           {activeProgramme?.programme_id || 'Select Programme'}
         </span>
+        {myRole && (
+          <span className={`text-xs px-1.5 py-0.5 rounded font-medium flex-shrink-0 ${
+            myRole === 'lead' ? 'bg-amber-900/50 text-amber-300' :
+            myRole === 'auditor' ? 'bg-blue-900/50 text-blue-300' :
+            'bg-purple-900/50 text-purple-300'
+          }`}>{myRole}</span>
+        )}
         <span className="text-steel-400 text-xs">▾</span>
       </button>
       {showSelector && (
