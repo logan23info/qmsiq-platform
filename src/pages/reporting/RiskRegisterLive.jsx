@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getRisks, createRisk, updateRisk, deleteRisk } from '../../lib/supabase'
 import { useToast } from '../../components/Toast'
+import { useTeam } from '../../context/TeamContext'
 import AIPanel from '../../components/AIPanel'
 import { exportToCSV, RISK_COLUMNS } from '../../utils/exportCSV'
 import ConfirmModal from '../../components/ConfirmModal'
@@ -18,6 +19,7 @@ const getRiskLevel = (score) => {
 
 function NewRiskModal({ programmeId, userId, onCreated, onClose }) {
   const { toast } = useToast()
+  const { canDelete, canEdit } = useTeam()
   const [form, setForm] = useState({ asset: '', threat: '', vulnerability: '', likelihood: 3, impact: 3, controls_applied: '', residual_likelihood: 2, residual_impact: 2, treatment: 'Mitigate', risk_owner: '', review_date: '' })
   const [saving, setSaving] = useState(false)
   const inherent = form.likelihood * form.impact
@@ -68,6 +70,7 @@ export default function RiskRegisterLive() {
   const { user } = useAuth()
   const { activeProgramme } = useProgramme()
   const { toast } = useToast()
+  const { canDelete, canEdit } = useTeam()
   const [risks, setRisks] = useState([])
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -124,7 +127,7 @@ export default function RiskRegisterLive() {
             <button key={f} onClick={() => setFilter(f)} className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${filter === f ? 'bg-navy-700 border-steel-400 text-white' : 'bg-navy-800 border-navy-600 text-steel-400 hover:border-steel-400'}`}>{f}</button>
           ))}
           <button onClick={() => exportToCSV(filtered, `Risks_${activeProgramme?.programme_id}`, RISK_COLUMNS)} disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5"><FileDown size={12} /> Export CSV</button>
-          <button onClick={() => setShowModal(true)} disabled={!activeProgramme} className="btn-primary text-xs py-1.5"><Plus size={13} /> Add Risk</button>
+          <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5"><Plus size={13} /> Add Risk</button>
         </div>
       </div>
 
