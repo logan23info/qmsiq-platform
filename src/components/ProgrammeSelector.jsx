@@ -61,7 +61,7 @@ export default function ProgrammeSelector({ onClose }) {
       const payload = {
         user_id: user.id,
         programme_id: mode === 'new' ? `PROG-${Date.now().toString(36).toUpperCase()}` : undefined,
-        client_name: form.name,
+        name: form.name,
         standards: form.scope ? [form.scope] : ['ISO 9001:2015'],
         audit_period_start: form.audit_period_start || null,
         audit_period_end: form.audit_period_end || null,
@@ -92,7 +92,7 @@ export default function ProgrammeSelector({ onClose }) {
 
   const startEdit = (p) => {
     setForm({
-      name: p.client_name || '',
+      name: p.name || p.client_name || '',
       scope: Array.isArray(p.standards) ? p.standards.join(', ') : (p.standards || ''),
       audit_period_start: p.audit_period_start || '',
       audit_period_end: p.audit_period_end || '',
@@ -253,12 +253,12 @@ export default function ProgrammeSelector({ onClose }) {
                 className={`flex items-center gap-3 rounded-xl p-3 cursor-pointer transition-colors ${activeProgramme?.id === p.id ? 'bg-navy-700 border border-amber-800/40' : 'bg-navy-800 hover:bg-navy-700'}`}>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-medium text-white truncate">{p.client_name}</span>
+                    <span className="text-sm font-medium text-white truncate">{p.name || p.client_name}</span>
                     <span className="font-mono text-xs text-amber-audit">{p.programme_id}</span>
                     {activeProgramme?.id === p.id && <span className="badge badge-amber text-xs">Active</span>}
                   </div>
                   <div className="text-xs text-steel-500 mt-0.5 truncate">
-                    {p.standards?.join(' · ') || p.standard || ''}{p.status ? ` · ${p.status}` : ''}
+                    {Array.isArray(p.standards) ? p.standards.join(' · ') : (p.standards || '')}{p.status ? ` · ${p.status}` : ''}
                   </div>
                 </div>
                 <button onClick={e => { e.stopPropagation(); startEdit(p) }}
