@@ -67,7 +67,7 @@ const navTooltips = {
   '/iso9001/clause8': 'QMS operations — product/service requirements, SDLC, supplier control',
   '/iso9001/clause9': 'QMS performance — customer satisfaction, internal audit, management review',
   '/iso9001/clause10': 'QMS improvement — nonconformity, CAPA, continual improvement',
-  '/ims/crosswalk': 'ISO 27001 × ISO 9001 clause alignment — joint documentation savings',
+
   '/ims/worksheets': 'Joint audit worksheets — change management, vendor, SDLC',
   '/fieldwork/pbc': '⭐ PBC evidence tracker — tag by phase, domain, track receipt',
   '/fieldwork/tracker': '⭐ TOD/TOI/TOE progress per control with completion bar',
@@ -75,7 +75,7 @@ const navTooltips = {
   '/fieldwork/workpapers': '⭐ Live workpaper index — sign-off tracking and status',
   '/fieldwork/library': '☁️ Cloud file storage — drag & drop evidence upload',
   '/reporting/builder': 'AI-powered ISO 19011 Cl. 6.5 audit report generator',
-  '/reporting/management-review': '⭐ ISO 27001 Cl. 9.3 management review pack with live data',
+  '/reporting/management-review': '⭐ ISO 9001 Cl. 9.3 management review — all mandatory inputs with live data',
   '/reporting/kpi': '⭐ 8 live KPIs — CAPA rate, findings, risks, PBC, sign-off',
   '/reporting/capa': '⭐ CAPA closure tracker — overdue alerts, closure rate',
   '/reporting/universe': '⭐ Risk-ranked annual audit schedule — track all audit areas',
@@ -165,7 +165,7 @@ export default function Sidebar({ mobileOpen, onClose }) {
               </Tooltip>
             </div>
           )}
-          <div className="text-xs text-steel-400 text-center">ISO 19011 · 27001 · 27002 · 27005 · 9001</div>
+          <div className="text-xs text-steel-400 text-center">ISO 9001 · ISO 19011 · Powered by AI</div>
         </div>
       </aside>
     </>
