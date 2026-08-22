@@ -45,7 +45,7 @@ export default function OnboardingModal({ onClose }) {
   }
 
   return (
-    <div style={{ minHeight: 420, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
       <div className="bg-navy-900 border border-navy-600 rounded-2xl w-full max-w-md p-6 relative">
         <button onClick={onClose} className="absolute top-4 right-4 text-steel-500 hover:text-white transition-colors">
           <X size={15} />
