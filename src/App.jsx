@@ -2,6 +2,7 @@ import { useState, Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { ProgrammeProvider } from './context/ProgrammeContext'
+import { TeamProvider } from './context/TeamContext'
 import { ThemeProvider } from './context/ThemeContext'
 import { ToastProvider } from './components/Toast'
 import Sidebar from './components/Sidebar'
@@ -91,6 +92,7 @@ function AppShell() {
 
   return (
     <ProgrammeProvider>
+      <TeamProvider>
       <ThemeProvider>
         <div className="min-h-screen bg-navy-950 flex">
           <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -164,6 +166,7 @@ function AppShell() {
           </div>
         </div>
       </ThemeProvider>
+      </TeamProvider>
     </ProgrammeProvider>
   )
 }
