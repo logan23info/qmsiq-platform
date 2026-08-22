@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy } from 'react'
+import { useState, useEffect, Suspense, lazy } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { ProgrammeProvider } from './context/ProgrammeContext'
@@ -83,6 +83,13 @@ function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
 
+  // All hooks must come before any early returns
+  useEffect(() => {
+    if (profile && !profile.full_name && !profile.onboarded) {
+      setShowOnboarding(true)
+    }
+  }, [profile])
+
   if (loading) return (
     <div className="min-h-screen bg-navy-950 flex items-center justify-center">
       <div className="text-center">
@@ -92,16 +99,8 @@ function AppShell() {
     </div>
   )
 
-  // Check if first login
-  useState(() => {
-    if (profile && !profile.full_name && !profile.onboarded) {
-      setShowOnboarding(true)
-    }
-  })
-
   if (!user) return <AuthPage />
 
-  // Show onboarding on first login (no name set yet)
   if (showOnboarding) return (
     <OnboardingModal onClose={() => setShowOnboarding(false)} />
   )
