@@ -83,12 +83,12 @@ function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [showOnboarding, setShowOnboarding] = useState(false)
 
-  // All hooks must come before any early returns
+  // Show onboarding only once per browser — localStorage flag
   useEffect(() => {
-    if (profile && !profile.full_name && !profile.onboarded) {
+    if (user && !localStorage.getItem('qmsiq-onboarded')) {
       setShowOnboarding(true)
     }
-  }, [profile])
+  }, [user])
 
   if (loading) return (
     <div className="min-h-screen bg-navy-950 flex items-center justify-center">
@@ -101,9 +101,7 @@ function AppShell() {
 
   if (!user) return <AuthPage />
 
-  if (showOnboarding) return (
-    <OnboardingModal onClose={() => setShowOnboarding(false)} />
-  )
+
 
   return (
     <ProgrammeProvider>
@@ -114,6 +112,7 @@ function AppShell() {
           <div className="flex-1 flex flex-col min-w-0">
             <Header onMenuClick={() => setSidebarOpen(true)} />
             <Breadcrumb />
+            {showOnboarding && <OnboardingModal onClose={() => { setShowOnboarding(false); localStorage.setItem('qmsiq-onboarded', '1') }} />}
             <main className="flex-1 p-4 sm:p-6 overflow-auto" id="main-content">
               <Routes>
                 <Route path="/" element={<Dashboard />} />
