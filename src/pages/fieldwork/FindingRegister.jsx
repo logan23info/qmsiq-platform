@@ -111,7 +111,7 @@ function FindingCard({ finding, onUpdate, onDelete }) {
               <div>
                 <label className="block text-xs text-steel-400 mb-1">Status</label>
                 <select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}>
-                  <option>Open</option><option>In Progress</option><option>Closed</option>
+                  <option>Open</option><option>CAPA Raised</option><option>Verified Effective</option><option>Closed</option>
                 </select>
               </div>
               <div className="flex gap-2">
@@ -273,7 +273,7 @@ export default function FindingRegister() {
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           <div className="flex gap-1.5 flex-wrap">
-            {['All', 'Open', 'In Progress', 'Closed', 'Major NC', 'Minor NC', 'Observation'].map(f => (
+            {['All', 'Open', 'CAPA Raised', 'Verified Effective', 'Closed', 'Major NC', 'Minor NC', 'Observation'].map(f => (
               <button key={f} onClick={() => setFilter(f)}
                 className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${filter === f ? 'bg-navy-700 border-steel-400 text-white' : 'bg-navy-800 border-navy-600 text-steel-400 hover:border-steel-400'}`}>
                 {f}
