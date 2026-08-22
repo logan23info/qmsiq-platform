@@ -44,10 +44,11 @@ export const navSections = [
     ]
   },
   {
-    id: 'ims', label: 'IMS — QMS × ISMS',
+    id: 'audit-types', label: 'QMS Audit Types',
     items: [
-      { id: 'ims-crosswalk', label: '9001 × 27001 Alignment', path: '/ims/crosswalk', icon: 'GitMerge', tooltip: '18 shared clauses between ISO 9001 and ISO 27001 with documentation savings' },
-      { id: 'ims-worksheets', label: 'Joint Audit Worksheets', path: '/ims/worksheets', icon: 'FileCheck', tooltip: 'Pre-built worksheets covering Supplier, Management Review, CAPA, Document Control' },
+      { id: 'surveillance', label: 'Surveillance & Recertification', path: '/surveillance', icon: 'RefreshCw', tooltip: 'Surveillance (Year 1 & 2), recertification (Year 3), internal audit, and supplier audit guidance' },
+      { id: 'ims-crosswalk', label: 'IMS — 9001 × 27001 Alignment', path: '/ims/crosswalk', icon: 'GitMerge', tooltip: '18 shared clauses between ISO 9001 and ISO 27001 — for dual-certified organisations' },
+      { id: 'ims-worksheets', label: 'IMS — Joint Audit Worksheets', path: '/ims/worksheets', icon: 'FileCheck', tooltip: 'Joint worksheets covering Supplier, Management Review, CAPA, Document Control across both standards' },
     ]
   },
   {
