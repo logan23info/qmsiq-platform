@@ -231,3 +231,94 @@ export async function deleteWorkpaperRecord(id) {
   const { error } = await supabase.from('workpapers').delete().eq('id', id)
   if (error) throw error
 }
+
+// ── Team / Programme Members ─────────────────────────────
+
+export async function getProgrammeMembers(programmeId) {
+  const { data, error } = await supabase
+    .from('programme_members')
+    .select('*, profiles(full_name, role, organisation)')
+    .eq('programme_id', programmeId)
+    .order('joined_at', { ascending: true })
+  if (error) throw error
+  return data
+}
+
+export async function inviteMember(programmeId, email, role = 'auditor', invitedBy) {
+  // First check if user exists in profiles
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('id')
+    .eq('id', (
+      await supabase.auth.admin?.getUserByEmail?.(email)
+    )?.data?.user?.id)
+    .single()
+
+  // Look up user by checking auth — find by email via a lookup
+  const { data: users } = await supabase
+    .from('profiles')
+    .select('id, full_name')
+    .limit(100)
+
+  // Insert membership record with email for later matching on login
+  const { data, error } = await supabase
+    .from('programme_members')
+    .insert({
+      programme_id: programmeId,
+      user_id: invitedBy, // placeholder — updated when they accept
+      role,
+      invited_by: invitedBy,
+      invited_email: email,
+    })
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function addMemberByUserId(programmeId, userId, role = 'auditor', invitedBy) {
+  const { data, error } = await supabase
+    .from('programme_members')
+    .insert({
+      programme_id: programmeId,
+      user_id: userId,
+      role,
+      invited_by: invitedBy,
+    })
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function updateMemberRole(memberId, role) {
+  const { data, error } = await supabase
+    .from('programme_members')
+    .update({ role })
+    .eq('id', memberId)
+    .select()
+    .single()
+  if (error) throw error
+  return data
+}
+
+export async function removeMember(memberId) {
+  const { error } = await supabase
+    .from('programme_members')
+    .delete()
+    .eq('id', memberId)
+  if (error) throw error
+}
+
+export async function getMyRole(programmeId) {
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return null
+  const { data, error } = await supabase
+    .from('programme_members')
+    .select('role')
+    .eq('programme_id', programmeId)
+    .eq('user_id', user.id)
+    .single()
+  if (error) return null
+  return data?.role
+}
