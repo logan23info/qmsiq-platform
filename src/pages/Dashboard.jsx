@@ -63,7 +63,7 @@ export default function Dashboard() {
       getPBCItems(activeProgramme.id).catch(() => []),
       getWorkpapers(activeProgramme.id).catch(() => []),
     ]).then(([findings, risks, pbc, workpapers]) => {
-      const open = findings.filter(f => f.status !== 'Closed')
+      const open = findings.filter(f => !['Closed', 'Verified Effective'].includes(f.status))
       const major = findings.filter(f => f.rating === 'Major NC')
       const pbcPending = pbc.filter(p => p.status === 'Not Started' || p.status === 'Requested')
       const wpSigned = workpapers.filter(w => w.status === 'Signed Off').length
@@ -193,7 +193,7 @@ export default function Dashboard() {
                   'bg-amber-900/40 text-amber-300 border-amber-700'
                 }`}>{f.rating}</span>
                 <span className="text-xs text-steel-300 flex-1 truncate">{f.title}</span>
-                <span className={`badge text-xs ${f.status === 'Closed' ? 'bg-emerald-900/40 text-emerald-300' : 'bg-navy-700 text-steel-400'}`}>
+                <span className={`badge text-xs ${f.status === 'Closed' ? 'bg-emerald-900/40 text-emerald-300' : f.status === 'Verified Effective' ? 'bg-blue-900/40 text-blue-300' : f.status === 'CAPA Raised' ? 'bg-amber-900/40 text-amber-300' : 'bg-navy-700 text-steel-400'}`}>
                   {f.status}
                 </span>
               </div>
@@ -217,7 +217,7 @@ export default function Dashboard() {
               <button key={p.id} onClick={() => navigate('/programmes')}
                 className={`text-left bg-navy-800 hover:bg-navy-700 rounded-xl p-3 transition-colors ${activeProgramme?.id === p.id ? 'ring-1 ring-amber-800/60' : ''}`}>
                 <div className="text-xs font-medium text-white truncate mb-1">{p.name || p.programme_id}</div>
-                <div className="text-xs text-steel-500">{p.status || 'Planning'}</div>
+                <div className="text-xs text-steel-500">{p.programme_type || p.status || 'Internal Audit'}</div>
               </button>
             ))}
           </div>
