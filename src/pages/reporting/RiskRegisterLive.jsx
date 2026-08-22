@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader'
 import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getRisks, createRisk, updateRisk, deleteRisk } from '../../lib/supabase'
+import ExportMenu from '../../components/ExportMenu'
 import { useToast } from '../../components/Toast'
 import { useTeam } from '../../context/TeamContext'
 import AIPanel from '../../components/AIPanel'
@@ -127,7 +128,7 @@ export default function RiskRegisterLive() {
             <button key={f} onClick={() => setFilter(f)} className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${filter === f ? 'bg-navy-700 border-steel-400 text-white' : 'bg-navy-800 border-navy-600 text-steel-400 hover:border-steel-400'}`}>{f}</button>
           ))}
           <button onClick={() => exportToCSV(filtered, `Risks_${activeProgramme?.programme_id}`, RISK_COLUMNS)} disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5"><FileDown size={12} /> Export CSV</button>
-          <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5"><Plus size={13} /> Add Risk</button>
+          <ExportMenu type="risks" data={risks} programme={activeProgramme} /> <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5"><Plus size={13} /> Add Risk</button>
         </div>
       </div>
 

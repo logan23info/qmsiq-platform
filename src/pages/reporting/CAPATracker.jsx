@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getFindings, updateFinding } from '../../lib/supabase'
 import AIPanel from '../../components/AIPanel'
+import ExportMenu from '../../components/ExportMenu'
 import { useToast } from '../../components/Toast'
 
 const ratingColor = { Critical: 'border-l-red-500', High: 'border-l-orange-500', Medium: 'border-l-amber-500', 'Low / Advisory': 'border-l-navy-600' }
