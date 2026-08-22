@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { navSections } from '../navConfig'
 import ProgrammeSelector from './ProgrammeSelector'
 import { useAuth } from '../context/AuthContext'
+import TeamPanel from './TeamPanel'
 import { useTheme } from '../context/ThemeContext'
 import Tooltip from './Tooltip'
 import { useProgramme } from '../context/ProgrammeContext'
@@ -123,6 +124,7 @@ export default function Header({ onMenuClick }) {
   const notifColors = { danger: 'bg-red-500', warning: 'bg-amber-audit', info: 'bg-blue-500', success: 'bg-emerald-500' }
 
   return (
+    <>
     <header className="h-14 bg-navy-900 border-b border-navy-700 flex items-center px-4 gap-3 flex-shrink-0 relative z-30">
       <button onClick={onMenuClick} className="lg:hidden p-2 rounded-lg hover:bg-navy-800 text-steel-400 hover:text-steel-200 transition-colors">
         <Menu size={18} />
@@ -184,7 +186,15 @@ export default function Header({ onMenuClick }) {
         )}
       </div>
 
-      {/* Theme toggle */}
+      {activeProgramme && (
+            <button onClick={() => setShowTeam(true)}
+              className="flex items-center gap-1.5 text-xs text-steel-400 hover:text-white transition-colors px-2 py-1.5 rounded-lg hover:bg-navy-700"
+              title="Manage team members">
+              <Users size={14} />
+              <span className="hidden sm:inline">Team</span>
+            </button>
+          )}
+          {/* Theme toggle */}
       <button onClick={toggleTheme} className="p-2 rounded-lg hover:bg-navy-800 text-steel-400 hover:text-steel-200 transition-colors">
         {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
       </button>
@@ -258,5 +268,10 @@ export default function Header({ onMenuClick }) {
         )}
       </div>
     </header>
+    {showTeam && activeProgramme && (
+      <TeamPanel programmeId={activeProgramme.id} onClose={() => setShowTeam(false)} />
+    )}
+    </>
   )
 }
+
