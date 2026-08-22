@@ -6,6 +6,7 @@ export const navSections = [
       { id: 'wiki', label: 'How to Use (Wiki)', path: '/wiki', icon: 'BookOpen', tooltip: 'Platform guide — full audit workflow from planning to reporting' },
       { id: 'faq', label: 'FAQ', path: '/faq', icon: 'HelpCircle', tooltip: 'Frequently asked questions about the platform and QMS audit methodology' },
       { id: 'profile', label: 'My Profile', path: '/profile', icon: 'User', tooltip: 'Edit your name, role, organisation, and change password' },
+      { id: 'team', label: 'Team Members', path: '/team', icon: 'Users', tooltip: 'Manage team access — invite members, assign roles, share your User ID' },
     ]
   },
   {

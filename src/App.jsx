@@ -53,6 +53,7 @@ const ISO9001Clause10 = lazy_(() => import('./pages/iso9001/AllClauses').then(m 
 
 // Surveillance & Audit Types
 const SurveillanceAudit = lazy_(() => import('./pages/surveillance/SurveillanceAudit'))
+const Team = lazy_(() => import('./pages/Team'))
 
 // IMS
 const IMSCrosswalk = lazy_(() => import('./pages/ims/AllPages').then(m => ({ default: m.IMSCrosswalk })))
@@ -133,6 +134,7 @@ function AppShell() {
 
                 {/* Surveillance */}
                 <Route path="/surveillance" element={<SurveillanceAudit />} />
+                <Route path="/team" element={<Team />} />
 
                 {/* IMS */}
                 <Route path="/ims" element={<Navigate to="/ims/crosswalk" replace />} />
