@@ -32,22 +32,22 @@ export function AuthProvider({ children }) {
         .from('profiles')
         .select('*')
         .eq('id', userId)
-        .single()
+        .maybeSingle()
 
-      if (error && error.code === 'PGRST116') {
-        // Profile row does not exist yet — create it
-        const { data: newProfile } = await supabase
+      if (!data) {
+        // Profile row does not exist yet — upsert it
+        const { data: upserted } = await supabase
           .from('profiles')
-          .insert({ id: userId, full_name: '', role: '', organisation: '' })
+          .upsert({ id: userId, full_name: '', role: '', organisation: '' }, { onConflict: 'id' })
           .select()
-          .single()
-        setProfile(newProfile ?? { id: userId })
+          .maybeSingle()
+        setProfile(upserted ?? { id: userId })
       } else {
-        setProfile(data ?? { id: userId })
+        setProfile(data)
       }
     } catch (e) {
       console.error('Profile fetch error:', e)
-      setProfile({ id: userId }) // fallback — allow app to load
+      setProfile({ id: userId })
     } finally {
       setLoading(false)
     }
