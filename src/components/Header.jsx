@@ -32,6 +32,7 @@ export default function Header({ onMenuClick }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [notifOpen, setNotifOpen] = useState(false)
   const [userOpen, setUserOpen] = useState(false)
+  const [showSelector, setShowSelector] = useState(false)
   const [notifications, setNotifications] = useState([])
 
   const searchRef = useRef(null)
@@ -129,7 +130,18 @@ export default function Header({ onMenuClick }) {
         <Menu size={18} />
       </button>
 
-      <ProgrammeSelector />
+      {/* Programme selector button */}
+      <button onClick={() => setShowSelector(true)}
+        className="flex items-center gap-2 bg-navy-800 border border-navy-600 rounded-lg px-3 py-1.5 hover:border-steel-400 transition-colors max-w-48">
+        <span className="text-amber-audit text-sm">🗂</span>
+        <span className="text-xs text-white truncate">
+          {activeProgramme?.programme_id || 'Select Programme'}
+        </span>
+        <span className="text-steel-400 text-xs">▾</span>
+      </button>
+      {showSelector && (
+        <ProgrammeSelector onClose={() => setShowSelector(false)} />
+      )}
 
       <div className="flex-1 min-w-0 hidden sm:block">
         <h1 className="text-sm font-semibold text-white truncate">{title}</h1>
