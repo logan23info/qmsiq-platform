@@ -2,7 +2,30 @@ import { useState, useEffect } from 'react'
 import { User, Save, Loader2, CheckCircle2, Key } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import { useAuth } from '../context/AuthContext'
+import { Copy, Check } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+
+function UserIdCard({ userId }) {
+  const [copied, setCopied] = useState(false)
+  const copy = () => {
+    navigator.clipboard.writeText(userId)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+  return (
+    <div className="card border border-amber-800/40 bg-amber-900/10">
+      <div className="text-xs font-semibold text-amber-audit mb-2">Your User ID — share this to be added to team programmes</div>
+      <div className="flex items-center gap-2">
+        <code className="text-xs text-steel-300 bg-navy-800 rounded-lg px-3 py-2 flex-1 truncate font-mono">{userId}</code>
+        <button onClick={copy} className="btn-secondary text-xs py-1.5 flex-shrink-0">
+          {copied ? <><Check size={12} /> Copied</> : <><Copy size={12} /> Copy</>}
+        </button>
+      </div>
+      <p className="text-xs text-steel-500 mt-2">Share this ID with an Audit Lead to be added to their team programme.</p>
+      {user?.id && <UserIdCard userId={user.id} />}
+    </div>
+  )
+}
 
 export default function Profile() {
   const { user, profile } = useAuth()
