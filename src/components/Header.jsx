@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
-import { Menu, Bell, Search, X, ArrowRight, LogOut, User, Sun, Moon } from 'lucide-react'
+import { Menu, Bell, Search, X, ArrowRight, LogOut, User, Sun, Moon, Users } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { navSections } from '../navConfig'
 import ProgrammeSelector from './ProgrammeSelector'
 import { useAuth } from '../context/AuthContext'
-import TeamPanel from './TeamPanel'
+import { lazy, Suspense } from 'react'
+const TeamPanel = lazy(() => import('./TeamPanel').catch(() => ({ default: () => null })))
 import { useTheme } from '../context/ThemeContext'
 import Tooltip from './Tooltip'
 import { useProgramme } from '../context/ProgrammeContext'
@@ -269,7 +270,9 @@ export default function Header({ onMenuClick }) {
       </div>
     </header>
     {showTeam && activeProgramme && (
-      <TeamPanel programmeId={activeProgramme.id} onClose={() => setShowTeam(false)} />
+      <Suspense fallback={null}>
+        <TeamPanel programmeId={activeProgramme.id} onClose={() => setShowTeam(false)} />
+      </Suspense>
     )}
     </>
   )
