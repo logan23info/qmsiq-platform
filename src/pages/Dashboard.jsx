@@ -66,11 +66,18 @@ export default function Dashboard() {
       const open = findings.filter(f => !['Closed', 'Verified Effective'].includes(f.status))
       const major = findings.filter(f => f.rating === 'Major NC')
       const pbcPending = pbc.filter(p => p.status === 'Not Started' || p.status === 'Requested')
+      const pbcReceived = pbc.filter(p => p.status === 'Received').length
       const wpSigned = workpapers.filter(w => w.status === 'Signed Off').length
+      const wpTOD = workpapers.filter(w => w.phase === 'TOD').length
+      const wpTOI = workpapers.filter(w => w.phase === 'TOI').length
+      const wpTOE = workpapers.filter(w => w.phase === 'TOE').length
+      const wpComplete = workpapers.filter(w => ['Complete', 'Signed Off'].includes(w.status)).length
+      const auditPct = workpapers.length ? Math.round((wpComplete / workpapers.length) * 100) : 0
       setStats({
         findings: findings.length, openFindings: open.length, majorNC: major.length,
         risks: risks.length, pbc: pbc.length, pbcPending: pbcPending.length,
-        workpapers: workpapers.length, wpSigned,
+        pbcReceived, workpapers: workpapers.length, wpSigned,
+        wpTOD, wpTOI, wpTOE, wpComplete, auditPct,
       })
       setRecentFindings(findings.slice(0, 4))
       setLoading(false)
@@ -173,6 +180,52 @@ export default function Dashboard() {
           ]}
         />
       </div>
+
+      {/* Audit progress bar */}
+      {activeProgramme && stats && stats.workpapers > 0 && (
+        <div className="card">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="section-title mb-0">Audit progress</h2>
+            <span className={`text-sm font-bold ${stats.auditPct === 100 ? 'text-emerald-400' : stats.auditPct > 50 ? 'text-amber-audit' : 'text-steel-400'}`}>
+              {loading ? '—' : `${stats.auditPct}%`}
+            </span>
+          </div>
+          <div className="h-2 bg-navy-700 rounded-full overflow-hidden mb-3">
+            <div className="h-full rounded-full transition-all duration-700"
+              style={{ width: `${stats.auditPct}%`, background: stats.auditPct === 100 ? '#1D9E75' : stats.auditPct > 50 ? '#BA7517' : '#378ADD' }} />
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            {[
+              { label: 'TOD', value: stats.wpTOD, color: 'text-blue-400', desc: 'Design' },
+              { label: 'TOI', value: stats.wpTOI, color: 'text-amber-audit', desc: 'Implementation' },
+              { label: 'TOE', value: stats.wpTOE, color: 'text-emerald-400', desc: 'Effectiveness' },
+            ].map(p => (
+              <div key={p.label} className="bg-navy-800 rounded-xl py-2.5">
+                <div className={`text-lg font-bold ${p.color}`}>{loading ? '—' : p.value}</div>
+                <div className="text-xs text-steel-500">{p.label} — {p.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between mt-2 text-xs text-steel-500">
+            <span>{stats.wpComplete} of {stats.workpapers} workpapers complete</span>
+            <span>{stats.wpSigned} signed off</span>
+          </div>
+        </div>
+      )}
+
+      {/* PBC progress */}
+      {activeProgramme && stats && stats.pbc > 0 && (
+        <div className="card">
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="section-title mb-0">PBC evidence</h2>
+            <span className="text-xs text-steel-400">{stats.pbcReceived} of {stats.pbc} received</span>
+          </div>
+          <div className="h-1.5 bg-navy-700 rounded-full overflow-hidden">
+            <div className="h-full rounded-full bg-emerald-600 transition-all duration-700"
+              style={{ width: `${stats.pbc ? Math.round((stats.pbcReceived / stats.pbc) * 100) : 0}%` }} />
+          </div>
+        </div>
+      )}
 
       {/* Recent findings */}
       {activeProgramme && recentFindings.length > 0 && (
