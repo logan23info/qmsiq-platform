@@ -94,7 +94,14 @@ export default function Team() {
     setLoading(false)
   }
 
-  useEffect(() => { load() }, [activeProgramme, user])
+  useEffect(() => { load() }, [activeProgramme?.id, user?.id])
+
+  // Reload when tab becomes visible again
+  useEffect(() => {
+    const onFocus = () => load()
+    window.addEventListener('focus', onFocus)
+    return () => window.removeEventListener('focus', onFocus)
+  }, [activeProgramme?.id])
 
   const handleAdd = async () => {
     if (!userId.trim()) return
@@ -177,7 +184,10 @@ export default function Team() {
               <span className="badge badge-steel text-xs">{members.length} members</span>
             </div>
             {loading ? (
-              <div className="text-center py-8"><Loader2 size={20} className="animate-spin text-steel-400 mx-auto" /></div>
+              <div className="text-center py-8">
+                <Loader2 size={20} className="animate-spin text-amber-audit mx-auto mb-2" />
+                <div className="text-xs text-steel-500">Loading members...</div>
+              </div>
             ) : members.length === 0 ? (
               <div className="text-center py-8 text-steel-500 text-xs">No members yet — add your team below</div>
             ) : (
