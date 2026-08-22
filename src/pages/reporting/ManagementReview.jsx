@@ -8,17 +8,17 @@ import { getFindings, getRisks, getWorkpapers } from '../../lib/supabase'
 const inputs = [
   { id: 'audit-results', label: 'Results of Audits', icon: FileText, desc: 'Internal audit findings and external audit outcomes from the period under review.' },
   { id: 'interested-parties', label: 'Issues of Interested Parties', icon: BarChart2, desc: 'Feedback from customers, regulators, certification bodies, and other stakeholders.' },
-  { id: 'risk-performance', label: 'Risk & Opportunity Performance', icon: AlertTriangle, desc: 'Status of risks and opportunities identified in information security risk assessment.' },
-  { id: 'isms-performance', label: 'ISMS Performance', icon: TrendingUp, desc: 'Measurement results, KPIs, and monitoring metrics against security objectives.' },
+  { id: 'risk-performance', label: 'Risk & Opportunity Performance', icon: AlertTriangle, desc: 'Status of risks and opportunities identified in quality management risk assessment.' },
+  { id: 'isms-performance', label: 'QMS Performance', icon: TrendingUp, desc: 'Measurement results, KPIs, and monitoring metrics against security objectives.' },
   { id: 'nc-corrective', label: 'Nonconformities & Corrective Actions', icon: CheckCircle2, desc: 'Status of all nonconformities and the effectiveness of corrective actions taken.' },
   { id: 'previous-actions', label: 'Follow-up from Previous Reviews', icon: CheckCircle2, desc: 'Actions agreed at the last management review and their current status.' },
-  { id: 'changes', label: 'Changes Affecting ISMS', icon: BarChart2, desc: 'Changes in external/internal context, technology, regulatory, and business environment.' },
-  { id: 'resources', label: 'Resource Adequacy', icon: FileText, desc: 'Whether adequate resources (people, budget, tools) are available to maintain the ISMS.' },
+  { id: 'changes', label: 'Changes Affecting QMS', icon: BarChart2, desc: 'Changes in external/internal context, technology, regulatory, and business environment.' },
+  { id: 'resources', label: 'Resource Adequacy', icon: FileText, desc: 'Whether adequate resources (people, budget, tools) are available to maintain the QMS.' },
 ]
 
 const outputs = [
   { label: 'Decisions on continual improvement opportunities', ref: 'Cl. 10.1' },
-  { label: 'Changes needed to the ISMS', ref: 'Cl. 8.1' },
+  { label: 'Changes needed to the QMS', ref: 'Cl. 8.1' },
   { label: 'Resource requirements approved', ref: 'Cl. 7.1' },
   { label: 'Actions to address risks and opportunities', ref: 'Cl. 6.1' },
   { label: 'Implications for business continuity', ref: 'Cl. 8.1' },
@@ -56,10 +56,10 @@ export default function ManagementReview() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 27001:2022"
+        standard="ISO 9001:2022"
         clause="Clause 9.3"
         title="Management Review Pack"
-        description="ISO 27001 Cl. 9.3 requires top management to review the ISMS at planned intervals. This page consolidates all mandatory review inputs from live audit data and generates structured review documentation."
+        description="ISO 9001 Cl. 9.3 requires top management to review the QMS at planned intervals. This page consolidates all mandatory review inputs from live audit data and generates structured review documentation."
         badges={['Cl. 9.3', 'Live Data', activeProgramme?.programme_id || 'No Programme']}
       />
 
@@ -68,7 +68,7 @@ export default function ManagementReview() {
         <div className="card mb-6">
           <div className="flex items-center gap-2 mb-4">
             <BarChart2 size={15} className="text-amber-audit" />
-            <h2 className="section-title mb-0">Live ISMS Performance Data — {activeProgramme.programme_id}</h2>
+            <h2 className="section-title mb-0">Live QMS Performance Data — {activeProgramme.programme_id}</h2>
           </div>
           {loading ? <div className="flex items-center gap-2 text-xs text-steel-400"><Loader2 size={14} className="animate-spin" /> Loading live data...</div> : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -92,8 +92,8 @@ export default function ManagementReview() {
 
       {/* Mandatory inputs checklist */}
       <div className="card mb-6">
-        <h2 className="section-title mb-4">Mandatory Review Inputs — ISO 27001 Cl. 9.3.2</h2>
-        <p className="text-xs text-steel-400 mb-4 leading-relaxed">All inputs below are mandatory per ISO 27001:2022 Cl. 9.3.2. Tick each off as you confirm the information has been gathered and presented to top management.</p>
+        <h2 className="section-title mb-4">Mandatory Review Inputs — ISO 9001 Cl. 9.3.2</h2>
+        <p className="text-xs text-steel-400 mb-4 leading-relaxed">All inputs below are mandatory per ISO 9001:2022 Cl. 9.3.2. Tick each off as you confirm the information has been gathered and presented to top management.</p>
         <div className="space-y-3">
           {inputs.map(input => {
             const Icon = input.icon
@@ -125,7 +125,7 @@ export default function ManagementReview() {
 
       {/* Required outputs */}
       <div className="card mb-6">
-        <h2 className="section-title mb-3">Required Review Outputs — ISO 27001 Cl. 9.3.3</h2>
+        <h2 className="section-title mb-3">Required Review Outputs — ISO 9001 Cl. 9.3.3</h2>
         <p className="text-xs text-steel-400 mb-3">The management review must produce documented evidence of these outputs:</p>
         <div className="space-y-2">
           {outputs.map(o => (
@@ -139,19 +139,19 @@ export default function ManagementReview() {
 
       <AIPanel
         title="Generate Management Review Documentation"
-        systemPrompt={`You are an ISO 27001:2022 management review expert. Generate structured management review documents aligned to Clause 9.3. Include all mandatory inputs (Cl. 9.3.2) and required outputs (Cl. 9.3.3). Use the live data provided. Format as a professional board-level document with executive summary, findings summary, risk status, KPIs, and required decisions.
+        systemPrompt={`You are an ISO 9001:2022 management review expert. Generate structured management review documents aligned to Clause 9.3. Include all mandatory inputs (Cl. 9.3.2) and required outputs (Cl. 9.3.3). Use the live data provided. Format as a professional board-level document with executive summary, findings summary, risk status, KPIs, and required decisions.
 
-Live ISMS Data Context:
+Live QMS Data Context:
 - Total Findings: ${stats.totalFindings} (${stats.openFindings} open, ${stats.criticalHigh} critical/high open)
 - CAPA Closure Rate: ${stats.capaRate}%
 - Risks Above Appetite: ${stats.risksAbove}
 - Workpaper Completion: ${stats.wpComplete}%
 - Audit Programme: ${activeProgramme?.programme_id || 'Not selected'}`}
-        placeholder="e.g. Generate a complete Q4 management review pack for board presentation including all ISO 27001 Cl. 9.3 mandatory inputs and outputs"
+        placeholder="e.g. Generate a complete Q4 management review pack for board presentation including all ISO 9001 Cl. 9.3 mandatory inputs and outputs"
         contextFields={[
           { id: 'org', label: 'Organisation & Sector', type: 'text', placeholder: 'e.g. ABC Fintech, 500 employees, AWS cloud' },
           { id: 'period', label: 'Review Period', type: 'text', placeholder: 'e.g. Q4 2025 — January to December 2025' },
-          { id: 'opinion', label: 'Overall ISMS Opinion', type: 'select', options: ['Effective — no material gaps', 'Partially Effective — minor gaps', 'Partially Effective — significant gaps', 'Ineffective — material control failures'] },
+          { id: 'opinion', label: 'Overall QMS Opinion', type: 'select', options: ['Effective — no material gaps', 'Partially Effective — minor gaps', 'Partially Effective — significant gaps', 'Ineffective — material control failures'] },
           { id: 'format', label: 'Document Format', type: 'select', options: ['Full Board Pack', 'Executive Summary only', 'Action Register only', 'Minutes template'] },
         ]}
       />

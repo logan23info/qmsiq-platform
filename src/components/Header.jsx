@@ -168,7 +168,7 @@ export default function Header({ onMenuClick }) {
                 <div className="px-3 py-1.5 text-xs text-steel-400 uppercase tracking-wide font-medium">Quick access</div>
                 {[
                   { label: 'TOD — Test of Design', path: '/iso19011/tod' },
-                  { label: 'Risk Register', path: '/iso27005/live-register' },
+                  { label: 'Risk Register', path: '/reporting/risks' },
                   { label: 'PBC Master List', path: '/fieldwork/pbc' },
                   { label: 'Finding Register', path: '/fieldwork/findings' },
                   { label: 'KPI Dashboard', path: '/reporting/kpi' },

@@ -111,7 +111,7 @@ export default function RiskRegisterLive() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <PageHeader standard="ISO 27005" clause="Risk Register" title="Risk Register ⭐ Live" description="Persistent risk register — Asset × Threat × Vulnerability. All entries saved to Supabase per audit programme." badges={['Live Data', 'ISO 27005', activeProgramme?.programme_id || 'No Programme']} />
+      <PageHeader standard="ISO 9001" clause="Quality Risk Register" title="Risk Register ⭐ Live" description="Persistent risk register — Asset × Threat × Vulnerability. All entries saved to Supabase per audit programme." badges={['Live Data', 'ISO 9001', activeProgramme?.programme_id || 'No Programme']} />
 
       <div className="card mb-4">
         <div className="flex flex-wrap gap-3 items-center">
@@ -174,7 +174,7 @@ export default function RiskRegisterLive() {
       <div className="mt-6">
         <AIPanel
           title="AI — Risk Assessment & Treatment Guidance"
-          systemPrompt="You are an ISO 27005:2022 risk assessment specialist. Generate risk assessment workpapers, suggest ISO 27002 controls for specific risks, produce risk treatment justifications, and create risk acceptance statements. Use Asset × Threat × Vulnerability methodology."
+          systemPrompt="You are an ISO 9001:2015 quality risk specialist. Generate quality risk assessments, suggest process controls, and produce risk treatment justifications. Focus on quality risks — product/service nonconformity, customer satisfaction, delivery, supplier, and process risks."
           placeholder="e.g. Generate a risk assessment for ransomware threat against customer PII database on AWS RDS"
           contextFields={[
             { id: 'risk', label: 'Risk Scenario', type: 'textarea', placeholder: 'e.g. Asset: Customer DB, Threat: Ransomware, Vulnerability: Unpatched OS' },

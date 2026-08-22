@@ -23,8 +23,7 @@ const iconMap = {
 }
 
 const sectionColors = {
-  iso19011: 'text-amber-audit', iso27000: 'text-steel-400', iso27001: 'text-blue-400',
-  iso27002: 'text-purple-400', iso27005: 'text-red-400', iso9001: 'text-emerald-400',
+  iso19011: 'text-amber-audit', iso9000: 'text-steel-400', iso9001: 'text-emerald-400',
   ims: 'text-cyan-400', fieldwork: 'text-orange-400', reporting: 'text-pink-400', core: 'text-steel-400',
 }
 
@@ -33,7 +32,7 @@ const navTooltips = {
   '/': 'Live dashboard — workpapers, findings, risks, KPIs',
   '/wiki': 'Step-by-step guide to using QMSiQ',
   '/faq': 'Frequently asked questions and troubleshooting',
-  '/iso27000': 'ISO 27000:2018 — 50 ISMS terminology definitions',
+
   '/iso19011/clause4': 'Auditor independence declaration — sign before audit begins',
   '/iso19011/clause5': 'Audit programme objectives, risks, and annual schedule',
   '/iso19011/clause6-initiation': 'Lead auditor appointment letter and auditee contact',
@@ -46,23 +45,23 @@ const navTooltips = {
   '/iso19011/reporting': 'ISO 19011 Cl. 6.5 — formal audit report generation',
   '/iso19011/clause7': 'Auditor competence — education, training, skills, experience',
   '/iso19011/annexa': 'Supplemental guidance — audit methods, remote auditing, sampling',
-  '/iso27001/clause4': 'Context, scope, interested parties, ISMS scope statement',
-  '/iso27001/clause5': 'Leadership, IS policy, CISO roles and responsibilities',
-  '/iso27001/clause6': 'Risk assessment, Statement of Applicability (SoA), objectives',
-  '/iso27001/clause7': 'Resources, competence, awareness, communication, document control',
-  '/iso27001/clause8': 'Operational planning, risk treatment, change management',
-  '/iso27001/clause9': 'Monitoring, internal audit, management review — ISO 27004 metrics',
-  '/iso27001/clause10': 'Nonconformity, corrective action, continual improvement',
-  '/iso27002/organizational': 'Controls A.5.1–A.5.37 — policies, roles, supply chain, threat intel',
-  '/iso27002/people': 'Controls A.6.1–A.6.8 — screening, training, disciplinary, remote work',
-  '/iso27002/physical': 'Controls A.7.1–A.7.14 — perimeter, entry, equipment, clear desk',
-  '/iso27002/technological': 'Controls A.8.1–A.8.34 — endpoints, access, crypto, vulnerability mgmt',
-  '/iso27001/soa': 'SoA Builder — mark all 93 Annex A controls as applicable/not applicable, export to CSV',
-  '/iso27002/netnew': '11 new controls in ISO 27002:2022 not in the 2013 version',
-  '/iso27005/assets': 'Asset register — identify and classify all information assets',
-  '/iso27005/live-register': '⭐ Live risk register — Asset × Threat × Vulnerability scoring',
-  '/iso27005/rtp': 'Risk treatment plan — map risks to ISO 27002 controls',
-  '/iso27005/scenarios': 'Generate realistic threat scenarios for risk assessment',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   '/iso9001/clause5': 'QMS leadership, quality policy, roles and responsibilities',
   '/iso9001/clause7': 'QMS support — resources, calibration, document control',
   '/iso9001/clause8': 'QMS operations — product/service requirements, SDLC, supplier control',

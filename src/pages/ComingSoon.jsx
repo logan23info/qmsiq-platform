@@ -15,9 +15,9 @@ const quickLinks = [
   { label: 'Dashboard', path: '/' },
   { label: 'TOD — Test of Design', path: '/iso19011/tod' },
   { label: 'Finding Register ⭐', path: '/fieldwork/findings' },
-  { label: 'Risk Register ⭐', path: '/iso27005/live-register' },
+  { label: 'Risk Register ⭐', path: '/reporting/risks' },
   { label: 'KPI Dashboard ⭐', path: '/reporting/kpi' },
-  { label: 'SoA Builder', path: '/iso27001/soa' },
+  { label: 'ISO 9001 Clause 6 — Planning', path: '/iso9001/clause6' },
 ]
 
 export default function ComingSoon() {

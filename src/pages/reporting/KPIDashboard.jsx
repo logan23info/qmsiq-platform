@@ -21,11 +21,11 @@ function KPICard({ label, value, target, unit, trend, desc, color, icon: Icon, l
         <div className="mt-6">
           <AIPanel
             title="AI — Interpret KPI Results & Recommend Actions"
-            systemPrompt="You are an ISO 27004:2016 information security measurement specialist. Analyse KPI results and generate actionable recommendations. Interpret metrics in context of ISO 27001 requirements and industry benchmarks. Produce board-ready KPI commentary and improvement recommendations."
+            systemPrompt="You are an ISO 9001:2015 quality management measurement specialist. Analyse KPI results and generate actionable recommendations. Interpret metrics in context of ISO 9001 requirements and industry benchmarks. Produce board-ready KPI commentary and improvement recommendations."
             placeholder="e.g. CAPA closure rate is 45% (target 80%), 3 critical findings open, 2 risks above appetite — generate executive commentary and action plan"
             contextFields={[
               { id: 'kpis', label: 'Current KPI Values', type: 'textarea', placeholder: 'e.g. CAPA closure: 45%, Critical open: 3, PBC receipt: 60%, Risks above appetite: 2' },
-              { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Executive KPI Commentary', 'KPI Improvement Action Plan', 'Board KPI Report', 'KPI Trend Analysis', 'ISO 27004 Measurement Report'] },
+              { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Executive KPI Commentary', 'KPI Improvement Action Plan', 'Board KPI Report', 'KPI Trend Analysis', 'ISO 9001 Performance Report'] },
               { id: 'audience', label: 'Audience', type: 'select', options: ['Board / Executive', 'Audit Committee', 'CISO / IT Management', 'Certification Body'] },
             ]}
           />
@@ -83,7 +83,7 @@ export default function KPIDashboard() {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 27004" clause="KPI Dashboard" title="KPI Dashboard ⭐ Live" description="Live metrics calculated from your active audit programme data — findings, risks, workpapers, and PBC evidence. All KPIs update in real time as you work." badges={['Live Data', 'ISO 27004', activeProgramme?.programme_id || 'No Programme']} />
+      <PageHeader standard="ISO 9001" clause="Cl. 9.1 KPI Dashboard" title="KPI Dashboard ⭐ Live" description="Live metrics calculated from your active audit programme data — findings, risks, workpapers, and PBC evidence. All KPIs update in real time as you work." badges={['Live Data', 'ISO 9001', activeProgramme?.programme_id || 'No Programme']} />
 
       {!activeProgramme ? (
         <div className="card text-center py-12"><div className="text-white font-medium mb-1">No programme selected</div><div className="text-xs text-steel-400">Select a programme from the header</div></div>

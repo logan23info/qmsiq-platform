@@ -21,7 +21,7 @@ const phaseColors = {
 function UploadModal({ onClose, programme, user, onUploaded }) {
   const { toast } = useToast()
   const [file, setFile] = useState(null)
-  const [form, setForm] = useState({ standard: 'ISO 27001', phase: 'TOD', clause_control: '', title: '', notes: '' })
+  const [form, setForm] = useState({ standard: 'ISO 9001:2015', phase: 'TOD', clause_control: '', title: '', notes: '' })
   const [uploading, setUploading] = useState(false)
   const [drag, setDrag] = useState(false)
 

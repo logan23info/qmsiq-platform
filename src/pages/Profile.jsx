@@ -47,7 +47,7 @@ export default function Profile() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <PageHeader standard="AuditIQ" clause="Account" title="Edit Profile" description="Update your name, role, and organisation. Change your password." badges={['Account', 'Settings']} />
+      <PageHeader standard="QMSiQ" clause="Account" title="Edit Profile" description="Update your name, role, and organisation. Change your password." badges={['Account', 'Settings']} />
 
       {/* Profile details */}
       <div className="card mb-6">

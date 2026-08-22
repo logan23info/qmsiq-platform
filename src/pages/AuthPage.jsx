@@ -53,8 +53,8 @@ export default function AuthPage() {
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-navy-800 border border-navy-600 mb-4">
             <Shield size={28} className="text-amber-audit" />
           </div>
-          <h1 className="font-display text-2xl font-bold text-white">AuditIQ</h1>
-          <p className="text-steel-400 text-sm mt-1">IT Audit Intelligence Platform</p>
+          <h1 className="font-display text-2xl font-bold text-white">QMSiQ</h1>
+          <p className="text-steel-400 text-sm mt-1">Quality Management Audit Platform</p>
         </div>
 
         <div className="card">
@@ -144,7 +144,7 @@ export default function AuthPage() {
         </div>
 
         <div className="text-center mt-6 text-xs text-steel-500">
-          ISO 19011 · 27001 · 27002 · 27005 · 9001
+          ISO 9001 · ISO 19011 · IMS
         </div>
       </div>
     </div>

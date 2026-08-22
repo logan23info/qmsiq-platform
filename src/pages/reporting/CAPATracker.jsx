@@ -88,7 +88,7 @@ function CAPARow({ finding, onUpdate }) {
       <div className="mt-6">
         <AIPanel
           title="AI — Generate Corrective Action Guidance"
-          systemPrompt="You are an ISO 27001:2022 CAPA specialist. Generate structured corrective action plans for audit findings. Include: root cause analysis (5-Why), corrective action steps, preventive measures, success criteria, and realistic timelines. Align to ISO 27001 Clause 10.2 requirements."
+          systemPrompt="You are an ISO 9001:2015 CAPA specialist. Generate structured corrective action plans for quality nonconformities. Include: root cause analysis (5-Why), corrective action steps, preventive measures, success criteria, and realistic timelines. Align to ISO 9001:2015 Clause 10.2 requirements."
           placeholder="e.g. Generate a corrective action plan for F-003 High finding: no formal patch management process, 47 critical servers unpatched"
           contextFields={[
             { id: 'finding', label: 'Finding Details', type: 'textarea', placeholder: 'Paste finding title, rating, and condition text here...' },

@@ -11,7 +11,7 @@ export default function ProgrammeSelector() {
   const { programmes, activeProgramme, setActiveProgramme, reload } = useProgramme()
   const [open, setOpen] = useState(false)
   const [mode, setMode] = useState('list') // list | new | edit
-  const [form, setForm] = useState({ name: '', standards: ['ISO 27001'], audit_period_start: '', audit_period_end: '', lead_auditor: '', status: 'Planning' })
+  const [form, setForm] = useState({ name: '', standards: ['ISO 9001:2015'], audit_period_start: '', audit_period_end: '', lead_auditor: '', status: 'Planning' })
   const [saving, setSaving] = useState(false)
   const ref = useRef(null)
 
@@ -62,7 +62,7 @@ export default function ProgrammeSelector() {
         <span className="text-sm font-semibold text-white">{title}</span>
         <button onClick={() => setMode('list')} className="text-steel-400 hover:text-steel-200"><X size={14} /></button>
       </div>
-      <div><label className="block text-xs text-steel-400 mb-1">Programme Name *</label><input className="input-field text-xs py-1.5" placeholder="e.g. ISO 27001 Internal Audit 2025" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} /></div>
+      <div><label className="block text-xs text-steel-400 mb-1">Programme Name *</label><input className="input-field text-xs py-1.5" placeholder="e.g. ISO 9001 Internal Audit 2025" value={form.name} onChange={e => setForm(p => ({ ...p, name: e.target.value }))} /></div>
       <div>
         <label className="block text-xs text-steel-400 mb-1">Standards in Scope</label>
         <div className="flex flex-wrap gap-1.5">
@@ -104,7 +104,7 @@ export default function ProgrammeSelector() {
                 <span className="text-sm font-semibold text-white">Audit Programmes</span>
                 <div className="flex gap-1">
                   {activeProgramme && <button onClick={startEdit} className="p-1 rounded hover:bg-navy-700 text-steel-400 hover:text-amber-audit transition-colors" title="Edit programme"><Edit2 size={13} /></button>}
-                  <button onClick={() => { setForm({ name: '', standards: ['ISO 27001'], audit_period_start: '', audit_period_end: '', lead_auditor: '', status: 'Planning' }); setMode('new') }}
+                  <button onClick={() => { setForm({ name: '', standards: ['ISO 9001:2015'], audit_period_start: '', audit_period_end: '', lead_auditor: '', status: 'Planning' }); setMode('new') }}
                     className="p-1 rounded hover:bg-navy-700 text-steel-400 hover:text-emerald-400 transition-colors" title="New programme"><Plus size={13} /></button>
                 </div>
               </div>

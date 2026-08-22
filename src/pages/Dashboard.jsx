@@ -12,8 +12,8 @@ const quickAccess = [
   { label: 'TOI — Test of Implementation', path: '/iso19011/toi', tag: 'TOI', color: 'border-purple-800 hover:border-purple-600' },
   { label: 'TOE — Test of Effectiveness', path: '/iso19011/toe', tag: 'TOE', color: 'border-emerald-800 hover:border-emerald-600' },
   { label: 'Finding Register ⭐', path: '/fieldwork/findings', tag: 'Live', color: 'border-red-800 hover:border-red-600' },
-  { label: 'Risk Register ⭐', path: '/iso27005/live-register', tag: 'Live', color: 'border-orange-800 hover:border-orange-600' },
-  { label: 'Statement of Applicability', path: '/iso27001/clause6', tag: '27001', color: 'border-navy-600 hover:border-steel-400/50' },
+  { label: 'Risk Register ⭐', path: '/reporting/risks', tag: 'Live', color: 'border-orange-800 hover:border-orange-600' },
+  { label: 'Risk-Based Thinking', path: '/iso9001/clause6', tag: 'Cl.6', color: 'border-navy-600 hover:border-steel-400/50' },
   { label: 'Workpaper Library ☁️', path: '/fieldwork/library', tag: 'Cloud', color: 'border-navy-600 hover:border-steel-400/50' },
   { label: 'Audit Report Builder', path: '/reporting/builder', tag: 'Report', color: 'border-pink-800 hover:border-pink-600' },
   { label: 'Management Review Pack', path: '/reporting/management-review', tag: 'Mgmt', color: 'border-navy-600 hover:border-steel-400/50' },
@@ -84,9 +84,9 @@ export default function Dashboard() {
             <div className="text-xs text-steel-400 mb-1">
               Welcome back, <span className="text-white font-medium">{profile?.full_name || profile?.email || 'Auditor'}</span>
             </div>
-            <h2 className="font-display text-2xl font-bold text-white mb-1">AuditIQ</h2>
+            <h2 className="font-display text-2xl font-bold text-white mb-1">QMSiQ</h2>
             <p className="text-steel-300 text-sm max-w-xl leading-relaxed">
-              IT Audit Intelligence Platform — ISO 19011 · 27001 · 27002 · 27005 · 9001
+              Quality Management Audit Platform — ISO 9001 · ISO 19011 · IMS
             </p>
           </div>
           <button onClick={() => navigate('/iso19011/clause4')} className="btn-primary flex-shrink-0">

@@ -43,9 +43,9 @@ function NewEntryModal({ programmeId, userId, onCreated, onClose }) {
           <button onClick={onClose} className="text-steel-400 hover:text-steel-200 text-lg">×</button>
         </div>
         <div className="p-5 space-y-4">
-          <div><label className="block text-xs text-steel-400 mb-1">Audit Area *</label><input className="input-field" placeholder="e.g. ISO 27001 — Full ISMS" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Audit Area *</label><input className="input-field" placeholder="e.g. ISO 9001 — Full QMS" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Standards / Scope</label><input className="input-field" placeholder="e.g. ISO 27001" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Standards / Scope</label><input className="input-field" placeholder="e.g. ISO 9001:2015" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Risk Level</label><select className="input-field" value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value }))}><option>High</option><option>Medium</option><option>Low</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Status</label><select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}><option>Not Started</option><option>Scheduled</option><option>In Progress</option><option>Complete</option><option>Overdue</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Next Audit Date</label><input className="input-field" type="date" value={form.received_date} onChange={e => setForm(p => ({ ...p, received_date: e.target.value }))} /></div>
@@ -134,7 +134,7 @@ export default function AuditUniverseLive() {
         <AIPanel
           title="AI — Generate Annual Audit Plan"
           systemPrompt="You are an ISO 19011:2018 audit programme specialist. Generate detailed annual audit plans, audit schedules, resource plans, and individual audit mandates. Align to ISO 19011 Clause 5 programme management requirements. Include risk-based prioritisation."
-          placeholder="e.g. Generate a 12-month risk-based audit schedule for an ISO 27001 certified fintech with 8 audit areas"
+          placeholder="e.g. Generate a 12-month risk-based audit schedule for an ISO 9001 certified manufacturer with 8 audit areas"
           contextFields={[
             { id: 'areas', label: 'Audit Areas', type: 'textarea', placeholder: 'List your audit areas from the universe above...' },
             { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Annual Audit Schedule', 'Risk-Based Audit Plan', 'Individual Audit Mandate', 'Resource Allocation Plan', 'Audit Programme Objectives'] },

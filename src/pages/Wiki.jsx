@@ -39,7 +39,7 @@ const workflow = [
     steps: [
       { label: 'Run closing meeting', desc: 'Present findings, capture management responses, handle disputed findings per ISO 19011 Cl. 6.4.7.', path: '/iso19011/meetings', action: 'ISO 19011 → Meetings' },
       { label: 'Generate audit report', desc: 'ISO 19011 Cl. 6.5-aligned report with all mandatory sections. Select overall opinion and generate.', path: '/reporting/builder', action: 'Reporting → Report Builder' },
-      { label: 'Management review pack ⭐', desc: 'ISO 27001 Cl. 9.3 — live checklist of all mandatory inputs. AI generates board-level review pack with live data injected.', path: '/reporting/management-review', action: 'Reporting → Mgmt Review ⭐' },
+      { label: 'Management review pack ⭐', desc: 'ISO 9001 Cl. 9.3 — live checklist of all mandatory inputs. AI generates board-level review pack with live data injected.', path: '/reporting/management-review', action: 'Reporting → Mgmt Review ⭐' },
       { label: 'Track CAPAs to closure ⭐', desc: 'Pulls all findings automatically. Update actions, due dates. Overdue CAPAs highlighted. Toast confirms all saves.', path: '/reporting/capa', action: 'Reporting → CAPA Tracker ⭐' },
       { label: 'Monitor KPIs ⭐', desc: '8 live KPIs calculated from your audit data — CAPA rate, risks above appetite, PBC receipt, workpaper sign-off.', path: '/reporting/kpi', action: 'Reporting → KPI Dashboard ⭐' },
     ]
@@ -51,21 +51,19 @@ const livePages = [
   { label: 'Fieldwork Tracker', path: '/fieldwork/tracker', desc: 'TOD/TOI/TOE progress per control with completion bars' },
   { label: 'Finding Register', path: '/fieldwork/findings', desc: '4Cs findings — search, delete, management response, CAPA' },
   { label: 'Workpaper Library', path: '/fieldwork/library', desc: 'Cloud file storage — upload, search, download, delete' },
-  { label: 'Risk Register', path: '/iso27005/live-register', desc: 'Asset × Threat × Vulnerability — search, delete, update treatment' },
+  { label: 'Risk Register ⭐', path: '/reporting/risks', desc: 'Quality risk register — process risks, supplier risks, customer risks' },
   { label: 'CAPA Tracker', path: '/reporting/capa', desc: 'Live CAPA closure from findings — overdue alerts, toast saves' },
   { label: 'KPI Dashboard', path: '/reporting/kpi', desc: '8 live KPIs with targets calculated from real audit data' },
   { label: 'Management Review', path: '/reporting/management-review', desc: 'Cl. 9.3 input checklist with live data and AI pack generation' },
-  { label: 'Asset Register', path: '/iso27005/assets', desc: 'Live asset inventory — category, classification, criticality, owner' },
+  
   { label: 'Audit Universe', path: '/reporting/universe', desc: 'Risk-ranked annual audit schedule with inline status tracking' },
 ]
 
 const standards = [
   { std: 'ISO 19011:2018', color: 'text-amber-audit', role: 'Audit backbone — HOW to audit', pages: 'Cl.4, 5, 6.2, 6.3, TOD, TOI, TOE, Findings, Meetings, Reporting, Cl.7, Annex A' },
-  { std: 'ISO 27001:2022', color: 'text-blue-400', role: 'ISMS requirements — WHAT the org must do', pages: 'Clause 4 through 10' },
-  { std: 'ISO 27002:2022', color: 'text-purple-400', role: 'Controls guidance — 93 Annex A controls with audit testing points', pages: 'Organizational (37), People (8), Physical (14), Technological (34) + Net-New 11' },
-  { std: 'ISO 27005:2022', color: 'text-red-400', role: 'Risk management — Asset × Threat × Vulnerability + STRIDE', pages: 'Asset Register ⭐ Live, Risk Register ⭐ Live, RTP (control mapping), Scenarios (6 pre-built + AI)' },
+  { std: 'ISO 9001:2015', color: 'text-emerald-400', role: 'QMS requirements — all 7 clauses with full audit testing guidance', pages: 'Clause 4 (Context), 5 (Leadership), 6 (Planning), 7 (Support), 8 (Operations), 9 (Performance), 10 (Improvement)' },
   { std: 'ISO 9001:2015', color: 'text-emerald-400', role: 'QMS — kept separate under IMS', pages: 'Clause 5, 7, 8, 9, 10' },
-  { std: 'IMS Cross-Walk', color: 'text-cyan-400', role: 'ISO 27001 × ISO 9001 — 18 shared clauses, 30-40% saving', pages: 'Cross-Walk Matrix (18 clauses), Joint Worksheets (Change, Supplier, Incident, SDLC)' },
+  { std: 'IMS Cross-Walk', color: 'text-cyan-400', role: 'ISO 9001 × ISO 27001 — 18 shared clauses, 30-40% saving', pages: 'Cross-Walk Matrix (18 clauses), Joint Worksheets (Supplier, Management Review, CAPA, Document Control)' },
 ]
 
 export default function Wiki() {
@@ -75,9 +73,9 @@ export default function Wiki() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="AuditIQ"
+        standard="QMSiQ"
         clause="Wiki & Guide"
-        title="How to Use AuditIQ"
+        title="How to Use QMSiQ"
         description="Complete guide to using the platform — audit workflow, live pages, AI generation, keyboard shortcuts, and setup. Last updated August 2026."
         badges={['Guide', 'Documentation', 'Wiki']}
       />
@@ -87,7 +85,7 @@ export default function Wiki() {
           { label: 'GitHub README', href: 'https://github.com/logan23info/audit-platform#readme' },
           { label: 'GitHub Repo', href: 'https://github.com/logan23info/audit-platform' },
           { label: 'FAQ', path: '/faq' },
-          { label: 'Live Platform', href: 'https://auditiq-it.vercel.app' },
+          { label: 'Live Platform', href: 'https://qmsiq.vercel.app' },
         ].map(l => l.href ? (
           <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="btn-secondary text-xs"><ExternalLink size={11} /> {l.label}</a>
         ) : (
@@ -218,8 +216,8 @@ export default function Wiki() {
       </div>
 
       <div className="card text-center">
-        <div className="text-xs text-steel-400 mb-2">AuditIQ — IT Audit Intelligence Platform</div>
-        <div className="text-xs text-steel-500 mb-4">ISO 19011 · 27001 · 27002 · 27005 · 9001 · Powered by Groq AI (Free)</div>
+        <div className="text-xs text-steel-400 mb-2">QMSiQ — Quality Management Audit Platform</div>
+        <div className="text-xs text-steel-500 mb-4">ISO 9001 · ISO 19011 · IMS · Powered by AI</div>
         <div className="flex flex-wrap gap-2 justify-center">
           <button onClick={() => navigate('/faq')} className="btn-secondary text-xs">FAQ</button>
           <a href="https://github.com/logan23info/audit-platform#readme" target="_blank" rel="noreferrer" className="btn-secondary text-xs"><ExternalLink size={11} /> GitHub README</a>

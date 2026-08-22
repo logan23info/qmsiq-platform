@@ -28,7 +28,7 @@ export function ISO9001Clause5() {
           </div>
         ))}
       </div>
-      <AIPanel title="Generate Clause 5 Quality Artifacts" systemPrompt="You are an ISO 9001:2015 QMS leadership expert. Generate Quality Policies, management commitment evidence checklists, and RACI matrices for QMS roles. Policies must be suitable for board-level approval and reference ISO 9001:2015 requirements. Distinguish clearly from ISO 27001 information security leadership obligations." placeholder="e.g. Generate a Quality Policy for a software development company seeking ISO 9001 certification" contextFields={[{ id: 'org', label: 'Organisation & Sector', placeholder: 'e.g. Software dev firm, 200 staff', type: 'text' }, { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Quality Policy', 'Management Commitment Evidence Checklist', 'RACI Matrix — QMS Roles', 'Customer Focus Statement'] }]} />
+      <AIPanel title="Generate Clause 5 Quality Artifacts" systemPrompt="You are an ISO 9001:2015 QMS leadership expert. Generate Quality Policies, management commitment evidence checklists, and RACI matrices for QMS roles. Policies must be suitable for board-level approval and reference ISO 9001:2015 requirements. " placeholder="e.g. Generate a Quality Policy for a software development company seeking ISO 9001 certification" contextFields={[{ id: 'org', label: 'Organisation & Sector', placeholder: 'e.g. Software dev firm, 200 staff', type: 'text' }, { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Quality Policy', 'Management Commitment Evidence Checklist', 'RACI Matrix — QMS Roles', 'Customer Focus Statement'] }]} />
     </div>
   )
 }
@@ -36,7 +36,7 @@ export function ISO9001Clause5() {
 export function ISO9001Clause7() {
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 9001:2015" clause="Clause 7" title="Support — Resources & Calibration" description="ISO 9001 Clause 7 includes a unique requirement absent from ISO 27001 — calibration of monitoring and measuring equipment (Cl. 7.1.5)." badges={['QMS Support', 'TOI', 'TOE']} />
+      <PageHeader standard="ISO 9001:2015" clause="Clause 7" title="Support — Resources & Calibration" description="ISO 9001 Clause 7 covers QMS support infrastructure — resources, competence, awareness, communication, document control, and calibration of measurement equipment (Cl. 7.1.5)." badges={['QMS Support', 'TOI', 'TOE']} />
       <div className="card mb-6">
         <h2 className="section-title mb-3">Key Clause 7 Elements</h2>
         <div className="space-y-3">
@@ -138,7 +138,7 @@ export function ISO9001Clause10() {
           ))}
         </div>
       </div>
-      <AIPanel title="Generate Quality CAPA Artifacts" systemPrompt="You are an ISO 9001:2015 CAPA and continual improvement expert. Generate quality nonconformity reports, root cause analysis templates, corrective action plans, and continual improvement logs. Quality CAPAs must distinguish from ISMS CAPAs — focus on product/service quality, customer satisfaction failures, and process non-conformances." placeholder="e.g. Generate a CAPA for recurring customer complaints about slow response times in a SaaS product" contextFields={[{ id: 'nc', label: 'Nonconformity / Customer Complaint', placeholder: 'Describe the quality nonconformity', type: 'text' }, { id: 'org', label: 'Organisation / Product', placeholder: 'e.g. SaaS platform, B2B customers', type: 'text' }, { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Quality Nonconformity Report', '5-Why Root Cause Analysis', 'Quality Corrective Action Plan', 'Quality CAPA Register', 'Continual Improvement Log', 'Effectiveness Verification Checklist'] }]} />
+      <AIPanel title="Generate Quality CAPA Artifacts" systemPrompt="You are an ISO 9001:2015 CAPA and continual improvement expert. Generate quality nonconformity reports, root cause analysis templates, corrective action plans, and continual improvement logs. Focus on product/service quality, customer satisfaction failures, and process non-conformances." placeholder="e.g. Generate a CAPA for recurring customer complaints about slow response times in a SaaS product" contextFields={[{ id: 'nc', label: 'Nonconformity / Customer Complaint', placeholder: 'Describe the quality nonconformity', type: 'text' }, { id: 'org', label: 'Organisation / Product', placeholder: 'e.g. SaaS platform, B2B customers', type: 'text' }, { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Quality Nonconformity Report', '5-Why Root Cause Analysis', 'Quality Corrective Action Plan', 'Quality CAPA Register', 'Continual Improvement Log', 'Effectiveness Verification Checklist'] }]} />
     </div>
   )
 }

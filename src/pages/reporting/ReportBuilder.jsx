@@ -22,18 +22,18 @@ const sections = [
   { id: 'scope', label: 'Audit Scope & Methodology', icon: '🎯', desc: 'Standards audited, methodology (TOD/TOI/TOE), and period' },
   { id: 'findings', label: 'Findings Summary', icon: '⚠️', desc: 'All findings with 4Cs, ratings, and management responses' },
   { id: 'positive', label: 'Areas of Good Practice', icon: '✅', desc: 'Controls operating effectively and strengths observed' },
-  { id: 'conclusion', label: 'Conclusion & Opinion', icon: '🏁', desc: 'Overall ISMS effectiveness opinion and audit sign-off' },
+  { id: 'conclusion', label: 'Conclusion & Opinion', icon: '🏁', desc: 'Overall QMS effectiveness opinion and audit sign-off' },
   { id: 'full', label: 'Full Audit Report', icon: '📄', desc: 'Complete ISO 19011 Cl. 6.5 report — all sections combined' },
 ]
 
-const opinions = ['Effective — ISMS operating effectively with no material gaps', 'Partially Effective — minor gaps identified, remediation in progress', 'Partially Effective — significant gaps identified requiring management attention', 'Ineffective — material control failures requiring immediate action']
+const opinions = ['Effective — QMS operating effectively with no material gaps', 'Partially Effective — minor gaps identified, remediation in progress', 'Partially Effective — significant gaps identified requiring management attention', 'Ineffective — material control failures requiring immediate action']
 
 export default function ReportBuilder() {
   const { activeProgramme } = useProgramme()
   const [findings, setFindings] = useState([])
   const [risks, setRisks] = useState([])
   const [loadingData, setLoadingData] = useState(false)
-  const [form, setForm] = useState({ org: '', sector: '', period: '', lead_auditor: '', standards: 'ISO 27001:2022', opinion: opinions[0], section: 'full', notes: '' })
+  const [form, setForm] = useState({ org: '', sector: '', period: '', lead_auditor: '', standards: 'ISO 9001:2022', opinion: opinions[0], section: 'full', notes: '' })
   const [output, setOutput] = useState('')
   const [generating, setGenerating] = useState(false)
   const [activeSection, setActiveSection] = useState(null)
@@ -200,7 +200,7 @@ Generate a complete, professional ${selectedSection?.label} section. Use the act
             { key: 'sector', label: 'Sector', placeholder: 'e.g. Financial services, 500 employees' },
             { key: 'period', label: 'Audit Period', placeholder: 'e.g. 1 January – 31 December 2025' },
             { key: 'lead_auditor', label: 'Lead Auditor', placeholder: 'e.g. Logan, CIA, CISA' },
-            { key: 'standards', label: 'Standards Audited', placeholder: 'e.g. ISO 27001:2022, ISO 27002:2022' },
+            { key: 'standards', label: 'Standards Audited', placeholder: 'e.g. ISO 9001:2015, ISO 19011:2018' },
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1">{f.label}</label>

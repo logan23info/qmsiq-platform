@@ -8,8 +8,8 @@ const faqs = [
     color: 'border-l-amber-audit',
     items: [
       {
-        q: 'What is AuditIQ and who is it for?',
-        a: 'AuditIQ is a free, AI-powered IT audit engineering platform for IT auditors, information security professionals, and compliance managers. It covers the full audit lifecycle across ISO 19011, ISO 27001, ISO 27002, ISO 27005, ISO 9001, and IMS. Every module generates tailored audit artifacts using the Groq AI engine — free, no credit card needed.'
+        q: 'What is QMSiQ and who is it for?',
+        a: 'QMSiQ is a free, AI-powered quality management audit platform for quality managers, internal auditors, and compliance professionals. It covers the full audit lifecycle across ISO 9001:2015, ISO 19011:2018, and IMS. Every module generates tailored audit artifacts using the Groq AI engine — free, no credit card needed.'
       },
       {
         q: 'How do I start my first audit?',
@@ -17,7 +17,7 @@ const faqs = [
       },
       {
         q: 'Do I need to create an account?',
-        a: 'Yes — AuditIQ requires a free account. Go to auditiq-it.vercel.app and click "Create Account". Register with your email and password (minimum 6 characters). All your data is stored privately in Supabase and only accessible to your account.'
+        a: 'Yes — QMSiQ requires a free account. Go to qmsiq.vercel.app and click "Create Account". Register with your email and password (minimum 6 characters). All your data is stored privately in Supabase and only accessible to your account.'
       },
       {
         q: 'What is an Audit Programme and how do I create one?',
@@ -38,8 +38,8 @@ const faqs = [
     color: 'border-l-purple-400',
     items: [
       {
-        q: 'Which AI provider does AuditIQ use?',
-        a: 'AuditIQ uses Groq as the primary AI provider — completely free, no credit card needed. The active provider is shown as a badge ("Groq · GPT-OSS 20B") next to "AI-Powered" on every panel. Priority fallback order: Groq (VITE_GROQ_API_KEY) → OpenAI (VITE_OPENAI_API_KEY) → Anthropic (VITE_ANTHROPIC_API_KEY).'
+        q: 'Which AI provider does QMSiQ use?',
+        a: 'QMSiQ uses Groq as the primary AI provider — completely free, no credit card needed. The active provider is shown as a badge ("AI-Powered") next to "AI-Powered" on every panel. The AI engine is built in and requires no setup from you.'
       },
       {
         q: 'How does AI artifact generation work?',
@@ -125,11 +125,11 @@ const faqs = [
       },
       {
         q: 'How does the Risk Register work?',
-        a: 'Add risks using Asset × Threat × Vulnerability methodology. Set inherent and residual scores via sliders (1–5 likelihood × impact). Apply ISO 27002 controls and assign a risk owner. Update treatment (Mitigate/Accept/Transfer/Avoid) inline. Delete risks with the trash icon. Search by asset name, threat, or risk reference.'
+        a: 'Add risks using Asset × Threat × Vulnerability methodology. Set inherent and residual scores via sliders (1–5 likelihood × impact). Apply controls and assign a risk owner. Update treatment (Mitigate/Accept/Transfer/Avoid) inline. Delete risks with the trash icon. Search by asset name, threat, or risk reference.'
       },
       {
         q: 'How does the Management Review Pack work?',
-        a: 'The Management Review page (ISO 27001 Cl. 9.3) pulls live stats from your audit programme — findings, risks, workpapers. It shows all 8 mandatory Cl. 9.3.2 inputs as an interactive checklist. The AI panel generates a full board-level review pack with the live data automatically injected into the prompt.'
+        a: 'The Management Review page (ISO 9001 Cl. 9.3) pulls live stats from your audit programme — findings, risks, workpapers. It shows all mandatory Cl. 9.3 inputs as an interactive checklist. The AI panel generates a full board-level review pack with the live data automatically injected into the prompt.'
       },
     ]
   },
@@ -151,7 +151,7 @@ const faqs = [
       },
       {
         q: 'What are the breadcrumbs at the top of each page?',
-        a: 'Breadcrumbs show your current location — e.g. 🏠 → ISO 27001 — ISMS → Clause 4 — Context & Scope. Each crumb is clickable and navigates back to that section. Breadcrumbs appear on all pages except the Dashboard.'
+        a: 'Breadcrumbs show your current location — e.g. 🏠 → ISO 9001 — QMS → Clause 4 — Context & Scope. Each crumb is clickable and navigates back to that section. Breadcrumbs appear on all pages except the Dashboard.'
       },
       {
         q: 'What are the toast notifications?',
@@ -176,12 +176,12 @@ const faqs = [
         a: 'Required: VITE_GROQ_API_KEY (console.groq.com — free), VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY (Supabase → Settings → API). Optional fallbacks: VITE_OPENAI_API_KEY, VITE_ANTHROPIC_API_KEY. After adding any env var in Vercel, commit any change to GitHub to trigger a fresh build — the Redeploy button reuses old cache.'
       },
       {
-        q: 'What tech stack is AuditIQ built on?',
+        q: 'What tech stack is QMSiQ built on?',
         a: 'React 18 + Vite with lazy-loaded code splitting (fast initial load), Tailwind CSS v3, React Router v6, Supabase (auth + PostgreSQL + file storage), Groq API — openai/gpt-oss-20b (free AI), Vercel (deployment), GitHub (source control). Dark/light theming via ThemeContext + CSS variables.'
       },
       {
         q: 'Why do I get a 404 when refreshing the page?',
-        a: 'AuditIQ is a React SPA — the vercel.json file in the repo root handles this with a rewrite rule pointing all routes to index.html. This is already in the repo. If you see 404s, check that vercel.json exists in your GitHub repo root.'
+        a: 'QMSiQ is a React SPA — the vercel.json file in the repo root handles this with a rewrite rule pointing all routes to index.html. This is already in the repo. If you see 404s, check that vercel.json exists in your GitHub repo root.'
       },
       {
         q: 'How do I deploy updates using VS Code?',
@@ -202,10 +202,10 @@ export default function FAQ() {
   return (
     <div className="max-w-4xl mx-auto">
       <PageHeader
-        standard="AuditIQ"
+        standard="QMSiQ"
         clause="Help & FAQ"
         title="Frequently Asked Questions"
-        description="Everything you need to know about AuditIQ — from starting your first audit to using all live features. Last updated August 2026."
+        description="Everything you need to know about QMSiQ — from starting your first audit to using all live features. Last updated August 2026."
         badges={['Help', 'FAQ', 'Documentation']}
       />
 

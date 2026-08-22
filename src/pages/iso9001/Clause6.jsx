@@ -12,7 +12,7 @@ const elements = [
       'Actions integrated into QMS processes — not separate risk register alone',
       'Proportionality — actions proportionate to potential impact on product/service conformity',
       'Effectiveness of actions evaluated at management review',
-      'Quality risks differ from ISO 27005 — focus on conformity, customer satisfaction, delivery',
+      'Quality risk focus: product/service conformity, customer satisfaction, delivery, supplier performance',
     ], artifact: 'Risk & Opportunity Register' },
   { clause: '6.2', title: 'Quality Objectives & Planning', color: 'border-l-emerald-500',
     desc: 'Establish measurable quality objectives at relevant functions and levels. Plan how to achieve them.',

@@ -10,12 +10,12 @@ import AIPanel from '../../components/AIPanel'
 import { exportToCSV, FINDING_COLUMNS } from '../../utils/exportCSV'
 
 const ratingConfig = {
-  Critical: 'bg-red-900/40 text-red-300 border-red-700',
-  High: 'bg-orange-900/40 text-orange-300 border-orange-700',
-  Medium: 'bg-amber-900/40 text-amber-300 border-amber-700',
-  'Low / Advisory': 'bg-navy-700 text-steel-300 border-navy-600',
+  'Major NC': 'bg-red-900/40 text-red-300 border-red-700',
+  'Minor NC': 'bg-orange-900/40 text-orange-300 border-orange-700',
+  Observation: 'bg-amber-900/40 text-amber-300 border-amber-700',
+  Advisory: 'bg-navy-700 text-steel-300 border-navy-600',
 }
-const ratingBorder = { Critical: 'border-l-red-500', High: 'border-l-orange-500', Medium: 'border-l-amber-500', 'Low / Advisory': 'border-l-navy-600' }
+const ratingBorder = { 'Major NC': 'border-l-red-500', 'Minor NC': 'border-l-orange-500', Observation: 'border-l-amber-500', Advisory: 'border-l-navy-600' }
 const statusConfig = {
   Open: { color: 'text-red-400', icon: AlertTriangle },
   'In Progress': { color: 'text-amber-audit', icon: Clock },
@@ -127,7 +127,7 @@ function FindingCard({ finding, onUpdate, onDelete }) {
 
 function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
   const { toast } = useToast()
-  const [form, setForm] = useState({ title: '', standard: 'ISO 27001', clause_control: '', rating: 'High', condition_text: '', criteria_text: '', cause_text: '', consequence_text: '' })
+  const [form, setForm] = useState({ title: '', standard: 'ISO 9001:2015', clause_control: '', rating: 'Minor NC', condition_text: '', criteria_text: '', cause_text: '', consequence_text: '' })
   const [saving, setSaving] = useState(false)
 
   const save = async () => {
@@ -156,7 +156,7 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
             <div>
               <label className="block text-xs text-steel-400 mb-1">Rating</label>
               <select className="input-field" value={form.rating} onChange={e => setForm(p => ({ ...p, rating: e.target.value }))}>
-                <option>Critical</option><option>High</option><option>Medium</option><option>Low / Advisory</option>
+                <option>Major NC</option><option>Minor NC</option><option>Observation</option><option>Advisory</option>
               </select>
             </div>
           </div>
@@ -164,7 +164,7 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
             <div>
               <label className="block text-xs text-steel-400 mb-1">Standard</label>
               <select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>
-                {['ISO 27001', 'ISO 27002', 'ISO 27005', 'ISO 9001', 'ISO 19011'].map(s => <option key={s}>{s}</option>)}
+                {['ISO 9001:2015', 'ISO 19011:2018', 'IMS', 'ISO 14001:2015', 'Other'].map(s => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div>
@@ -268,7 +268,7 @@ export default function FindingRegister() {
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           <div className="flex gap-1.5 flex-wrap">
-            {['All', 'Open', 'In Progress', 'Closed', 'Critical', 'High', 'Medium'].map(f => (
+            {['All', 'Open', 'In Progress', 'Closed', 'Major NC', 'Minor NC', 'Observation'].map(f => (
               <button key={f} onClick={() => setFilter(f)}
                 className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${filter === f ? 'bg-navy-700 border-steel-400 text-white' : 'bg-navy-800 border-navy-600 text-steel-400 hover:border-steel-400'}`}>
                 {f}
@@ -316,10 +316,10 @@ export default function FindingRegister() {
       <div className="mt-6">
         <AIPanel
           title="AI — Generate Finding (4Cs Framework)"
-          systemPrompt="You are an ISO 27001:2022 IT audit specialist. Generate a complete finding using the 4Cs framework: Condition (what you found — factual observation), Criteria (what the standard/policy requires), Cause (root cause using 5-Why analysis), Consequence (risk or impact if not remediated). Also suggest a rating (Critical/High/Medium/Low), agreed action, and realistic due date. Format clearly with each C on its own line."
-          placeholder="e.g. Generate a High finding for ISO 27001 A.8.8 — no formal patch management process, critical servers unpatched for 180+ days"
+          systemPrompt="You are an ISO 9001:2015 quality audit specialist. Generate a complete finding using the 4Cs framework: Condition (what you found — factual observation), Criteria (what the standard/policy requires — ISO 9001 clause or internal procedure), Cause (root cause using 5-Why analysis), Consequence (impact on product quality or customer satisfaction if not remediated). Also suggest a rating (Major NC/Minor NC/Observation) and agreed action."
+          placeholder="e.g. Generate a Major NC finding for ISO 9001 Cl.8.4 — no formal supplier evaluation process, 3 critical suppliers not assessed in 24 months"
           contextFields={[
-            { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 27001 A.8.8 — Vulnerability Management' },
+            { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 9001 Cl. 8.4 — External Provider Control' },
             { id: 'observation', label: 'What You Observed', type: 'textarea', placeholder: 'e.g. Patch scan shows 47 critical servers with CVEs > 90 days old. No formal patch schedule exists.' },
             { id: 'rating', label: 'Expected Rating', type: 'select', options: ['Critical', 'High', 'Medium', 'Low / Advisory'] },
           ]}
