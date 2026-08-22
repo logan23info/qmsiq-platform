@@ -34,6 +34,7 @@ export default function Header({ onMenuClick }) {
   const [searchQuery, setSearchQuery] = useState('')
   const [notifOpen, setNotifOpen] = useState(false)
   const [userOpen, setUserOpen] = useState(false)
+  const [showTeam, setShowTeam] = useState(false)
   const [notifications, setNotifications] = useState([])
 
   const searchRef = useRef(null)
