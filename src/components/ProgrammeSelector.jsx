@@ -62,9 +62,7 @@ export default function ProgrammeSelector({ onClose }) {
         user_id: user.id,
         programme_id: mode === 'new' ? `PROG-${Date.now().toString(36).toUpperCase()}` : undefined,
         client_name: form.name,
-        // Use 'standards' as array (existing column) to store scope text
         standards: form.scope ? [form.scope] : ['ISO 9001:2015'],
-        standard: form.scope || 'ISO 9001:2015',
         audit_period_start: form.audit_period_start || null,
         audit_period_end: form.audit_period_end || null,
         lead_auditor: form.lead_auditor || '',
@@ -95,7 +93,7 @@ export default function ProgrammeSelector({ onClose }) {
   const startEdit = (p) => {
     setForm({
       name: p.client_name || '',
-      scope: p.standards?.join(', ') || p.standard || '',
+      scope: Array.isArray(p.standards) ? p.standards.join(', ') : (p.standards || ''),
       audit_period_start: p.audit_period_start || '',
       audit_period_end: p.audit_period_end || '',
       lead_auditor: p.lead_auditor || '',
@@ -177,19 +175,21 @@ export default function ProgrammeSelector({ onClose }) {
               <p className="text-xs text-steel-500 mb-3">
                 Enter email + role. They get access when they register with that email.
               </p>
-              <div className="flex gap-2 mb-2">
-                <input className="input-field flex-1 text-xs"
+              <div className="space-y-2 mb-2">
+                <input className="input-field w-full text-xs"
                   placeholder="colleague@company.com"
                   type="email"
                   value={inviteEmail}
                   onChange={e => setInviteEmail(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && addInvite()} />
-                <select className="input-field text-xs w-28" value={inviteRole}
-                  onChange={e => setInviteRole(e.target.value)}>
-                  {ROLES.map(r => <option key={r} value={r}>{r.charAt(0).toUpperCase()+r.slice(1)}</option>)}
-                </select>
-                <button onClick={addInvite} disabled={!inviteEmail.trim()}
-                  className="btn-secondary text-xs px-3">Add</button>
+                <div className="flex gap-2">
+                  <select className="input-field text-xs flex-1" value={inviteRole}
+                    onChange={e => setInviteRole(e.target.value)}>
+                    {ROLES.map(r => <option key={r} value={r}>{r.charAt(0).toUpperCase()+r.slice(1)}</option>)}
+                  </select>
+                  <button onClick={addInvite} disabled={!inviteEmail.trim()}
+                    className="btn-primary text-xs px-4">+ Add</button>
+                </div>
               </div>
               {invites.length > 0 && (
                 <div className="space-y-1.5">
