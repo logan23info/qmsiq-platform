@@ -5,7 +5,6 @@ import { useAuth } from '../context/AuthContext'
 import { useProgramme } from '../context/ProgrammeContext'
 import { supabase } from '../lib/supabase'
 import { useToast } from '../components/Toast'
-import ConfirmModal from '../components/ConfirmModal'
 
 const roleConfig = {
   lead: { label: 'Lead', color: 'bg-amber-900/40 text-amber-300 border-amber-700', icon: Crown, desc: 'Full access — invite members, delete records, sign off workpapers' },
@@ -21,8 +20,6 @@ async function getMembers(programmeId) {
     .order('joined_at', { ascending: true })
   if (error) throw error
   if (!data || data.length === 0) return []
-
-  // Fetch profiles separately for each member
   const members = await Promise.all(data.map(async (m) => {
     const { data: profile } = await supabase
       .from('profiles')
@@ -49,8 +46,7 @@ async function addMember(programmeId, userId, role, invitedBy) {
   const { data, error } = await supabase
     .from('programme_members')
     .insert({ programme_id: programmeId, user_id: userId, role, invited_by: invitedBy })
-    .select()
-    .single()
+    .select().single()
   if (error) throw error
   return data
 }
@@ -60,17 +56,13 @@ async function changeRole(memberId, role) {
     .from('programme_members')
     .update({ role })
     .eq('id', memberId)
-    .select()
-    .single()
+    .select().single()
   if (error) throw error
   return data
 }
 
 async function removeMember(memberId) {
-  const { error } = await supabase
-    .from('programme_members')
-    .delete()
-    .eq('id', memberId)
+  const { error } = await supabase.from('programme_members').delete().eq('id', memberId)
   if (error) throw error
 }
 
@@ -89,7 +81,6 @@ export default function Team() {
   const [userId, setUserId] = useState('')
   const [inviteRole, setInviteRole] = useState('auditor')
   const [adding, setAdding] = useState(false)
-  const [confirmDel, setConfirmDel] = useState(null)
   const [copied, setCopied] = useState(false)
 
   const load = async () => {
@@ -108,7 +99,6 @@ export default function Team() {
 
   useEffect(() => { load() }, [activeProgramme?.id, user?.id])
 
-  // Reload when tab becomes visible again
   useEffect(() => {
     const onFocus = () => load()
     window.addEventListener('focus', onFocus)
@@ -137,18 +127,13 @@ export default function Team() {
     } catch (e) { toast('Update failed', 'error') }
   }
 
-  const handleRemove = (member) => {
-    setConfirmDel({
-      title: 'Remove team member?',
-      message: `${member.profiles?.full_name || 'This member'} will lose access to the programme.`,
-      onConfirm: async () => {
-        try {
-          await removeMember(member.id)
-          setMembers(p => p.filter(m => m.id !== member.id))
-          toast('Member removed')
-        } catch (e) { toast('Remove failed', 'error') }
-      }
-    })
+  const handleRemove = async (member) => {
+    if (!window.confirm(`Remove ${member.profiles?.full_name || member.invited_email || 'this member'}?`)) return
+    try {
+      await removeMember(member.id)
+      setMembers(p => p.filter(m => m.id !== member.id))
+      toast('Member removed')
+    } catch (e) { toast('Remove failed', 'error') }
   }
 
   const copyMyId = () => {
@@ -208,25 +193,24 @@ export default function Team() {
                   <div key={m.id} className={`flex items-center gap-3 rounded-xl p-3 ${m.user_id === user?.id ? 'bg-navy-700 border border-navy-600' : 'bg-navy-800'}`}>
                     <div className="w-9 h-9 rounded-full bg-navy-600 flex items-center justify-center flex-shrink-0">
                       <span className="text-sm font-bold text-amber-audit">
-                        {(m.profiles?.full_name || '?').charAt(0).toUpperCase()}
+                        {(m.profiles?.full_name || m.invited_email || 'U').charAt(0).toUpperCase()}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
                         <span className="text-sm font-medium text-white truncate">
-                          {m.profiles?.full_name || 'Unknown user'}
+                          {m.profiles?.full_name || m.invited_email || 'User ' + m.user_id?.slice(0, 8)}
                         </span>
                         {m.user_id === user?.id && <span className="badge bg-navy-600 text-steel-400 text-xs">You</span>}
                       </div>
                       <div className="text-xs text-steel-400 truncate">
-                        {m.profiles?.organisation || m.profiles?.role || ''}
+                        {m.profiles?.organisation || m.invited_email || m.profiles?.role || ''}
                       </div>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
                       {isLead && m.user_id !== user?.id ? (
                         <>
-                          <select value={m.role}
-                            onChange={e => handleRoleChange(m.id, e.target.value)}
+                          <select value={m.role} onChange={e => handleRoleChange(m.id, e.target.value)}
                             className="input-field py-1 text-xs w-28">
                             <option value="auditor">Auditor</option>
                             <option value="reviewer">Reviewer</option>
@@ -247,33 +231,39 @@ export default function Team() {
             )}
           </div>
 
-          {/* Add member — lead only */}
-          {isLead && (
-            <div className="card mb-6">
-              <h2 className="section-title mb-1">Add Team Member</h2>
-              <p className="text-xs text-steel-400 mb-4 leading-relaxed">
-                Ask your colleague to log in → go to <span className="text-amber-audit">My Profile</span> → copy their <span className="text-amber-audit">User ID</span>. Paste it below and assign their role.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <input className="input-field flex-1 text-xs"
-                  placeholder="Paste User ID (uuid)..."
-                  value={userId}
-                  onChange={e => setUserId(e.target.value)} />
-                <select className="input-field text-xs w-32" value={inviteRole}
-                  onChange={e => setInviteRole(e.target.value)}>
-                  <option value="auditor">Auditor</option>
-                  <option value="reviewer">Reviewer</option>
-                  <option value="lead">Lead</option>
-                </select>
-                <button onClick={handleAdd} disabled={!userId.trim() || adding}
-                  className="btn-primary text-xs py-2 px-4">
-                  {adding ? <Loader2 size={13} className="animate-spin" /> : <><UserPlus size={13} /> Add</>}
-                </button>
+          {/* Add member — always visible, disabled for non-leads */}
+          <div className="card mb-6">
+            <h2 className="section-title mb-1">Add Team Member</h2>
+            <p className="text-xs text-steel-400 mb-4 leading-relaxed">
+              Ask your colleague to log in → go to <span className="text-amber-audit">My Profile</span> → copy their <span className="text-amber-audit">User ID</span>. Paste it below and assign their role.
+            </p>
+            {!isLead && (
+              <div className="bg-amber-900/20 border border-amber-800/40 rounded-xl px-3 py-2 mb-3">
+                <p className="text-xs text-amber-300">Only the Lead can add members. Share your User ID below with the Lead to be added.</p>
               </div>
+            )}
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input className="input-field flex-1 text-xs"
+                placeholder="Paste User ID (uuid format)..."
+                value={userId}
+                disabled={!isLead}
+                onChange={e => setUserId(e.target.value)} />
+              <select className="input-field text-xs w-32" value={inviteRole}
+                disabled={!isLead}
+                onChange={e => setInviteRole(e.target.value)}>
+                <option value="auditor">Auditor</option>
+                <option value="reviewer">Reviewer</option>
+                <option value="lead">Lead</option>
+              </select>
+              <button onClick={handleAdd}
+                disabled={!userId.trim() || adding || !isLead}
+                className="btn-primary text-xs py-2 px-4">
+                {adding ? <Loader2 size={13} className="animate-spin" /> : <><UserPlus size={13} /> Add</>}
+              </button>
             </div>
-          )}
+          </div>
 
-          {/* My User ID card */}
+          {/* Your User ID */}
           <div className="card bg-navy-800/50 border border-navy-700">
             <div className="flex items-center gap-2 mb-2">
               <Shield size={13} className="text-amber-audit" />
@@ -293,8 +283,6 @@ export default function Team() {
           </div>
         </>
       )}
-
-      {confirmDel && <ConfirmModal {...confirmDel} onClose={() => setConfirmDel(null)} />}
     </div>
   )
 }
