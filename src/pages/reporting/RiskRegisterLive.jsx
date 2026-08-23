@@ -38,7 +38,7 @@ function NewRiskModal({ programmeId, userId, onCreated, onClose }) {
         <div className="p-5 border-b border-navy-700 flex items-center justify-between"><h2 className="font-semibold text-white">New Risk — Asset × Threat × Vulnerability</h2><button onClick={onClose} className="text-steel-400 text-lg">×</button></div>
         <div className="p-5 space-y-4">
           {[{ key:'asset', label:'Asset *', ph:'e.g. Customer PII Database' }, { key:'threat', label:'Threat *', ph:'e.g. Ransomware attack' }, { key:'vulnerability', label:'Vulnerability', ph:'e.g. Unpatched systems' }].map(f => (
-            <div key={f.key}><label className="block text-xs text-steel-400 mb-1">{f.label}</label><input className="input-field" placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} /></div>
+            <div key={f.key}><label className="block text-xs text-steel-400 mb-1">{f.label}</label><input maxLength={200} className="input-field" placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} /></div>
           ))}
           <div className="grid grid-cols-2 gap-4">
             <div className="card-sm">
@@ -55,9 +55,9 @@ function NewRiskModal({ programmeId, userId, onCreated, onClose }) {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Controls Applied</label><input className="input-field" placeholder="e.g. A.8.7, A.8.8" value={form.controls_applied} onChange={e => setForm(p => ({ ...p, controls_applied: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Controls Applied</label><input maxLength={200} className="input-field" placeholder="e.g. A.8.7, A.8.8" value={form.controls_applied} onChange={e => setForm(p => ({ ...p, controls_applied: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Treatment</label><select className="input-field" value={form.treatment} onChange={e => setForm(p => ({ ...p, treatment: e.target.value }))}><option>Mitigate</option><option>Accept</option><option>Transfer</option><option>Avoid</option></select></div>
-            <div><label className="block text-xs text-steel-400 mb-1">Risk Owner</label><input className="input-field" placeholder="e.g. CISO" value={form.risk_owner} onChange={e => setForm(p => ({ ...p, risk_owner: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Risk Owner</label><input maxLength={100} className="input-field" placeholder="e.g. CISO" value={form.risk_owner} onChange={e => setForm(p => ({ ...p, risk_owner: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Review Date</label><input className="input-field" type="date" value={form.review_date} onChange={e => setForm(p => ({ ...p, review_date: e.target.value }))} /></div>
           </div>
           <div className="flex gap-2"><button onClick={save} disabled={saving || !form.asset || !form.threat} className="btn-primary flex-1 justify-center">{saving ? <><Loader2 size={14} className="animate-spin" /> Saving...</> : <><Save size={14} /> Save Risk</>}</button><button onClick={onClose} className="btn-secondary">Cancel</button></div>
@@ -121,7 +121,7 @@ export default function RiskRegisterLive() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
-            <input className="input-field pl-8 text-xs py-1.5" placeholder="Search asset, threat, ref..." value={search} onChange={e => setSearch(e.target.value)} />
+            <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search asset, threat, ref..." value={search} onChange={e => setSearch(e.target.value)} />
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400"><X size={12} /></button>}
           </div>
           {['All','Critical','High','Medium','Low'].map(f => (

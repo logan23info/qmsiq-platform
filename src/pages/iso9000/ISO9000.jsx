@@ -74,7 +74,7 @@ export default function ISO9000() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
-            <input className="input-field pl-8 text-xs py-1.5" placeholder="Search terms or definitions..."
+            <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search terms or definitions..."
               value={search} onChange={e => setSearch(e.target.value)} />
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400"><X size={12} /></button>}
           </div>

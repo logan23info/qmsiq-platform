@@ -104,8 +104,8 @@ function FindingCard({ finding, onUpdate, onDelete }) {
                 <div key={f.key}>
                   <label className="block text-xs text-steel-400 mb-1">{f.label}</label>
                   {f.type === 'textarea'
-                    ? <textarea className="textarea-field" rows={2} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
-                    : <input className="input-field" type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />}
+                    ? <textarea maxLength={2000} className="textarea-field" rows={2} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
+                    : <input maxLength={200} className="input-field" type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />}
                 </div>
               ))}
               <div>
@@ -155,7 +155,7 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2">
               <label className="block text-xs text-steel-400 mb-1">Finding Title *</label>
-              <input className="input-field" placeholder="e.g. User Access Review Gap" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} />
+              <input maxLength={150} className="input-field" placeholder="e.g. User Access Review Gap" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} />
             </div>
             <div>
               <label className="block text-xs text-steel-400 mb-1">Rating</label>
@@ -173,7 +173,7 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
             </div>
             <div>
               <label className="block text-xs text-steel-400 mb-1">Clause / Control</label>
-              <input className="input-field" placeholder="e.g. A.8.2" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} />
+              <input maxLength={100} className="input-field" placeholder="e.g. A.8.2" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} />
             </div>
           </div>
           {[
@@ -184,7 +184,7 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1">{f.label}</label>
-              <textarea className="textarea-field" rows={2} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
+              <textarea maxLength={2000} className="textarea-field" rows={2} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
             </div>
           ))}
           <div className="flex gap-2 pt-2">
@@ -268,7 +268,7 @@ export default function FindingRegister() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
-            <input className="input-field pl-8 text-xs py-1.5" placeholder="Search findings, refs, controls..."
+            <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search findings, refs, controls..."
               value={search} onChange={e => setSearch(e.target.value)} />
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>

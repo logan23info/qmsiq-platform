@@ -48,14 +48,14 @@ function NewControlModal({ programmeId, userId, onCreated, onClose }) {
           <button onClick={onClose} className="text-steel-400 text-lg">×</button>
         </div>
         <div className="p-5 space-y-3">
-          <div><label className="block text-xs text-steel-400 mb-1">Control / Workpaper Title *</label><input className="input-field" placeholder="e.g. A.8.8 — Vulnerability Management" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Control / Workpaper Title *</label><input maxLength={150} className="input-field" placeholder="e.g. A.8.8 — Vulnerability Management" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{['ISO 9001:2015', 'ISO 19011:2018', 'IMS', 'Other', 'IMS'].map(s => <option key={s}>{s}</option>)}</select></div>
-            <div><label className="block text-xs text-steel-400 mb-1">Clause / Control</label><input className="input-field" placeholder="e.g. A.8.8" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Clause / Control</label><input maxLength={100} className="input-field" placeholder="e.g. A.8.8" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}><option>TOD</option><option>TOI</option><option>TOE</option></select></div>
-            <div><label className="block text-xs text-steel-400 mb-1">Assigned Auditor</label><input className="input-field" placeholder="e.g. Lead Auditor" value={form.auditor} onChange={e => setForm(p => ({ ...p, auditor: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Assigned Auditor</label><input maxLength={200} className="input-field" placeholder="e.g. Lead Auditor" value={form.auditor} onChange={e => setForm(p => ({ ...p, auditor: e.target.value }))} /></div>
           </div>
-          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
           <div className="flex gap-2 pt-1"><button onClick={save} disabled={saving || !form.title} className="btn-primary flex-1 justify-center">{saving ? <><Loader2 size={14} className="animate-spin" /> Saving...</> : <><Save size={14} /> Add Control</>}</button><button onClick={onClose} className="btn-secondary">Cancel</button></div>
         </div>
       </div>

@@ -20,8 +20,22 @@ function MarkdownOutput({ text }) {
     if (/^\d+\.\s/.test(line)) { const num = line.match(/^(\d+)\./)[1]; elements.push(<div key={i} className="flex items-start gap-2 ml-2 my-0.5"><span className="text-amber-audit font-mono text-xs flex-shrink-0 w-4">{num}.</span><span className="text-xs text-steel-200 leading-relaxed">{line.replace(/^\d+\.\s/, '')}</span></div>); i++; continue }
     if (line.startsWith('**') && line.endsWith('**')) { elements.push(<p key={i} className="text-xs font-bold text-white my-0.5">{line.slice(2, -2)}</p>); i++; continue }
     if (line.startsWith('---') || line.startsWith('===')) { elements.push(<hr key={i} className="border-navy-700 my-2" />); i++; continue }
-    const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-white">$1</strong>').replace(/`(.*?)`/g, '<code class="bg-navy-700 px-1 rounded text-amber-audit text-xs">$1</code>')
-    elements.push(<p key={i} className="text-xs text-steel-200 leading-relaxed my-0.5" dangerouslySetInnerHTML={{ __html: formatted }} />)
+    const parts = []
+    let rem = line, pk = 0
+    while (rem.length > 0) {
+      const bm = rem.match(/^(.*?)\*\*(.*?)\*\*(.*)$/)
+      const cm = rem.match(/^(.*?)`(.*?)`(.*)$/)
+      if (bm && (!cm || bm[1].length <= cm[1].length)) {
+        if (bm[1]) parts.push(<span key={pk++}>{bm[1]}</span>)
+        parts.push(<strong key={pk++} className="text-white">{bm[2]}</strong>)
+        rem = bm[3]
+      } else if (cm) {
+        if (cm[1]) parts.push(<span key={pk++}>{cm[1]}</span>)
+        parts.push(<code key={pk++} className="bg-navy-700 px-1 rounded text-amber-audit text-xs">{cm[2]}</code>)
+        rem = cm[3]
+      } else { parts.push(<span key={pk++}>{rem}</span>); break }
+    }
+    elements.push(<p key={i} className="text-xs text-steel-200 leading-relaxed my-0.5">{parts}</p>)
     i++
   }
   return <div className="space-y-0.5">{elements}</div>
@@ -69,9 +83,6 @@ function detectContext() {
   const path = window.location.pathname
   let standard = 'General', phase = 'TOD', clause = ''
   if (path.includes('iso19011')) standard = 'ISO 19011'
-  
-  
-  else if (path.includes('iso27005')) standard = 'ISO 27005'
   else if (path.includes('iso9001')) standard = 'ISO 9001'
   else if (path.includes('ims')) standard = 'IMS'
   else if (path.includes('reporting')) standard = 'Reporting'
@@ -89,13 +100,8 @@ function detectContext() {
   else if (path.includes('clause9')) clause = 'Clause 9'
   else if (path.includes('clause10')) clause = 'Clause 10'
   else if (path.includes('register')) clause = 'Risk Register'
-  else if (path.includes('assets')) clause = 'Asset Register'
-  else if (path.includes('rtp')) clause = 'Risk Treatment Plan'
-  else if (path.includes('scenarios')) clause = 'Scenarios'
-  else if (path.includes('organizational')) clause = 'A.5 Organizational'
-  else if (path.includes('people')) clause = 'A.6 People'
-  else if (path.includes('physical')) clause = 'A.7 Physical'
-  else if (path.includes('technological')) clause = 'A.8 Technological'
+  else if (path.includes('gap-analysis')) clause = 'Gap Analysis'
+  else if (path.includes('supplier')) clause = 'Supplier Audit'
   return { standard, phase, clause }
 }
 
@@ -171,19 +177,19 @@ export default function AIPanel({ title, systemPrompt, placeholder, contextField
           {contextFields.map(f => (
             <div key={f.id}>
               <label className="block text-xs text-steel-400 mb-1">{f.label}</label>
-              {f.type === 'textarea' ? <textarea className="textarea-field" rows={3} placeholder={f.placeholder} value={inputs[f.id] || ''} onChange={e => setInputs(p => ({ ...p, [f.id]: e.target.value }))} />
+              {f.type === 'textarea' ? <textarea maxLength={2000} className="textarea-field" rows={3} placeholder={f.placeholder} value={inputs[f.id] || ''} onChange={e => setInputs(p => ({ ...p, [f.id]: e.target.value }))} />
                 : f.type === 'select' ? (
                   <select className="input-field" value={inputs[f.id] || ''} onChange={e => setInputs(p => ({ ...p, [f.id]: e.target.value }))}>
                     <option value="">Select...</option>
                     {f.options?.map(o => <option key={o} value={o}>{o}</option>)}
                   </select>
-                ) : <input className="input-field" type="text" placeholder={f.placeholder} value={inputs[f.id] || ''} onChange={e => setInputs(p => ({ ...p, [f.id]: e.target.value }))} />}
+                ) : <input maxLength={200} className="input-field" type="text" placeholder={f.placeholder} value={inputs[f.id] || ''} onChange={e => setInputs(p => ({ ...p, [f.id]: e.target.value }))} />}
             </div>
           ))}
 
           <div>
             <label className="block text-xs text-steel-400 mb-1">Specific Request (optional)</label>
-            <textarea className="textarea-field" rows={2} placeholder={placeholder} value={inputs.query || ''} onChange={e => setInputs(p => ({ ...p, query: e.target.value }))} />
+            <textarea maxLength={1000} className="textarea-field" rows={2} placeholder={placeholder} value={inputs.query || ''} onChange={e => setInputs(p => ({ ...p, query: e.target.value }))} />
           </div>
 
           <button onClick={generate} disabled={loading} className="btn-primary w-full justify-center">

@@ -51,7 +51,7 @@ function SignOffModal({ wp, onSignOff, onClose }) {
           <div className="bg-navy-800 rounded-lg p-3 text-xs text-steel-300">{wp.title}</div>
           <div>
             <label className="block text-xs text-steel-400 mb-1">Auditor Name *</label>
-            <input className="input-field" placeholder="e.g. Logan — Lead Auditor" value={auditor} onChange={e => setAuditor(e.target.value)} />
+            <input maxLength={200} className="input-field" placeholder="e.g. Logan — Lead Auditor" value={auditor} onChange={e => setAuditor(e.target.value)} />
           </div>
           <div>
             <label className="block text-xs text-steel-400 mb-1">Sign-Off Date</label>
@@ -176,7 +176,7 @@ export default function WorkpaperIndex() {
                     <td className="py-2.5 px-3 text-blue-400 font-mono whitespace-nowrap">{wp.clause_control}</td>
                     <td className="py-2.5 px-3 whitespace-nowrap"><span className={`badge text-xs ${phaseColors[wp.phase] || 'badge-steel'}`}>{wp.phase}</span></td>
                     <td className="py-2.5 px-3 text-steel-300 whitespace-nowrap">
-                      {editingId === wp.id ? <input className="input-field py-0.5 text-xs w-28" value={editForm.auditor} onChange={e => setEditForm(p => ({ ...p, auditor: e.target.value }))} /> : wp.auditor || '—'}
+                      {editingId === wp.id ? <input maxLength={200} className="input-field py-0.5 text-xs w-28" value={editForm.auditor} onChange={e => setEditForm(p => ({ ...p, auditor: e.target.value }))} /> : wp.auditor || '—'}
                     </td>
                     <td className="py-2.5 px-3 whitespace-nowrap">
                       {editingId === wp.id

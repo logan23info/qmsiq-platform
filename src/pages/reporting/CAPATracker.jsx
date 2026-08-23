@@ -70,10 +70,10 @@ function CAPARow({ finding, onUpdate }) {
           ) : (
             <div className="bg-navy-800 rounded-lg p-4 space-y-3">
               <div className="text-xs font-semibold text-white mb-2">Update CAPA Details</div>
-              <div><label className="block text-xs text-steel-400 mb-1">Agreed Corrective Action</label><textarea className="textarea-field" rows={2} value={form.agreed_action} onChange={e => setForm(p => ({ ...p, agreed_action: e.target.value }))} /></div>
-              <div><label className="block text-xs text-steel-400 mb-1">Management Response</label><textarea className="textarea-field" rows={2} value={form.management_response} onChange={e => setForm(p => ({ ...p, management_response: e.target.value }))} /></div>
+              <div><label className="block text-xs text-steel-400 mb-1">Agreed Corrective Action</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.agreed_action} onChange={e => setForm(p => ({ ...p, agreed_action: e.target.value }))} /></div>
+              <div><label className="block text-xs text-steel-400 mb-1">Management Response</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.management_response} onChange={e => setForm(p => ({ ...p, management_response: e.target.value }))} /></div>
               <div className="grid grid-cols-3 gap-3">
-                <div><label className="block text-xs text-steel-400 mb-1">Action Owner</label><input className="input-field" value={form.action_owner} onChange={e => setForm(p => ({ ...p, action_owner: e.target.value }))} /></div>
+                <div><label className="block text-xs text-steel-400 mb-1">Action Owner</label><input maxLength={100} className="input-field" value={form.action_owner} onChange={e => setForm(p => ({ ...p, action_owner: e.target.value }))} /></div>
                 <div><label className="block text-xs text-steel-400 mb-1">Due Date</label><input className="input-field" type="date" value={form.due_date} onChange={e => setForm(p => ({ ...p, due_date: e.target.value }))} /></div>
                 <div><label className="block text-xs text-steel-400 mb-1">Status</label><select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}><option>Open</option><option>CAPA Raised</option><option>Verified Effective</option><option>Closed</option></select></div>
               </div>

@@ -146,7 +146,7 @@ export default function ProgrammeSelector({ onClose }) {
 
             <div>
               <label className="block text-xs text-steel-400 mb-1">Programme Name *</label>
-              <input className="input-field"
+              <input maxLength={200} className="input-field"
                 placeholder="e.g. ISO 9001 Internal Audit 2025"
                 value={form.name}
                 onChange={e => set('name', e.target.value)} />
@@ -154,7 +154,7 @@ export default function ProgrammeSelector({ onClose }) {
 
             <div>
               <label className="block text-xs text-steel-400 mb-1">Audit Scope</label>
-              <input className="input-field"
+              <input maxLength={200} className="input-field"
                 placeholder="e.g. ISO 9001:2015 — all clauses, 3 sites"
                 value={form.scope}
                 onChange={e => set('scope', e.target.value)} />
@@ -178,7 +178,7 @@ export default function ProgrammeSelector({ onClose }) {
             <div className="grid grid-cols-2 gap-3">
               <div>
                 <label className="block text-xs text-steel-400 mb-1">Lead Auditor</label>
-                <input className="input-field"
+                <input maxLength={200} className="input-field"
                   placeholder="e.g. Logan"
                   value={form.lead_auditor}
                   onChange={e => set('lead_auditor', e.target.value)} />
@@ -211,7 +211,7 @@ export default function ProgrammeSelector({ onClose }) {
                 Enter email + role. They get access when they register with that email.
               </p>
               <div className="space-y-2 mb-2">
-                <input className="input-field w-full text-xs"
+                <input maxLength={200} className="input-field w-full text-xs"
                   placeholder="colleague@company.com"
                   type="email"
                   value={inviteEmail}

@@ -30,14 +30,14 @@ function NewPBCModal({ programmeId, userId, onCreated, onClose }) {
       <div className="bg-navy-900 border border-navy-600 rounded-2xl w-full max-w-lg">
         <div className="p-5 border-b border-navy-700 flex items-center justify-between"><h2 className="font-semibold text-white">New PBC Evidence Request</h2><button onClick={onClose} className="text-steel-400 text-lg">×</button></div>
         <div className="p-5 space-y-3">
-          <div><label className="block text-xs text-steel-400 mb-1">Evidence Required *</label><input className="input-field" placeholder="e.g. IS Awareness Training completion records" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Evidence Required *</label><input maxLength={300} className="input-field" placeholder="e.g. IS Awareness Training completion records" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Control Reference</label><input className="input-field" placeholder="e.g. A.6.3" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Control Reference</label><input maxLength={200} className="input-field" placeholder="e.g. A.6.3" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}><option>TOD</option><option>TOI</option><option>TOE</option><option>PBC Evidence</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Domain</label><select className="input-field" value={form.domain} onChange={e => setForm(p => ({ ...p, domain: e.target.value }))}>{['Governance','Planning','Risk','Organizational','People','Physical','Technological','Quality','Improvement'].map(d => <option key={d}>{d}</option>)}</select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Priority</label><select className="input-field" value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value }))}><option>High</option><option>Medium</option><option>Low</option></select></div>
           </div>
-          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
           <div className="flex gap-2"><button onClick={save} disabled={saving || !form.description} className="btn-primary flex-1 justify-center">{saving ? <><Loader2 size={14} className="animate-spin" /> Saving...</> : <><Save size={14} /> Add PBC Item</>}</button><button onClick={onClose} className="btn-secondary">Cancel</button></div>
         </div>
       </div>
@@ -112,7 +112,7 @@ export default function PBCList() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
-            <input className="input-field pl-8 text-xs py-1.5" placeholder="Search evidence, controls, refs..." value={search} onChange={e => setSearch(e.target.value)} />
+            <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search evidence, controls, refs..." value={search} onChange={e => setSearch(e.target.value)} />
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           {[{ label: 'Phase', value: filterPhase, setter: setFilterPhase, options: ['All','TOD','TOI','TOE','PBC Evidence'] }, { label: 'Status', value: filterStatus, setter: setFilterStatus, options: ['All','Received','Pending','Not Started'] }].map(f => (

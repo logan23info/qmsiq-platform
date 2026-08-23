@@ -81,7 +81,7 @@ export default function Profile() {
         <div className="space-y-4">
           <div>
             <label className="block text-xs text-steel-400 mb-1.5">Email Address</label>
-            <input className="input-field opacity-60 cursor-not-allowed" value={user?.email || ''} disabled />
+            <input maxLength={254} className="input-field opacity-60 cursor-not-allowed" value={user?.email || ''} disabled />
             <p className="text-xs text-steel-400 mt-1">Email cannot be changed</p>
           </div>
           {[
@@ -91,7 +91,7 @@ export default function Profile() {
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1.5">{f.label}</label>
-              <input className="input-field" placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
+              <input maxLength={200} className="input-field" placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
             </div>
           ))}
         </div>
@@ -115,7 +115,7 @@ export default function Profile() {
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1.5">{f.label}</label>
-              <input className="input-field" type="password" placeholder={f.placeholder} value={pwForm[f.key]} onChange={e => setPwForm(p => ({ ...p, [f.key]: e.target.value }))} />
+              <input maxLength={128} className="input-field" type="password" placeholder={f.placeholder} value={pwForm[f.key]} onChange={e => setPwForm(p => ({ ...p, [f.key]: e.target.value }))} />
             </div>
           ))}
         </div>

@@ -82,7 +82,7 @@ export default function AuthPage() {
                 <label className="block text-xs text-steel-400 mb-1.5">Full Name</label>
                 <div className="relative">
                   <User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400 pointer-events-none" />
-                  <input className="input-field" type="text" placeholder="e.g. Alex Morgan"
+                  <input maxLength={200} className="input-field" type="text" placeholder="e.g. Alex Morgan"
                     style={{ paddingLeft: '2.25rem' }} value={form.fullName}
                     onChange={e => setForm(p => ({ ...p, fullName: e.target.value }))} />
                 </div>
@@ -92,7 +92,7 @@ export default function AuthPage() {
               <label className="block text-xs text-steel-400 mb-1.5">Email Address</label>
               <div className="relative">
                 <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400 pointer-events-none" />
-                <input className="input-field" type="email" placeholder="you@organisation.com"
+                <input maxLength={254} className="input-field" type="email" placeholder="you@organisation.com"
                   style={{ paddingLeft: '2.25rem' }} value={form.email}
                   onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
                   onKeyDown={e => e.key === 'Enter' && (mode === 'reset' ? handleReset() : handleSubmit())} />
@@ -103,7 +103,7 @@ export default function AuthPage() {
                 <label className="block text-xs text-steel-400 mb-1.5">Password</label>
                 <div className="relative">
                   <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400 pointer-events-none" />
-                  <input className="input-field" type={showPassword ? 'text' : 'password'}
+                  <input maxLength={128} className="input-field" type={showPassword ? 'text' : 'password'}
                     placeholder="Minimum 6 characters"
                     style={{ paddingLeft: '2.25rem', paddingRight: '2.25rem' }}
                     value={form.password}

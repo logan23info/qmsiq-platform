@@ -204,7 +204,7 @@ Generate a complete, professional ${selectedSection?.label} section. Use the act
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1">{f.label}</label>
-              <input className="input-field" placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
+              <input maxLength={200} className="input-field" placeholder={f.placeholder} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
             </div>
           ))}
           <div>
@@ -216,7 +216,7 @@ Generate a complete, professional ${selectedSection?.label} section. Use the act
         </div>
         <div className="mt-4">
           <label className="block text-xs text-steel-400 mb-1">Additional Notes / Context (optional)</label>
-          <textarea className="textarea-field" rows={2} placeholder="e.g. First audit of new cloud infrastructure, management cooperative throughout..." value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} />
+          <textarea maxLength={2000} className="textarea-field" rows={2} placeholder="e.g. First audit of new cloud infrastructure, management cooperative throughout..." value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} />
         </div>
       </div>
 

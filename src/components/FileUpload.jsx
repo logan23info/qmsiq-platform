@@ -191,7 +191,7 @@ export default function FileUpload({ onUploaded }) {
 
           <div>
             <label className="block text-xs text-steel-400 mb-1">Workpaper Title *</label>
-            <input className="input-field" placeholder="e.g. Access Control Policy — TOD Design Review" value={meta.title} onChange={e => setMeta(p => ({ ...p, title: e.target.value }))} />
+            <input maxLength={150} className="input-field" placeholder="e.g. Access Control Policy — TOD Design Review" value={meta.title} onChange={e => setMeta(p => ({ ...p, title: e.target.value }))} />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -218,12 +218,12 @@ export default function FileUpload({ onUploaded }) {
 
           <div>
             <label className="block text-xs text-steel-400 mb-1">Auditor</label>
-            <input className="input-field" placeholder="e.g. John Smith, CISA" value={meta.auditor} onChange={e => setMeta(p => ({ ...p, auditor: e.target.value }))} />
+            <input maxLength={200} className="input-field" placeholder="e.g. John Smith, CISA" value={meta.auditor} onChange={e => setMeta(p => ({ ...p, auditor: e.target.value }))} />
           </div>
 
           <div>
             <label className="block text-xs text-steel-400 mb-1">Notes (optional)</label>
-            <textarea className="textarea-field" rows={2} placeholder="e.g. TOD concluded — design adequate. Proceeding to TOI." value={meta.notes} onChange={e => setMeta(p => ({ ...p, notes: e.target.value }))} />
+            <textarea maxLength={2000} className="textarea-field" rows={2} placeholder="e.g. TOD concluded — design adequate. Proceeding to TOI." value={meta.notes} onChange={e => setMeta(p => ({ ...p, notes: e.target.value }))} />
           </div>
 
           {/* File path preview */}

@@ -43,14 +43,14 @@ function NewEntryModal({ programmeId, userId, onCreated, onClose }) {
           <button onClick={onClose} className="text-steel-400 hover:text-steel-200 text-lg">×</button>
         </div>
         <div className="p-5 space-y-4">
-          <div><label className="block text-xs text-steel-400 mb-1">Audit Area *</label><input className="input-field" placeholder="e.g. ISO 9001 — Full QMS" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Audit Area *</label><input maxLength={300} className="input-field" placeholder="e.g. ISO 9001 — Full QMS" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Standards / Scope</label><input className="input-field" placeholder="e.g. ISO 9001:2015" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Standards / Scope</label><input maxLength={200} className="input-field" placeholder="e.g. ISO 9001:2015" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Risk Level</label><select className="input-field" value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value }))}><option>High</option><option>Medium</option><option>Low</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Status</label><select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}><option>Not Started</option><option>Scheduled</option><option>In Progress</option><option>Complete</option><option>Overdue</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Next Audit Date</label><input className="input-field" type="date" value={form.received_date} onChange={e => setForm(p => ({ ...p, received_date: e.target.value }))} /></div>
           </div>
-          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea className="textarea-field" rows={2} placeholder="e.g. Annual, 2 auditors, 5 days" value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea maxLength={2000} className="textarea-field" rows={2} placeholder="e.g. Annual, 2 auditors, 5 days" value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
           <div className="flex gap-2"><button onClick={save} disabled={saving || !form.description} className="btn-primary flex-1 justify-center">{saving ? <><Loader2 size={14} className="animate-spin" /> Saving...</> : <><Save size={14} /> Add</>}</button><button onClick={onClose} className="btn-secondary">Cancel</button></div>
         </div>
       </div>

@@ -76,13 +76,13 @@ function UploadModal({ onClose, programme, user, onUploaded }) {
             <input id="file-input" type="file" accept={ACCEPTED} className="hidden" onChange={e => e.target.files[0] && handleFile(e.target.files[0])} />
           </div>
 
-          <div><label className="block text-xs text-steel-400 mb-1">Workpaper Title</label><input className="input-field" placeholder="Auto-filled from filename" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Workpaper Title</label><input maxLength={150} className="input-field" placeholder="Auto-filled from filename" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
             <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{STANDARDS.map(s => <option key={s}>{s}</option>)}</select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}>{PHASES.map(p => <option key={p}>{p}</option>)}</select></div>
           </div>
-          <div><label className="block text-xs text-steel-400 mb-1">Clause / Control (optional)</label><input className="input-field" placeholder="e.g. A.8.8, Clause 5.3" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
-          <div><label className="block text-xs text-steel-400 mb-1">Notes (optional)</label><textarea className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Clause / Control (optional)</label><input maxLength={100} className="input-field" placeholder="e.g. A.8.8, Clause 5.3" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Notes (optional)</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
 
           <div className="flex gap-2">
             <button onClick={upload} disabled={uploading || !file} className="btn-primary flex-1 justify-center">
@@ -176,7 +176,7 @@ export default function WorkpaperLibrary() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
-            <input className="input-field pl-8 text-xs py-1.5" placeholder="Search workpapers, refs, controls..." value={search} onChange={e => setSearch(e.target.value)} />
+            <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search workpapers, refs, controls..." value={search} onChange={e => setSearch(e.target.value)} />
             {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           {[

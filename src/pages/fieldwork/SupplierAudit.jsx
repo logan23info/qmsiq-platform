@@ -113,7 +113,7 @@ export default function SupplierAudit() {
             <div>
               <label className="block text-xs text-steel-400 mb-1">Supplier name</label>
               <div className="flex gap-2">
-                <input className="input-field flex-1"
+                <input maxLength={200} className="input-field flex-1"
                   placeholder="e.g. Acme Components Ltd"
                   value={supplierName}
                   onChange={e => setSupplierName(e.target.value)} />

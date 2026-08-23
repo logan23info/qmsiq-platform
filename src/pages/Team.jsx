@@ -243,7 +243,7 @@ export default function Team() {
               </div>
             )}
             <div className="flex flex-col sm:flex-row gap-2">
-              <input className="input-field flex-1 text-xs"
+              <input maxLength={200} className="input-field flex-1 text-xs"
                 placeholder="Paste User ID (uuid format)..."
                 value={userId}
                 disabled={!isLead}
