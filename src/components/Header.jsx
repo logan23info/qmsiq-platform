@@ -134,19 +134,19 @@ export default function Header({ onMenuClick }) {
 
       {/* Programme selector button */}
       <button onClick={() => setShowSelector(true)}
-        className="flex items-center gap-2 bg-navy-800 border border-navy-600 rounded-lg px-3 py-1.5 hover:border-steel-400 transition-colors max-w-48">
-        <span className="text-amber-audit text-sm">🗂</span>
-        <span className="text-xs text-white truncate">
-          {activeProgramme?.programme_id || 'Select Programme'}
+        className="flex items-center gap-1.5 bg-navy-800 border border-navy-600 rounded-lg px-2.5 py-1.5 hover:border-steel-400 transition-colors max-w-[180px] sm:max-w-xs">
+        <span className="text-amber-audit text-sm flex-shrink-0">🗂</span>
+        <span className="text-xs text-white truncate min-w-0">
+          {activeProgramme?.name || activeProgramme?.programme_id || 'Select Programme'}
         </span>
         {myRole && (
-          <span className={`text-xs px-1.5 py-0.5 rounded font-medium flex-shrink-0 ${
+          <span className={`hidden sm:inline text-xs px-1.5 py-0.5 rounded font-medium flex-shrink-0 ${
             myRole === 'lead' ? 'bg-amber-900/50 text-amber-300' :
             myRole === 'auditor' ? 'bg-blue-900/50 text-blue-300' :
             'bg-purple-900/50 text-purple-300'
           }`}>{myRole}</span>
         )}
-        <span className="text-steel-400 text-xs">▾</span>
+        <span className="text-steel-400 text-xs flex-shrink-0">▾</span>
       </button>
       {showSelector && (
         <ProgrammeSelector onClose={() => setShowSelector(false)} />

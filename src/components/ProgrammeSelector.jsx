@@ -134,8 +134,8 @@ export default function ProgrammeSelector({ onClose }) {
 
   if (mode === 'new' || mode === 'edit') {
     return (
-      <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-        <div className="bg-navy-900 border border-navy-600 rounded-2xl w-full max-w-lg max-h-[92vh] overflow-y-auto">
+      <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center sm:p-4">
+        <div className="bg-navy-900 border border-navy-600 rounded-t-2xl sm:rounded-2xl w-full sm:max-w-lg max-h-[92vh] overflow-y-auto">
           <div className="p-5 border-b border-navy-700 flex items-center justify-between">
             <h2 className="font-semibold text-white">
               {mode === 'new' ? 'New Audit Programme' : 'Edit Programme'}
@@ -258,8 +258,8 @@ export default function ProgrammeSelector({ onClose }) {
 
   // List mode
   return (
-    <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-      <div className="bg-navy-900 border border-navy-600 rounded-2xl w-full max-w-md max-h-[80vh] flex flex-col">
+    <div className="fixed inset-0 bg-black/60 z-50 flex items-end sm:items-center justify-center sm:p-4">
+      <div className="bg-navy-900 border border-navy-600 rounded-t-2xl sm:rounded-2xl w-full sm:max-w-md max-h-[85vh] flex flex-col">
         <div className="p-5 border-b border-navy-700 flex items-center justify-between flex-shrink-0">
           <div className="flex items-center gap-2">
             <FolderOpen size={15} className="text-amber-audit" />
