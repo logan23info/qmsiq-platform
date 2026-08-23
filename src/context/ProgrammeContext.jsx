@@ -27,6 +27,13 @@ export function ProgrammeProvider({ children }) {
     } catch (e) { console.error(e); return [] }
   }, [user])
 
+  // Reload programmes when profile triggers fire (invite matching)
+  useEffect(() => {
+    const handler = () => reload()
+    window.addEventListener('profile-ready', handler)
+    return () => window.removeEventListener('profile-ready', handler)
+  }, [reload])
+
   useEffect(() => {
     if (!user) { setProgrammes([]); setActiveProgrammeState(null); return }
     const load = async () => {
@@ -34,7 +41,6 @@ export function ProgrammeProvider({ children }) {
       try {
         const data = await getProgrammes(user.id)
         setProgrammes(data || [])
-        // Fix 5 — restore active programme from localStorage
         const savedId = localStorage.getItem('auditiq-active-programme')
         if (savedId && data?.length > 0) {
           const found = data.find(p => p.id === savedId)

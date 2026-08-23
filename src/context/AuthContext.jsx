@@ -42,6 +42,8 @@ export function AuthProvider({ children }) {
           .select()
           .maybeSingle()
         setProfile(upserted ?? { id: userId })
+        // Small delay to allow DB triggers to fire (invite matching)
+        setTimeout(() => window.dispatchEvent(new Event('profile-ready')), 800)
       } else {
         setProfile(data)
       }
