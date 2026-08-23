@@ -49,13 +49,43 @@ export async function deleteFile(filePath) {
 
 // ─── AUDIT PROGRAMMES ────────────────────────────────────────
 export async function getProgrammes(userId) {
-  const { data, error } = await supabase
+  // Fetch programmes owned by user
+  const { data: owned, error: ownedErr } = await supabase
     .from('audit_programmes')
     .select('*')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
-  if (error) throw error
-  return data
+  if (ownedErr) throw ownedErr
+
+  // Fetch programmes user is a member of (invited)
+  const { data: memberships } = await supabase
+    .from('programme_members')
+    .select('programme_id, role')
+    .eq('user_id', userId)
+
+  let shared = []
+  if (memberships && memberships.length > 0) {
+    const ownedIds = (owned || []).map(p => p.id)
+    const memberIds = memberships
+      .map(m => m.programme_id)
+      .filter(id => !ownedIds.includes(id))
+
+    if (memberIds.length > 0) {
+      const { data: memberProgs } = await supabase
+        .from('audit_programmes')
+        .select('*')
+        .in('id', memberIds)
+        .order('created_at', { ascending: false })
+
+      // Tag each with member role
+      shared = (memberProgs || []).map(p => {
+        const membership = memberships.find(m => m.programme_id === p.id)
+        return { ...p, _memberRole: membership?.role }
+      })
+    }
+  }
+
+  return [...(owned || []), ...shared]
 }
 
 export async function createProgramme(programme) {
