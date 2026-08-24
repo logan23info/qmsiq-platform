@@ -1,6 +1,6 @@
 import { log, logError } from '../lib/logger'
 import { useState, useCallback } from 'react'
-import { Plus, FolderOpen, Edit2, X, Loader2, Check, UserPlus } from 'lucide-react'
+import { Plus, FolderOpen, Edit2, X, Loader2, Check, UserPlus, Trash2 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useProgramme } from '../context/ProgrammeContext'
 import { useTeam } from '../context/TeamContext'
