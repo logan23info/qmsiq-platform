@@ -370,7 +370,14 @@ export async function getGapAnalysis(programmeId) {
   return data
 }
 
-export async function upsertGapAnalysis(programmeId, userId, ratings) {
+export async function upsertGapAnalysis(programmeId, userId, ratings, knownUpdatedAt = null) {
+  // Optimistic locking — if someone else saved since we loaded, warn rather than silently overwrite
+  if (knownUpdatedAt) {
+    const { data: current } = await supabase.from('gap_analysis').select('updated_at').eq('programme_id', programmeId).maybeSingle()
+    if (current?.updated_at && current.updated_at !== knownUpdatedAt) {
+      throw new Error('CONFLICT: Gap analysis was updated by another team member. Reload to see the latest version before saving.')
+    }
+  }
   const { data, error } = await supabase.from('gap_analysis').upsert(
     { programme_id: programmeId, user_id: userId, ratings, updated_at: new Date().toISOString() },
     { onConflict: 'programme_id' }

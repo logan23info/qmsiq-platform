@@ -91,6 +91,7 @@ export default function GapAnalysis() {
   const [notes, setNotes] = useState({})
   const [saving, setSaving] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [lastUpdatedAt, setLastUpdatedAt] = useState(null)
 
   const storageKey = activeProgramme ? `gap_${activeProgramme.id}` : null
 
@@ -98,7 +99,7 @@ export default function GapAnalysis() {
     if (!storageKey) return
     const load = async () => {
       const data = await getGapAnalysis(activeProgramme.id)
-      if (data) { setRatings(data.ratings || {}); setNotes(data.notes || {}) }
+      if (data) { setRatings(data.ratings || {}); setNotes(data.notes || {}); setLastUpdatedAt(data.updated_at || null) }
       setLoaded(true)
     }
     load().catch(() => {
@@ -112,11 +113,16 @@ export default function GapAnalysis() {
   const save = async () => {
     setSaving(true)
     try {
-      await upsertGapAnalysis(activeProgramme.id, user.id, ratings)
+      const saved = await upsertGapAnalysis(activeProgramme.id, user.id, ratings, lastUpdatedAt)
+      setLastUpdatedAt(saved.updated_at)
       toast('Gap analysis saved')
-    } catch {
-      localStorage.setItem(storageKey, JSON.stringify({ ratings, notes }))
-      toast('Saved locally')
+    } catch (e) {
+      if (e.message?.startsWith('CONFLICT')) {
+        toast(e.message, 'error', 6000)
+      } else {
+        localStorage.setItem(storageKey, JSON.stringify({ ratings, notes }))
+        toast('Saved locally')
+      }
     }
     setSaving(false)
   }
