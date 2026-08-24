@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Download, FileText, FileSpreadsheet, ChevronDown, X } from 'lucide-react'
 import { exportReportPDF } from '../lib/exportPDF'
-import { exportFindingsXLSX, exportRisksXLSX, exportCAPAXLSX, exportGapAnalysisXLSX, exportPBCXLSX } from '../lib/exportXLSX'
 import { useToast } from './Toast'
 
 export default function ExportMenu({ type, data, report, programme, gapRatings, gapNotes }) {
@@ -9,27 +8,19 @@ export default function ExportMenu({ type, data, report, programme, gapRatings, 
   const { toast } = useToast()
   const progName = programme?.name || programme?.programme_id || 'Export'
 
-  const handleExport = (format) => {
+  const handleExport = async (format) => {
     setOpen(false)
     try {
       if (type === 'report' && format === 'pdf') {
         exportReportPDF({ report, findings: data, programme })
         toast('PDF opened — use browser Print → Save as PDF')
-      } else if (type === 'findings' && format === 'xlsx') {
-        exportFindingsXLSX(data, progName)
-        toast('Findings exported to Excel')
-      } else if (type === 'risks' && format === 'xlsx') {
-        exportRisksXLSX(data, progName)
-        toast('Risk register exported to Excel')
-      } else if (type === 'capa' && format === 'xlsx') {
-        exportCAPAXLSX(data, progName)
-        toast('CAPA tracker exported to Excel')
-      } else if (type === 'gap' && format === 'xlsx') {
-        exportGapAnalysisXLSX(gapRatings, gapNotes, progName)
-        toast('Gap analysis exported to Excel')
-      } else if (type === 'pbc' && format === 'xlsx') {
-        exportPBCXLSX(data, progName)
-        toast('PBC list exported to Excel')
+      } else if (format === 'xlsx') {
+        const { exportFindingsXLSX, exportRisksXLSX, exportCAPAXLSX, exportGapAnalysisXLSX, exportPBCXLSX } = await import('../lib/exportXLSX')
+        if (type === 'findings') { exportFindingsXLSX(data, progName); toast('Findings exported to Excel') }
+        else if (type === 'risks') { exportRisksXLSX(data, progName); toast('Risk register exported to Excel') }
+        else if (type === 'capa') { exportCAPAXLSX(data, progName); toast('CAPA tracker exported to Excel') }
+        else if (type === 'gap') { exportGapAnalysisXLSX(gapRatings, gapNotes, progName); toast('Gap analysis exported to Excel') }
+        else if (type === 'pbc') { exportPBCXLSX(data, progName); toast('PBC list exported to Excel') }
       }
     } catch (e) {
       toast('Export failed: ' + e.message, 'error')
