@@ -3,6 +3,7 @@ import { useState, useCallback } from 'react'
 import { Plus, FolderOpen, Edit2, X, Loader2, Check, UserPlus } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { useProgramme } from '../context/ProgrammeContext'
+import { useTeam } from '../context/TeamContext'
 import { getProgrammes, createProgramme, updateProgramme } from '../lib/supabase'
 import { supabase } from '../lib/supabase'
 import { useToast } from './Toast'
@@ -22,6 +23,7 @@ const emptyForm = {
 export default function ProgrammeSelector({ onClose }) {
   const { user } = useAuth()
   const { programmes, activeProgramme, setActiveProgramme, reload } = useProgramme()
+  const { isLead } = useTeam()
   const { toast } = useToast()
   const [mode, setMode] = useState('list')
   const [form, setForm] = useState(emptyForm)
@@ -271,7 +273,7 @@ export default function ProgrammeSelector({ onClose }) {
 
         {/* Skip option */}
         <div className="px-4 pt-3 pb-0">
-          <button onClick={onClose}
+          <button onClick={() => { setActiveProgramme(null); onClose?.() }}
             className="w-full text-xs text-steel-500 hover:text-steel-300 text-center py-1 transition-colors">
             Continue without selecting a programme →
           </button>
@@ -298,9 +300,17 @@ export default function ProgrammeSelector({ onClose }) {
                   </div>
                 </div>
                 <button onClick={e => { e.stopPropagation(); startEdit(p) }}
+                  aria-label="Edit programme"
                   className="text-steel-500 hover:text-white p-1.5 rounded-lg hover:bg-navy-600 flex-shrink-0 transition-colors">
                   <Edit2 size={13} />
                 </button>
+                {isLead && activeProgramme?.id === p.id && (
+                  <button onClick={e => { e.stopPropagation(); handleDelete(p) }}
+                    aria-label="Delete programme"
+                    className="text-steel-500 hover:text-red-400 p-1.5 rounded-lg hover:bg-navy-600 flex-shrink-0 transition-colors">
+                    <Trash2 size={13} />
+                  </button>
+                )}
               </div>
             ))
           )}

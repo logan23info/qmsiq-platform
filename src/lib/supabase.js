@@ -421,3 +421,8 @@ export async function bulkInsertWorkpapers(rows) {
   const { error } = await supabase.from('workpapers').insert(rows)
   if (error) throw error
 }
+
+export async function deleteProgramme(id) {
+  const { error } = await supabase.from('audit_programmes').delete().eq('id', id)
+  if (error) throw error
+}
