@@ -56,7 +56,7 @@ export default function Profile() {
   const changePassword = async () => {
     setPwError(''); setPwSaved(false)
     if (pwForm.newPw !== pwForm.confirm) { setPwError('Passwords do not match.'); return }
-    if (pwForm.newPw.length < 6) { setPwError('Password must be at least 6 characters.'); return }
+    if (pwForm.newPw.length < 10) { setPwError('Password must be at least 10 characters.'); return }
     setSavingPw(true)
     try {
       const { error } = await supabase.auth.updateUser({ password: pwForm.newPw })
@@ -110,7 +110,7 @@ export default function Profile() {
         </div>
         <div className="space-y-4">
           {[
-            { key: 'newPw', label: 'New Password', placeholder: 'Minimum 6 characters' },
+            { key: 'newPw', label: 'New Password', placeholder: 'Minimum 10 characters' },
             { key: 'confirm', label: 'Confirm New Password', placeholder: 'Repeat new password' },
           ].map(f => (
             <div key={f.key}>

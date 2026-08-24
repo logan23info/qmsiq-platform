@@ -16,7 +16,7 @@ export default function AuthPage() {
     setError(''); setSuccess('')
     if (!form.email || !form.password) { setError('Email and password are required.'); return }
     if (mode === 'signup' && !form.fullName) { setError('Full name is required.'); return }
-    if (form.password.length < 6) { setError('Password must be at least 6 characters.'); return }
+    if (form.password.length < 10) { setError('Password must be at least 10 characters.'); return }
     setLoading(true)
     try {
       if (mode === 'signin') {
@@ -104,7 +104,7 @@ export default function AuthPage() {
                 <div className="relative">
                   <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400 pointer-events-none" />
                   <input maxLength={128} className="input-field" type={showPassword ? 'text' : 'password'}
-                    placeholder="Minimum 6 characters"
+                    placeholder="Minimum 10 characters"
                     style={{ paddingLeft: '2.25rem', paddingRight: '2.25rem' }}
                     value={form.password}
                     onChange={e => setForm(p => ({ ...p, password: e.target.value }))}
