@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, Loader2, Save, Trash2, Search, X, Shield, FileDown } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -84,7 +85,7 @@ export default function RiskRegisterLive() {
     if (!activeProgramme) return
     setLoading(true)
     try { setRisks(await getRisks(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -122,7 +123,7 @@ export default function RiskRegisterLive() {
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
             <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search asset, threat, ref..." value={search} onChange={e => setSearch(e.target.value)} />
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400"><X size={12} /></button>}
+            {search && <button onClick={() => setSearch('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400"><X size={12} /></button>}
           </div>
           {['All','Critical','High','Medium','Low'].map(f => (
             <button key={f} onClick={() => setFilter(f)} className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${filter === f ? 'bg-navy-700 border-steel-400 text-white' : 'bg-navy-800 border-navy-600 text-steel-400 hover:border-steel-400'}`}>{f}</button>
@@ -162,7 +163,7 @@ export default function RiskRegisterLive() {
                           </select>
                         </td>
                         <td className="py-2.5 px-3 text-steel-300">{r.risk_owner}</td>
-                        <td className="py-2.5 px-3"><button onClick={() => handleDelete(r.id, r.risk_ref)} className="text-steel-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button></td>
+                        <td className="py-2.5 px-3"><button onClick={() => handleDelete(r.id, r.risk_ref)} aria-label="Delete risk" className="text-steel-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button></td>
                       </tr>
                     )
                   })}

@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, Globe, Loader2, Save, CheckCircle2, AlertTriangle, Clock } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -20,7 +21,7 @@ function NewEntryModal({ programmeId, userId, onCreated, onClose }) {
     if (!form.description) return
     setSaving(true)
     try { const e = await createUniverseEntry({ user_id: userId, programme_id: programmeId, description: form.description, control_ref: form.control_ref, priority: form.priority, status: form.status, notes: form.notes, received_date: form.received_date || null, pbc_ref: 'AU-TMP', phase: form.status }); onCreated(e); onClose() }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setSaving(false)
   }
   return (
@@ -59,7 +60,7 @@ export default function AuditUniverseLive() {
     if (!activeProgramme) return
     setLoading(true)
     try { setEntries(await getUniverseEntries(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -68,7 +69,7 @@ export default function AuditUniverseLive() {
   const updateStatus = async (id, status) => {
     setUpdatingId(id)
     try { const updated = await updateUniverseEntry(id, { status }); setEntries(prev => prev.map(e => e.id === id ? updated : e)); toast('Status updated to ' + status) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setUpdatingId(null)
   }
 

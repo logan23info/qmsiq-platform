@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { FileText, Send, Loader2, Download, Copy, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -46,7 +47,7 @@ export default function ReportBuilder() {
     try {
       const [f, r] = await Promise.all([getFindings(activeProgramme.id), getRisks(activeProgramme.id)])
       setFindings(f); setRisks(r)
-    } catch (e) { console.error(e) }
+    } catch (e) { logError(e) }
     setLoadingData(false)
   }, [activeProgramme])
 

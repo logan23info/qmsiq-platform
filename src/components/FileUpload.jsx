@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { useState, useRef } from 'react'
 import { Upload, File, CheckCircle2, AlertCircle, Loader2, Download, Trash2, ExternalLink } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -122,7 +123,7 @@ export default function FileUpload({ onUploaded }) {
       onUploaded?.(wp)
 
     } catch (err) {
-      console.error('Upload error:', err)
+      logError('Upload error:', err)
       setError(err.message || 'Upload failed. Please try again.')
     } finally {
       setUploading(false)

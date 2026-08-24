@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, CheckCircle2, Circle, AlertTriangle, Clock, Loader2, Save } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -37,7 +38,7 @@ function NewControlModal({ programmeId, userId, onCreated, onClose }) {
     if (!form.title) return
     setSaving(true)
     try { const item = await createTrackerItem({ ...form, user_id: userId, programme_id: programmeId, status: 'Not Started' }); onCreated(item); onClose() }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setSaving(false)
   }
   return (
@@ -78,7 +79,7 @@ export default function FieldworkTracker() {
     if (!activeProgramme) return
     setLoading(true)
     try { setItems(await getTrackerItems(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -87,7 +88,7 @@ export default function FieldworkTracker() {
   const updateStatus = async (id, status) => {
     setUpdatingId(id)
     try { const updated = await updateTrackerItem(id, { status }); setItems(prev => prev.map(i => i.id === id ? updated : i)); toast('Status updated to ' + status) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setUpdatingId(null)
   }
 

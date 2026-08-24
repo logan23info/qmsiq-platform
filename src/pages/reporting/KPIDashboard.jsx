@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { TrendingUp, TrendingDown, Minus, AlertTriangle, CheckCircle2, FileText, Shield, Loader2 } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -50,7 +51,7 @@ export default function KPIDashboard() {
         getPBCItems(activeProgramme.id),
       ])
       setData({ workpapers, findings, risks, pbc })
-    } catch (e) { console.error(e) }
+    } catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 

@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Upload, FileText, Download, Trash2, Loader2, FolderOpen, Search, X, CloudUpload } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -114,7 +115,7 @@ export default function WorkpaperLibrary() {
     if (!activeProgramme) return
     setLoading(true)
     try { setWorkpapers(await getWorkpapers(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -177,7 +178,7 @@ export default function WorkpaperLibrary() {
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
             <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search workpapers, refs, controls..." value={search} onChange={e => setSearch(e.target.value)} />
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
+            {search && <button onClick={() => setSearch('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           {[
             { label: 'Standard', value: filterStandard, setter: setFilterStandard, options: standards },

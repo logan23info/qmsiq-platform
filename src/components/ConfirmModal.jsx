@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 // Styled confirmation modal — replaces window.confirm()
 // Usage:
 // const [confirm, setConfirm] = useState(null)
@@ -12,7 +13,7 @@ export default function ConfirmModal({ title, message, confirmLabel = 'Delete', 
 
   const handle = async () => {
     setLoading(true)
-    try { await onConfirm() } catch (e) { console.error(e) }
+    try { await onConfirm() } catch (e) { logError(e) }
     setLoading(false)
     onClose()
   }

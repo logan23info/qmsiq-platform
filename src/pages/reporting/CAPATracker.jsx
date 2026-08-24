@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, CheckCircle2, Clock, AlertTriangle, Loader2, Save, ChevronDown, ChevronUp } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -22,7 +23,7 @@ function CAPARow({ finding, onUpdate }) {
   const save = async () => {
     setSaving(true)
     try { const updated = await updateFinding(finding.id, form); onUpdate(updated) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setSaving(false); setEditing(false)
   }
 
@@ -112,7 +113,7 @@ export default function CAPATracker() {
     if (!activeProgramme) return
     setLoading(true)
     try { setFindings(await getFindings(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 

@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { useState, useCallback } from 'react'
 import { Plus, FolderOpen, Edit2, X, Loader2, Check, UserPlus } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -70,10 +71,10 @@ export default function ProgrammeSelector({ onClose }) {
             toast(`${invite.email} already registered — added as ${invite.role}`)
           }
         } else {
-          console.error('Invite failed for', invite.email, result.error)
+          logError('Invite failed for', invite.email, result.error)
           toast(`Failed for ${invite.email}: ${result.error}`, 'error')
         }
-      } catch (e) { console.error('Invite failed:', invite.email, e) }
+      } catch (e) { logError('Invite failed:', invite.email, e) }
     }
     if (sent > 0) toast(`${sent} invite email${sent > 1 ? 's' : ''} sent`)
     if (sent < invites.length) toast(`${invites.length - sent} invite(s) failed — check emails`, 'error')

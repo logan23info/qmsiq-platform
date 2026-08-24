@@ -1,13 +1,24 @@
+import { log, logError } from './logger'
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Missing Supabase environment variables. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.')
+  logError('Missing Supabase environment variables. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.')
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+/**
+ * @typedef {{ id: string, full_name: string, role: string, organisation: string, updated_at?: string }} Profile
+ * @typedef {{ id: string, user_id: string, programme_id: string, name: string, standards: string[], status: string, programme_type: string, lead_auditor: string, audit_period_start?: string, audit_period_end?: string }} Programme
+ * @typedef {{ id: string, programme_id: string, user_id: string, title: string, workpaper_ref: string, standard: string, clause_control: string, phase: string, status: string, notes?: string, ai_generated_content?: string, file_path?: string }} Workpaper
+ * @typedef {{ id: string, programme_id: string, user_id: string, finding_ref: string, title: string, status: string, rating: string, clause: string, description?: string, evidence?: string }} Finding
+ * @typedef {{ id: string, programme_id: string, user_id: string, risk_ref: string, title: string, likelihood: string, impact: string, status: string, description?: string, treatment?: string }} Risk
+ * @typedef {{ id: string, programme_id: string, user_id: string, pbc_ref: string, description: string, status: string, priority: string, domain?: string }} PBCItem
+ * @typedef {{ id: string, programme_id: string, user_id: string, role: string, invited_email?: string, invited_by?: string, joined_at?: string }} Member
+ */
+
 
 // ─── FILE PATH BUILDER ────────────────────────────────────────
 // Structure: {userId}/{programmeId}/{standard}/{phase}/{prefix}_{filename}

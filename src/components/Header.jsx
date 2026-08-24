@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { useState, useRef, useEffect } from 'react'
 import { Menu, Bell, Search, X, ArrowRight, LogOut, User, Sun, Moon } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -85,7 +86,7 @@ export default function Header({ onMenuClick }) {
         })
 
         setNotifications(notifs.slice(0, 5))
-      } catch (e) { console.error(e) }
+      } catch (e) { logError(e) }
     }
     load()
   }, [activeProgramme])

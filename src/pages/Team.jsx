@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { useState, useEffect } from 'react'
 import { Users, UserPlus, Trash2, Crown, Eye, Edit2, Loader2, Check, Copy, Shield } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
@@ -91,7 +92,7 @@ export default function Team() {
       ])
       setMembers(mems)
       setMyRole(role)
-    } catch (e) { console.error(e) }
+    } catch (e) { logError(e) }
     setLoading(false)
   }
 

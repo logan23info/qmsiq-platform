@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { createContext, useContext, useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import { useAuth } from './AuthContext'
@@ -25,7 +26,7 @@ export function TeamProvider({ children }) {
         const mine = (data || []).find(m => m.user_id === user.id)
         // If no member record found, user is the programme owner = lead
         setMyRole(mine?.role || (activeProgramme.user_id === user.id ? 'lead' : null))
-      } catch (e) { console.error(e) }
+      } catch (e) { logError(e) }
       setLoading(false)
     }
     load()

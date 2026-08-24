@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, CheckCircle2, Circle, Clock, Loader2, Save, Trash2, Search, X, Filter, FileDown } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -63,7 +64,7 @@ export default function PBCList() {
     if (!activeProgramme) return
     setLoading(true)
     try { setItems(await getPBCItems(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -113,7 +114,7 @@ export default function PBCList() {
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
             <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search evidence, controls, refs..." value={search} onChange={e => setSearch(e.target.value)} />
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
+            {search && <button onClick={() => setSearch('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           {[{ label: 'Phase', value: filterPhase, setter: setFilterPhase, options: ['All','TOD','TOI','TOE','PBC Evidence'] }, { label: 'Status', value: filterStatus, setter: setFilterStatus, options: ['All','Received','Pending','Not Started'] }].map(f => (
             <div key={f.label} className="flex items-center gap-1.5">
@@ -146,7 +147,7 @@ export default function PBCList() {
                     <td className="py-2.5 px-3"><span className={`badge ${phaseColors[item.phase] || 'badge-steel'}`}>{item.phase}</span></td>
                     <td className="py-2.5 px-3"><span className={`badge ${item.priority === 'High' ? 'bg-red-900/30 text-red-300' : item.priority === 'Medium' ? 'bg-amber-900/30 text-amber-300' : 'badge-steel'}`}>{item.priority}</span></td>
                     <td className="py-2.5 px-3"><select className="input-field py-0.5 text-xs w-28" value={item.status} disabled={updatingId === item.id} onChange={e => updateStatus(item.id, e.target.value)}><option>Not Started</option><option>Pending</option><option>Received</option></select></td>
-                    <td className="py-2.5 px-3"><button onClick={() => handleDelete(item.id, item.pbc_ref)} className="text-steel-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button></td>
+                    <td className="py-2.5 px-3"><button onClick={() => handleDelete(item.id, item.pbc_ref)} aria-label="Delete item" className="text-steel-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button></td>
                   </tr>
                 ))}
               </tbody>

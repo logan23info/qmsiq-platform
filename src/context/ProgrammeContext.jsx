@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import { useAuth } from './AuthContext'
 import { getProgrammes } from '../lib/supabase'
@@ -24,7 +25,7 @@ export function ProgrammeProvider({ children }) {
       const data = await getProgrammes(user.id)
       setProgrammes(data || [])
       return data || []
-    } catch (e) { console.error(e); return [] }
+    } catch (e) { logError(e); return [] }
   }, [user])
 
   // Reload programmes when profile triggers fire (invite matching)
@@ -48,7 +49,7 @@ export function ProgrammeProvider({ children }) {
         } else if (data?.length > 0) {
           setActiveProgrammeState(data[0])
         }
-      } catch (e) { console.error(e) }
+      } catch (e) { logError(e) }
       setLoading(false)
     }
     load()

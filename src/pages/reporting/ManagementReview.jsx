@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { BarChart2, CheckCircle2, AlertTriangle, TrendingUp, Loader2, FileText } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -38,7 +39,7 @@ export default function ManagementReview() {
     try {
       const [f, r, w] = await Promise.all([getFindings(activeProgramme.id), getRisks(activeProgramme.id), getWorkpapers(activeProgramme.id)])
       setFindings(f); setRisks(r); setWorkpapers(w)
-    } catch (e) { console.error(e) }
+    } catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 

@@ -1,3 +1,4 @@
+import { log, logError } from '../lib/logger'
 import { createContext, useContext, useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 
@@ -42,13 +43,18 @@ export function AuthProvider({ children }) {
           .select()
           .maybeSingle()
         setProfile(upserted ?? { id: userId })
-        // Small delay to allow DB triggers to fire (invite matching)
-        setTimeout(() => window.dispatchEvent(new Event('profile-ready')), 800)
+        // Listen for programme_members trigger (invite matching) then notify
+        const channel = supabase.channel(`member-match-${userId}`)
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'programme_members', filter: `user_id=eq.${userId}` },
+            () => { window.dispatchEvent(new Event('profile-ready')); supabase.removeChannel(channel) }
+          ).subscribe()
+        // Fallback after 3s if realtime doesn't respond
+        setTimeout(() => { window.dispatchEvent(new Event('profile-ready')); supabase.removeChannel(channel) }, 3000)
       } else {
         setProfile(data)
       }
     } catch (e) {
-      console.error('Profile fetch error:', e)
+      logError('Profile fetch error:', e)
       setProfile({ id: userId })
     } finally {
       setLoading(false)

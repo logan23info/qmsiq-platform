@@ -46,10 +46,10 @@ export function ToastProvider({ children }) {
         {toasts.map(t => {
           const Icon = icons[t.type] || Info
           return (
-            <div key={t.id} className={`flex items-center gap-3 px-4 py-3 rounded-xl border shadow-2xl text-sm max-w-sm pointer-events-auto ${colors[t.type]} ${t.exiting ? 'toast-exit' : 'toast-enter'}`}>
+            <div key={t.id} role="alert" aria-live="polite" className={`flex items-center gap-3 px-4 py-3 rounded-xl border shadow-2xl text-sm max-w-sm pointer-events-auto ${colors[t.type]} ${t.exiting ? 'toast-exit' : 'toast-enter'}`}>
               <Icon size={16} className={`flex-shrink-0 ${iconColors[t.type]}`} />
               <span className="flex-1 leading-snug">{t.message}</span>
-              <button onClick={() => dismiss(t.id)} className="opacity-60 hover:opacity-100 flex-shrink-0">
+              <button onClick={() => dismiss(t.id)} aria-label="Dismiss notification" className="opacity-60 hover:opacity-100 flex-shrink-0">
                 <X size={14} />
               </button>
             </div>

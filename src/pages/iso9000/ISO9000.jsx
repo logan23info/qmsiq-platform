@@ -76,7 +76,7 @@ export default function ISO9000() {
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
             <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search terms or definitions..."
               value={search} onChange={e => setSearch(e.target.value)} />
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400"><X size={12} /></button>}
+            {search && <button onClick={() => setSearch('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400"><X size={12} /></button>}
           </div>
           <div className="flex flex-wrap gap-1.5">
             {categories.map(c => (

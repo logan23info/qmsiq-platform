@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, AlertTriangle, CheckCircle2, Clock, Loader2, ChevronDown, ChevronUp, Save, Trash2, Search, X, FileDown } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -215,7 +216,7 @@ export default function FindingRegister() {
     if (!activeProgramme) return
     setLoading(true)
     try { setFindings(await getFindings(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -270,7 +271,7 @@ export default function FindingRegister() {
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
             <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search findings, refs, controls..."
               value={search} onChange={e => setSearch(e.target.value)} />
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
+            {search && <button onClick={() => setSearch('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           <div className="flex gap-1.5 flex-wrap">
             {['All', 'Open', 'CAPA Raised', 'Verified Effective', 'Closed', 'Major NC', 'Minor NC', 'Observation'].map(f => (

@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { FileText, Loader2, CheckCircle2, Clock, Edit2, Save, X, Trash2, FileDown } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -87,7 +88,7 @@ export default function WorkpaperIndex() {
     if (!activeProgramme) return
     setLoading(true)
     try { setWorkpapers(await getWorkpapers(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -102,7 +103,7 @@ export default function WorkpaperIndex() {
       setWorkpapers(prev => prev.map(w => w.id === id ? updated : w))
       setEditingId(null)
       toast('Workpaper updated')
-    } catch (e) { console.error(e) }
+    } catch (e) { logError(e) }
     setSaving(false)
   }
 
@@ -189,12 +190,12 @@ export default function WorkpaperIndex() {
                       {editingId === wp.id ? (
                         <div className="flex gap-1">
                           <button onClick={() => saveEdit(wp.id)} disabled={saving} className="text-emerald-400 hover:text-emerald-300"><Save size={13} /></button>
-                          <button onClick={() => setEditingId(null)} className="text-steel-400 hover:text-steel-200"><X size={13} /></button>
+                          <button onClick={() => setEditingId(null)} aria-label="Cancel edit" className="text-steel-400 hover:text-steel-200"><X size={13} /></button>
                         </div>
-                      ) : <button onClick={() => startEdit(wp)} className="text-steel-400 hover:text-amber-audit transition-colors"><Edit2 size={13} /></button>}
+                      ) : <button onClick={() => startEdit(wp)} aria-label="Edit workpaper" className="text-steel-400 hover:text-amber-audit transition-colors"><Edit2 size={13} /></button>}
                     </td>
                     <td className="py-2.5 px-3 whitespace-nowrap">
-                      <button onClick={() => setConfirmDel({ title: `Delete ${wp.workpaper_ref}?`, message: `"${wp.title}" will be permanently deleted.`, onConfirm: async () => { await deleteWorkpaperRecord(wp.id); setWorkpapers(prev => prev.filter(w => w.id !== wp.id)); toast(`${wp.workpaper_ref} deleted`, 'info') } })} className="text-steel-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
+                      <button onClick={() => setConfirmDel({ title: `Delete ${wp.workpaper_ref}?`, message: `"${wp.title}" will be permanently deleted.`, onConfirm: async () => { await deleteWorkpaperRecord(wp.id); setWorkpapers(prev => prev.filter(w => w.id !== wp.id)); toast(`${wp.workpaper_ref} deleted`, 'info') } })} className="text-steel-500 hover:text-red-400 transition-colors" aria-label="Delete workpaper"><Trash2 size={13} /></button>
                     </td>
                   </tr>
                 ))}
