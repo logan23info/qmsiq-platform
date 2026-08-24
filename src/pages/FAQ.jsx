@@ -13,7 +13,7 @@ const sections = [
       { q: 'What do the nav sections mean?',
         a: 'The sidebar is split into two clear workflows. "Conduct an Audit" covers audit methodology (ISO 19011), audit types (surveillance, internal, supplier), and audit execution (PBC, fieldwork tracker, findings, workpapers, report). "Review Your QMS" covers gap analysis, risk register, CAPA, KPI dashboard, management review, and audit universe. The ISO 9001 reference pages support the review workflow — each clause explains what is required and how to assess it.' },
       { q: 'What does ⭐ Live mean on some pages?',
-        a: 'Live pages connect to your Supabase database in real time. Data is stored per programme, shared with your invited team members, and persists across sessions. PBC list, finding register, fieldwork tracker, risk register, CAPA tracker, KPI dashboard, and audit universe are all live. Reference pages (ISO 19011, ISO 9001 clauses, terminology) are built-in content — no database connection needed.' },
+        a: 'Live pages connect to the platform database in real time. Data is stored per programme, shared with your invited team members, and persists across sessions. PBC list, finding register, fieldwork tracker, risk register, CAPA tracker, KPI dashboard, and audit universe are all live. Reference pages (ISO 19011, ISO 9001 clauses, terminology) are built-in content — no database connection needed.' },
       { q: 'Can I use QMSiQ for multiple clients?',
         a: 'Yes. Create one audit programme per client engagement. The programme selector in the header lets you switch between clients instantly. All live data (findings, risks, workpapers, PBC) is scoped to the active programme. The All Programmes page gives you a card overview of every programme with status, quick links, and progress at a glance.' },
     ]
@@ -29,6 +29,8 @@ const sections = [
         a: 'Major NC — a significant failure to meet an ISO 9001 requirement that could affect the certification or the quality of products/services. Often indicates a systemic failure or complete absence of a required control. Minor NC — a single lapse or isolated failure in an otherwise functioning system. The requirement exists and is largely met, but there is a specific gap. Observation — a situation that is not currently a nonconformity but could become one if not addressed. Also used for improvement opportunities. The Finding Register uses these three ratings plus Advisory for recommendations beyond the standard.' },
       { q: 'What goes in the PBC list?',
         a: 'PBC (Provided By Client) is the evidence list you send to the auditee before the audit. Add every document, record, or data item you need to review — quality policy, process maps, training records, supplier scorecards, inspection records, management review minutes, internal audit reports. Set priority (High/Medium/Low), assign a domain (e.g. Clause 8, Supplier Management), and track receipt status. The PBC list is shared with your team in real time.' },
+      { q: 'How does the Supplier Audit work?',
+        a: 'The Supplier Audit template (ISO 9001 Cl.8.4) pre-loads a standard set of PBC evidence requests and workpaper sections relevant to supplier evaluation and control. Select it when creating a new programme with type \'Supplier Audit\'. This gives you a ready-made structure for auditing supplier quality agreements, performance data, approved supplier lists, and incoming inspection records — without starting from a blank slate.' },
       { q: 'How does the Audit Report Builder work?',
         a: 'The Report Builder pulls your live finding register data into a structured formal report. Add a client organisation name, executive summary, audit scope, methodology, and conclusions. Findings are automatically grouped and formatted. You can edit narrative sections and download the complete report. The report reflects the state of your finding register at the time of generation.' },
     ]
@@ -68,6 +70,8 @@ const sections = [
         a: 'The AI panels on reference pages work from your text inputs only. The AI panels on live pages (Finding Register, CAPA Tracker, KPI Dashboard) can include your live data in the prompt — for example, generating a management review summary using your actual finding counts and CAPA status. This is opt-in per generation.' },
       { q: 'What if the AI is unavailable?',
         a: 'If the AI service is unavailable, you will see a brief error message. All other platform features — live data, reference content, fieldwork tracker, finding register — continue to work normally. The AI is supplementary, not required for the core workflow.' },
+      { q: 'Do I get notified when a CAPA is due?',
+        a: 'Yes. The platform sends email reminders to the assigned action owner 7 days before a CAPA due date. Reminders are sent automatically each day for any CAPA in status \'CAPA Raised\' with a due date within the next 7 days. Make sure the action owner field in the CAPA Tracker contains the team member\'s name as registered on the platform.' },
     ]
   },
 ]

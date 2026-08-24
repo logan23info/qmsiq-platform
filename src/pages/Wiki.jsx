@@ -18,6 +18,7 @@ Both activities live in one platform because they feed each other. Audit finding
     title: 'Conduct an Audit — step by step',
     steps: [
       { ref: 'Step 1', label: 'Create an audit programme', path: '/', desc: 'Click Select Programme → New Programme. Enter the programme name, audit scope, dates, and lead auditor. Invite team members with their roles (Auditor, Reviewer) directly in the creation form.' },
+      { ref: 'Step 1b', label: 'Use a Supplier Audit template (optional)', path: '/fieldwork/supplier', desc: 'If auditing a supplier against ISO 9001 Cl.8.4, select programme type Supplier Audit. This pre-loads 12 PBC evidence requests and 6 workpaper sections covering supplier agreements, performance records, and approved supplier lists.' },
       { ref: 'Step 2', label: 'Plan the audit (ISO 19011 Cl. 5)', path: '/iso19011/clause5', desc: 'Review the Audit Programme Management page to understand how to set objectives, assign resources, and schedule audits across the year.' },
       { ref: 'Step 3', label: 'Initiate (ISO 19011 Cl. 6.2)', path: '/iso19011/clause6-initiation', desc: 'Formal audit initiation — confirm mandate, define audit scope and objectives, assign the audit team, and confirm feasibility.' },
       { ref: 'Step 4', label: 'Prepare (ISO 19011 Cl. 6.3)', path: '/iso19011/clause6-preparation', desc: 'Document review (TOD), prepare the audit plan, create PBC evidence requests, and assign workpaper sections to team members.' },
@@ -33,7 +34,7 @@ Both activities live in one platform because they feed each other. Audit finding
     steps: [
       { ref: 'Step 1', label: 'Run a gap analysis', path: '/fieldwork/gap-analysis', desc: 'Rate every ISO 9001:2015 requirement (Cl.4–10) as Green (conforms), Amber (partial), Red (not in place), or N/A. Add notes per item. The readiness score updates live. Use this before Stage 1 audit or when starting a new client engagement.' },
       { ref: 'Step 2', label: 'Maintain the risk register', path: '/reporting/risks', desc: 'Log quality risks — process risks, supplier risks, customer satisfaction risks. Score likelihood × impact. Assign treatment and owner. Review quarterly.' },
-      { ref: 'Step 3', label: 'Track CAPA', path: '/reporting/capa', desc: 'Every finding from an audit should become a corrective action. Log the nonconformity, root cause, agreed action, owner, and due date. Track to verified closure.' },
+      { ref: 'Step 3', label: 'Track CAPA', path: '/reporting/capa', desc: 'Every finding from an audit should become a corrective action. Log the nonconformity, root cause, agreed action, owner, and due date. Track to verified closure. Action owners are automatically emailed 7 days before a due date.' },
       { ref: 'Step 4', label: 'Monitor KPIs', path: '/reporting/kpi', desc: 'Track quality KPIs — CAPA closure rate, customer complaint rate, nonconformity trends, supplier performance. Use to demonstrate continual improvement.' },
       { ref: 'Step 5', label: 'Prepare management review', path: '/reporting/management-review', desc: 'ISO 9001 Cl.9.3 requires management review at planned intervals. The pack covers all mandatory inputs (audit results, customer satisfaction, CAPA status, objectives progress) and documents outputs (decisions, actions, resources).' },
       { ref: 'Step 6', label: 'Plan next year\'s audits', path: '/reporting/universe', desc: 'The Audit Universe is your annual audit schedule. Add all processes and clauses in scope, assign risk ratings, and set planned audit dates. Track completion across the year.' },
@@ -75,11 +76,11 @@ Auditor — can create and edit findings, workpapers, risks, and PBC items. Cann
 
 Reviewer — read-only plus sign-off. Can view all data, sign off workpapers, and close findings. Cannot create or delete. Typical for technical reviewers, quality directors, or client representatives.
 
-Your role is shown as a badge next to the programme selector in the header. Permissions are enforced automatically — you will not see buttons that your role cannot use.`
+Your role is shown as a badge next to the programme selector in the header. Permissions are enforced automatically — you will not see buttons that your role cannot use. Passwords must be at least 10 characters.`
   },
   {
     title: 'Live pages — what they mean',
-    content: `Pages marked ⭐ Live connect to your Supabase database in real time — data is stored, shared with your team, and persists across sessions.
+    content: `Pages marked ⭐ Live connect to the platform database in real time — data is stored, shared with your team, and persists across sessions.
 
 PBC Evidence List ⭐ — evidence requests sent to the client. All team members see the same list.
 Fieldwork Tracker ⭐ — workpaper status per control or clause. Team progress visible to all.
