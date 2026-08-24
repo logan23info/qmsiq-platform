@@ -42,41 +42,22 @@ function MarkdownOutput({ text }) {
 }
 
 async function callAI(systemPrompt, userMessage) {
-  const groqKey = import.meta.env.VITE_GROQ_API_KEY
-  const openaiKey = import.meta.env.VITE_OPENAI_API_KEY
-  const anthropicKey = import.meta.env.VITE_ANTHROPIC_API_KEY
-
-  if (groqKey) {
-    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${groqKey}` },
-      body: JSON.stringify({ model: 'openai/gpt-oss-20b', max_tokens: 1500, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }] })
-    })
-    if (!response.ok) { const err = await response.json().catch(() => ({})); throw new Error(err?.error?.message || `Groq error ${response.status}`) }
-    const data = await response.json()
-    return data.choices?.[0]?.message?.content || ''
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+  const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !supabaseKey) throw new Error('NO_KEY')
+  const response = await fetch(`${supabaseUrl}/functions/v1/ai-generate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${supabaseKey}` },
+    body: JSON.stringify({ systemPrompt, userMessage })
+  })
+  const data = await response.json()
+  if (!response.ok || data.error) {
+    const msg = data.error || `Error ${response.status}`
+    if (msg === 'NO_KEY') throw new Error('NO_KEY')
+    if (response.status === 429 || msg.includes('429')) throw new Error('429')
+    throw new Error(msg)
   }
-  if (openaiKey) {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${openaiKey}` },
-      body: JSON.stringify({ model: 'gpt-4o-mini', max_tokens: 1500, messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: userMessage }] })
-    })
-    if (!response.ok) { const err = await response.json().catch(() => ({})); throw new Error(err?.error?.message || `OpenAI error ${response.status}`) }
-    const data = await response.json()
-    return data.choices?.[0]?.message?.content || ''
-  }
-  if (anthropicKey) {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': anthropicKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-calls': 'true' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1000, system: systemPrompt, messages: [{ role: 'user', content: userMessage }] })
-    })
-    if (!response.ok) { const err = await response.json().catch(() => ({})); throw new Error(err?.error?.message || `Anthropic error ${response.status}`) }
-    const data = await response.json()
-    return data.content?.map(b => b.text || '').join('\n') || ''
-  }
-  throw new Error('NO_KEY')
+  return data.content || ''
 }
 
 function detectContext() {
@@ -158,7 +139,7 @@ export default function AIPanel({ title, systemPrompt, placeholder, contextField
     const a = document.createElement('a'); a.href = url; a.download = `${title.replace(/\s+/g, '_')}.txt`; a.click(); URL.revokeObjectURL(url)
   }
 
-  const activeProvider = import.meta.env.VITE_GROQ_API_KEY ? 'AI-Powered' : import.meta.env.VITE_OPENAI_API_KEY ? 'AI-Powered' : import.meta.env.VITE_ANTHROPIC_API_KEY ? 'AI-Powered' : 'No AI key'
+  const activeProvider = 'AI-Powered'
 
   return (
     <div className="ai-panel mt-6">

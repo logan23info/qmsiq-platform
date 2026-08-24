@@ -3,7 +3,7 @@ import { User, Save, Loader2, CheckCircle2, Key } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import { useAuth } from '../context/AuthContext'
 import { Copy, Check } from 'lucide-react'
-import { supabase } from '../lib/supabase'
+import { supabase, upsertProfile } from '../lib/supabase'
 
 function UserIdCard({ userId }) {
   const [copied, setCopied] = useState(false)
@@ -45,7 +45,7 @@ export default function Profile() {
   const saveProfile = async () => {
     setSaving(true); setError(''); setSaved(false)
     try {
-      const { error } = await supabase.from('profiles').upsert({ id: user.id, ...form, updated_at: new Date().toISOString() })
+      const { error } = await upsertProfile(user.id, form).then(() => ({})).catch(e => ({ error: e }))
       if (error) throw error
       setSaved(true)
       setTimeout(() => setSaved(false), 3000)

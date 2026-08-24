@@ -352,3 +352,43 @@ export async function getMyRole(programmeId) {
   if (error) return null
   return data?.role
 }
+
+// ─── GAP ANALYSIS ─────────────────────────────────────────────
+export async function getGapAnalysis(programmeId) {
+  const { data } = await supabase.from('gap_analysis').select('*').eq('programme_id', programmeId).maybeSingle()
+  return data
+}
+
+export async function upsertGapAnalysis(programmeId, userId, ratings) {
+  const { data, error } = await supabase.from('gap_analysis').upsert(
+    { programme_id: programmeId, user_id: userId, ratings, updated_at: new Date().toISOString() },
+    { onConflict: 'programme_id' }
+  ).select().single()
+  if (error) throw error
+  return data
+}
+
+// ─── AUDIT UNIVERSE PBC ────────────────────────────────────────
+export async function getAuditUniverseItems(programmeId) {
+  const { data, error } = await supabase.from('pbc_items').select('*').eq('programme_id', programmeId).eq('domain', 'AuditUniverse').order('created_at', { ascending: true })
+  if (error) throw error
+  return data || []
+}
+
+export async function createAuditUniverseItem(entry) {
+  const { data, error } = await supabase.from('pbc_items').insert({ ...entry, domain: 'AuditUniverse' }).select().single()
+  if (error) throw error
+  return data
+}
+
+export async function updateAuditUniverseItem(id, updates) {
+  const { data, error } = await supabase.from('pbc_items').update(updates).eq('id', id).select().single()
+  if (error) throw error
+  return data
+}
+
+// ─── PROFILE ──────────────────────────────────────────────────
+export async function upsertProfile(userId, updates) {
+  const { error } = await supabase.from('profiles').upsert({ id: userId, ...updates, updated_at: new Date().toISOString() })
+  if (error) throw error
+}

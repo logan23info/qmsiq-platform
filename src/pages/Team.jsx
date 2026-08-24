@@ -20,15 +20,13 @@ async function getMembers(programmeId) {
     .order('joined_at', { ascending: true })
   if (error) throw error
   if (!data || data.length === 0) return []
-  const members = await Promise.all(data.map(async (m) => {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('full_name, role, organisation')
-      .eq('id', m.user_id)
-      .maybeSingle()
-    return { ...m, profiles: profile || null }
-  }))
-  return members
+  const userIds = data.map(m => m.user_id).filter(Boolean)
+  const { data: profiles } = await supabase
+    .from('profiles')
+    .select('id, full_name, role, organisation')
+    .in('id', userIds)
+  const profileMap = Object.fromEntries((profiles || []).map(p => [p.id, p]))
+  return data.map(m => ({ ...m, profiles: profileMap[m.user_id] || null }))
 }
 
 async function getMyRole(programmeId, userId) {

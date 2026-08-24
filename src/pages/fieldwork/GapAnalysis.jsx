@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import PageHeader from '../../components/PageHeader'
 import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { supabase } from '../../lib/supabase'
+import { getGapAnalysis, upsertGapAnalysis } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import { Save, RefreshCw } from 'lucide-react'
@@ -97,10 +97,7 @@ export default function GapAnalysis() {
   useEffect(() => {
     if (!storageKey) return
     const load = async () => {
-      const { data } = await supabase.from('gap_analysis')
-        .select('ratings, notes')
-        .eq('programme_id', activeProgramme.id)
-        .maybeSingle()
+      const data = await getGapAnalysis(activeProgramme.id)
       if (data) { setRatings(data.ratings || {}); setNotes(data.notes || {}) }
       setLoaded(true)
     }
@@ -115,12 +112,7 @@ export default function GapAnalysis() {
   const save = async () => {
     setSaving(true)
     try {
-      await supabase.from('gap_analysis').upsert({
-        programme_id: activeProgramme.id,
-        user_id: user.id,
-        ratings, notes,
-        updated_at: new Date().toISOString(),
-      }, { onConflict: 'programme_id' })
+      await upsertGapAnalysis(activeProgramme.id, user.id, ratings)
       toast('Gap analysis saved')
     } catch {
       localStorage.setItem(storageKey, JSON.stringify({ ratings, notes }))

@@ -3,27 +3,15 @@ import { Plus, Globe, Loader2, Save, CheckCircle2, AlertTriangle, Clock } from '
 import PageHeader from '../../components/PageHeader'
 import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { supabase } from '../../lib/supabase'
+import { getAuditUniverseItems, createAuditUniverseItem, updateAuditUniverseItem } from '../../lib/supabase'
 import AIPanel from '../../components/AIPanel'
 import { useToast } from '../../components/Toast'
 
 const riskColors = { High: 'bg-red-900/30 text-red-300', Medium: 'bg-amber-900/30 text-amber-300', Low: 'bg-navy-700 text-steel-400' }
 
-async function getUniverseEntries(programmeId) {
-  const { data, error } = await supabase.from('pbc_items').select('*').eq('programme_id', programmeId).eq('domain', 'AuditUniverse').order('created_at', { ascending: true })
-  if (error) throw error
-  return data
-}
-async function createUniverseEntry(entry) {
-  const { data, error } = await supabase.from('pbc_items').insert({ ...entry, domain: 'AuditUniverse' }).select().single()
-  if (error) throw error
-  return data
-}
-async function updateUniverseEntry(id, updates) {
-  const { data, error } = await supabase.from('pbc_items').update(updates).eq('id', id).select().single()
-  if (error) throw error
-  return data
-}
+const getUniverseEntries = getAuditUniverseItems
+const createUniverseEntry = createAuditUniverseItem
+const updateUniverseEntry = updateAuditUniverseItem
 
 function NewEntryModal({ programmeId, userId, onCreated, onClose }) {
   const [form, setForm] = useState({ description: '', control_ref: '', priority: 'High', status: 'Not Started', notes: '', received_date: '' })
