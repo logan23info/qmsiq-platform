@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import PageHeader from '../../components/PageHeader'
 import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { supabase } from '../../lib/supabase'
+import { bulkInsertPBCItems, bulkInsertWorkpapers } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import { CheckCircle2, Plus, Loader2, ArrowRight } from 'lucide-react'
@@ -54,7 +54,7 @@ export default function SupplierAudit() {
         description: `[${supplierName}] ${p.description}`,
         status: 'Not Started',
       }))
-      const { error: pbcErr } = await supabase.from('pbc_items').insert(pbcRows)
+      await bulkInsertPBCItems(pbcRows); const pbcErr = null
       if (pbcErr) throw pbcErr
 
       // Insert workpapers
@@ -69,7 +69,7 @@ export default function SupplierAudit() {
         status: 'Planned',
         notes: `TOD: ${w.tod}\n\nTOI: ${w.toi}\n\nTOE: ${w.toe}`,
       }))
-      const { error: wpErr } = await supabase.from('workpapers').insert(wpRows)
+      await bulkInsertWorkpapers(wpRows); const wpErr = null
       if (wpErr) throw wpErr
 
       setDone(true)

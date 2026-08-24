@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { supabase } from '../../lib/supabase'
+import { getWorkpapers, createWorkpaper, updateWorkpaper } from '../../lib/supabase'
 
 const statusColors = { 'Complete': 'text-emerald-400', 'In Progress': 'text-amber-audit', 'Not Started': 'text-steel-500', 'Exception': 'text-red-400', 'N/A': 'text-steel-600' }
 const phaseConfig = {
@@ -15,21 +15,9 @@ const phaseConfig = {
   TOE: { color: 'bg-emerald-900/40 text-emerald-300 border-emerald-800', label: 'Test of Effectiveness' },
 }
 
-async function getTrackerItems(programmeId) {
-  const { data, error } = await supabase.from('workpapers').select('*').eq('programme_id', programmeId).order('created_at', { ascending: true })
-  if (error) throw error
-  return data
-}
-async function createTrackerItem(item) {
-  const { data, error } = await supabase.from('workpapers').insert(item).select().single()
-  if (error) throw error
-  return data
-}
-async function updateTrackerItem(id, updates) {
-  const { data, error } = await supabase.from('workpapers').update(updates).eq('id', id).select().single()
-  if (error) throw error
-  return data
-}
+const getTrackerItems = (programmeId) => getWorkpapers(programmeId)
+const createTrackerItem = (item) => createWorkpaper(item)
+const updateTrackerItem = (id, updates) => updateWorkpaper(id, updates)
 
 function NewControlModal({ programmeId, userId, onCreated, onClose }) {
   const [form, setForm] = useState({ title: '', standard: 'ISO 9001:2015', clause_control: '', phase: 'TOD', auditor: '', notes: '' })

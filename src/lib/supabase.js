@@ -410,3 +410,14 @@ export async function upsertProfile(userId, updates) {
   const { error } = await supabase.from('profiles').upsert({ id: userId, ...updates, updated_at: new Date().toISOString() })
   if (error) throw error
 }
+
+// ─── BULK INSERT ──────────────────────────────────────────────
+export async function bulkInsertPBCItems(rows) {
+  const { error } = await supabase.from('pbc_items').insert(rows)
+  if (error) throw error
+}
+
+export async function bulkInsertWorkpapers(rows) {
+  const { error } = await supabase.from('workpapers').insert(rows)
+  if (error) throw error
+}

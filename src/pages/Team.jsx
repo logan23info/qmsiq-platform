@@ -60,11 +60,6 @@ async function changeRole(memberId, role) {
   return data
 }
 
-async function removeMember(memberId) {
-  const { error } = await supabase.from('programme_members').delete().eq('id', memberId)
-  if (error) throw error
-}
-
 function RoleBadge({ role }) {
   const cfg = roleConfig[role] || roleConfig.auditor
   return <span className={`badge border text-xs ${cfg.color}`}>{cfg.label}</span>

@@ -173,7 +173,7 @@ export default function Header({ onMenuClick }) {
           <div className="absolute right-0 top-10 w-80 bg-navy-900 border border-navy-600 rounded-xl shadow-2xl overflow-hidden z-50">
             <div className="flex items-center gap-2 px-3 py-2.5 border-b border-navy-700">
               <Search size={13} className="text-steel-400 flex-shrink-0" />
-              <input autoFocus type="text" placeholder="Search all modules..." value={searchQuery}
+              <input autoFocus type="text" maxLength={100} placeholder="Search all modules..." value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)} className="flex-1 bg-transparent text-sm text-white placeholder-steel-400 outline-none" />
               {searchQuery && <button onClick={() => setSearchQuery('')} className="text-steel-400 hover:text-steel-200"><X size={12} /></button>}
             </div>
