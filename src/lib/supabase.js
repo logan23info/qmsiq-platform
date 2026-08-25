@@ -278,11 +278,16 @@ export async function deleteWorkpaperRecord(id) {
 export async function getProgrammeMembers(programmeId) {
   const { data, error } = await supabase
     .from('programme_members')
-    .select('*, profiles(full_name, role, organisation)')
+    .select('id, programme_id, user_id, role, invited_by, invited_email, joined_at')
     .eq('programme_id', programmeId)
     .order('joined_at', { ascending: true })
   if (error) throw error
-  return data
+  if (!data || data.length === 0) return []
+  const userIds = data.map(m => m.user_id).filter(Boolean)
+  const { data: profiles } = await supabase
+    .from('profiles').select('id, full_name, role, organisation').in('id', userIds)
+  const pm = Object.fromEntries((profiles || []).map(p => [p.id, p]))
+  return data.map(m => ({ ...m, profiles: pm[m.user_id] || null }))
 }
 
 export async function inviteMember(programmeId, email, role = 'auditor', invitedBy) {

@@ -20,9 +20,15 @@ export function TeamProvider({ children }) {
       try {
         const { data } = await supabase
           .from('programme_members')
-          .select('*, profiles(full_name, organisation)')
+          .select('id, programme_id, user_id, role, invited_by, invited_email, joined_at')
           .eq('programme_id', activeProgramme.id)
-        setMembers(data || [])
+        const uids = (data || []).map(m => m.user_id).filter(Boolean)
+        const { data: profiles } = uids.length
+          ? await supabase.from('profiles').select('id, full_name, organisation').in('id', uids)
+          : { data: [] }
+        const pm = Object.fromEntries((profiles || []).map(p => [p.id, p]))
+        const enriched = (data || []).map(m => ({ ...m, profiles: pm[m.user_id] || null }))
+        setMembers(enriched)
         const mine = (data || []).find(m => m.user_id === user.id)
         // If no member record found, user is the programme owner = lead
         setMyRole(mine?.role || (activeProgramme.user_id === user.id ? 'lead' : null))
