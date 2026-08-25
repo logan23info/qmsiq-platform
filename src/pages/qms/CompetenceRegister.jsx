@@ -24,7 +24,8 @@ export default function CompetenceRegister() {
   const [form, setForm] = useState(EMPTY)
   const [editing, setEditing] = useState(null)
   const [showForm, setShowForm] = useState(false)
-  const canEdit = !isReviewer
+  const isOwner = activeProgramme?.user_id === user?.id
+  const canEdit = isOwner || !isReviewer
 
   useEffect(() => {
     if (!activeProgramme) return

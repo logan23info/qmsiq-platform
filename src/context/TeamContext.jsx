@@ -40,7 +40,7 @@ export function TeamProvider({ children }) {
 
   const isLead = myRole === 'lead'
   const isAuditor = myRole === 'auditor' || myRole === 'lead'
-  const isReviewer = myRole === 'reviewer' || myRole === 'auditor' || myRole === 'lead'
+  const isReviewer = myRole === 'reviewer'
   const canEdit = isAuditor
   const canDelete = isLead || myRole === 'auditor'
   const canManageTeam = isLead

@@ -19,7 +19,8 @@ export default function ContextForm() {
   const toast = useToast()
   const [form, setForm] = useState(EMPTY)
   const [saving, setSaving] = useState(false)
-  const canEdit = !isReviewer
+  const isOwner = activeProgramme?.user_id === user?.id
+  const canEdit = isOwner || !isReviewer
 
   useEffect(() => {
     if (!activeProgramme) return
