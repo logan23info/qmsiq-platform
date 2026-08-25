@@ -507,3 +507,17 @@ export const getDocuments = (pid) => qmsGet('qms_documents', pid)
 export const createDocument = (pid, uid, r) => qmsInsert('qms_documents', pid, uid, r)
 export const updateDocument = (id, r) => qmsUpdate('qms_documents', id, r)
 export const deleteDocument = (id) => qmsDelete('qms_documents', id)
+
+// ─── QMS XLSX export helpers ───────────────────────────────
+export async function getAllQMSData(programmeId) {
+  const [ctx, sth, pol, obj, chg, cmp, doc] = await Promise.all([
+    qmsGetOne('qms_context', programmeId),
+    qmsGet('qms_stakeholders', programmeId),
+    qmsGetOne('qms_policy', programmeId),
+    qmsGet('qms_objectives', programmeId),
+    qmsGet('qms_changes', programmeId),
+    qmsGet('qms_competence', programmeId),
+    qmsGet('qms_documents', programmeId),
+  ])
+  return { ctx, sth, pol, obj, chg, cmp, doc }
+}

@@ -1,4 +1,4 @@
-import { Trash2, Edit2, Sparkles } from 'lucide-react'
+import { Trash2, Edit2, Sparkles, AlertCircle } from 'lucide-react'
 
 const STATUS_COLORS = {
   Draft: 'text-amber-400 bg-amber-900/20',
@@ -38,7 +38,15 @@ export default function QMSRecordTable({ columns, rows, onEdit, onDelete, canEdi
         <tbody>
           {rows.map((row, i) => (
             <tr key={row.id || i} className="border-b border-navy-700/50 hover:bg-navy-800/40 transition-colors">
-              {columns.map(c => (
+              {row._pending && (
+                <td colSpan={columns.length + 1} className="px-3 py-1.5">
+                  <div className="flex items-center gap-2 text-xs text-amber-400 bg-amber-900/20 border border-amber-800/40 rounded-lg px-3 py-1.5">
+                    <AlertCircle size={11} className="flex-shrink-0" />
+                    UNSAVED DRAFT — open record and click Save to confirm, or it will be lost on page reload.
+                  </div>
+                </td>
+              )}
+              {!row._pending && columns.map(c => (
                 <td key={c.key} className="px-3 py-2.5 text-steel-300 max-w-xs">
                   {c.key === 'status' ? (
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${STATUS_COLORS[row[c.key]] || 'text-steel-400'}`}>
@@ -51,6 +59,7 @@ export default function QMSRecordTable({ columns, rows, onEdit, onDelete, canEdi
                   )}
                 </td>
               ))}
+              {row._pending && null}
               {(canEdit || canDelete) && (
                 <td className="px-3 py-2.5">
                   <div className="flex gap-1">

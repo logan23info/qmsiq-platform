@@ -7,7 +7,7 @@ import { useTeam } from '../../context/TeamContext'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import { getObjectives, createObjective, updateObjective, deleteObjective } from '../../lib/supabase'
-import { Plus, Save, X } from 'lucide-react'
+import { Plus, Save, X, Download } from 'lucide-react'
 
 const COLUMNS = [{'key': 'objective', 'label': 'Objective'}, {'key': 'measure', 'label': 'Measure'}, {'key': 'target', 'label': 'Target'}, {'key': 'owner', 'label': 'Owner'}, {'key': 'due_date', 'label': 'Due date'}, {'key': 'status', 'label': 'Status'}]
 const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOURCE OF TRUTH] Use ONLY the structured organisation context provided. [DETERMINISM] If industry or products are missing, return exactly: INSUFFICIENT_DATA [OUTPUT] JSON array only — each object: {"objective":"SMART objective statement","measure":"how it will be measured","target":"[SAMPLE X%] — never invent real numbers","owner":"responsible role title","due_date":"ISO date 12 months from today","process_area":"relevant process","status":"On Track"} Generate minimum 4 objectives covering: customer satisfaction, product quality, process efficiency, continual improvement. [FABRICATION GUARD] Targets MUST use [SAMPLE X%] placeholder. No real percentages or financial figures.`
@@ -26,6 +26,36 @@ export default function ObjectivesRegister() {
   const [showForm, setShowForm] = useState(false)
   const isOwner = activeProgramme?.user_id === user?.id
   const canEdit = isOwner || !isReviewer
+  const hasPending = rows.some(r => r._pending)
+
+  useEffect(() => {
+    const onUnload = (e) => { if (hasPending) { e.preventDefault(); e.returnValue = '' } }
+    window.addEventListener('beforeunload', onUnload)
+    return () => window.removeEventListener('beforeunload', onUnload)
+  }, [hasPending])
+
+  const saveAllPending = async () => {
+    const pending = rows.filter(r => r._pending)
+    if (!pending.length) return
+    let saved = 0, failed = 0
+    const updates = [...rows]
+    for (const r of pending) {
+      try {
+        const { _pending, id: _id, ...data } = r
+        const created = await createObjective(activeProgramme.id, user.id, data)
+        const idx = updates.findIndex(x => x.id === r.id)
+        if (idx !== -1) updates[idx] = created
+        saved++
+      } catch { failed++ }
+    }
+    setRows([...updates])
+    toast(failed ? `Saved ${saved}, ${failed} failed` : `${saved} draft${saved > 1 ? 's' : ''} saved`)
+  }
+
+  const exportXLSX = async () => {
+    const { exportObjectivesXLSX } = await import('../../lib/exportXLSX')
+    exportObjectivesXLSX(rows, activeProgramme?.name || activeProgramme?.programme_id)
+  }
 
   useEffect(() => {
     if (!activeProgramme) return
@@ -93,6 +123,21 @@ export default function ObjectivesRegister() {
       )}
       {canEdit && !showForm && (
         <button onClick={() => setShowForm(true)} className="btn-secondary text-sm mb-4"><Plus size={13} /> Add record</button>
+      )}
+      {hasPending && (
+        <div className="flex items-center justify-between bg-amber-900/20 border border-amber-800/40 rounded-xl px-4 py-3 mb-3">
+          <span className="text-xs text-amber-400">{rows.filter(r=>r._pending).length} unsaved AI draft{rows.filter(r=>r._pending).length > 1 ? 's' : ''} — save before leaving this page</span>
+          <button onClick={saveAllPending} className="btn-primary text-xs flex items-center gap-1.5">
+            <Save size={12} /> Save all drafts
+          </button>
+        </div>
+      )}
+      {rows.filter(r=>!r._pending).length > 0 && (
+        <div className="flex justify-end mb-2">
+          <button onClick={exportXLSX} className="btn-secondary text-xs flex items-center gap-1.5">
+            <Download size={12} /> Export XLSX
+          </button>
+        </div>
       )}
       <QMSRecordTable columns={COLUMNS} rows={rows} onEdit={startEdit} onDelete={remove} canEdit={canEdit} canDelete={isLead} />
     </div>

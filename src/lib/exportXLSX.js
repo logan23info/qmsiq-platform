@@ -204,3 +204,60 @@ export function exportPBCXLSX(items, programmeName) {
   XLSX.utils.book_append_sheet(wb, ws, 'PBC List')
   XLSX.writeFile(wb, `QMSiQ_PBC_${programmeName || 'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
 }
+
+// ─── QMS Implementation exports ───────────────────────────
+export function exportStakeholdersXLSX(rows, prog) {
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(rows.filter(r=>!r._pending).map(r=>({
+    'Stakeholder': r.name, 'Category': r.category, 'Needs & Expectations': r.needs,
+    'Relevance': r.relevance, 'Review Date': r.review_date, 'AI Generated': r.ai_generated ? 'Yes' : 'No'
+  })))
+  autoWidth(ws, rows); ws['!freeze'] = { xSplit:0, ySplit:1 }
+  XLSX.utils.book_append_sheet(wb, ws, 'Interested Parties')
+  XLSX.writeFile(wb, `QMSiQ_Stakeholders_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
+}
+
+export function exportObjectivesXLSX(rows, prog) {
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(rows.filter(r=>!r._pending).map(r=>({
+    'Objective': r.objective, 'Measure': r.measure, 'Target': r.target,
+    'Owner': r.owner, 'Process Area': r.process_area, 'Due Date': r.due_date,
+    'Status': r.status, 'AI Generated': r.ai_generated ? 'Yes' : 'No'
+  })))
+  autoWidth(ws, rows); ws['!freeze'] = { xSplit:0, ySplit:1 }
+  XLSX.utils.book_append_sheet(wb, ws, 'Quality Objectives')
+  XLSX.writeFile(wb, `QMSiQ_Objectives_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
+}
+
+export function exportChangesXLSX(rows, prog) {
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(rows.filter(r=>!r._pending).map(r=>({
+    'Description': r.description, 'Reason': r.reason, 'Impact': r.impact,
+    'Owner': r.owner, 'Planned Date': r.planned_date, 'Status': r.status
+  })))
+  autoWidth(ws, rows); ws['!freeze'] = { xSplit:0, ySplit:1 }
+  XLSX.utils.book_append_sheet(wb, ws, 'Change Register')
+  XLSX.writeFile(wb, `QMSiQ_Changes_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
+}
+
+export function exportCompetenceXLSX(rows, prog) {
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(rows.filter(r=>!r._pending).map(r=>({
+    'Person / Role': r.person_name, 'Function': r.role, 'Competence Required': r.competence_required,
+    'Evidence': r.evidence, 'Gap': r.gap, 'Training Action': r.action, 'Review Date': r.review_date
+  })))
+  autoWidth(ws, rows); ws['!freeze'] = { xSplit:0, ySplit:1 }
+  XLSX.utils.book_append_sheet(wb, ws, 'Competence Register')
+  XLSX.writeFile(wb, `QMSiQ_Competence_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
+}
+
+export function exportDocumentsXLSX(rows, prog) {
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(rows.filter(r=>!r._pending).map(r=>({
+    'Ref': r.doc_ref, 'Title': r.title, 'Type': r.doc_type, 'Version': r.version,
+    'Owner': r.owner, 'Review Date': r.review_date, 'Status': r.status
+  })))
+  autoWidth(ws, rows); ws['!freeze'] = { xSplit:0, ySplit:1 }
+  XLSX.utils.book_append_sheet(wb, ws, 'Document Register')
+  XLSX.writeFile(wb, `QMSiQ_Documents_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
+}
