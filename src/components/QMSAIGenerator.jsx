@@ -163,7 +163,7 @@ function validateJSON(raw, requiredFields) {
 function Field({ label, required, hint, children }) {
   return (
     <div className="space-y-1">
-      {hint && <p className="text-xs text-steel-600 italic leading-relaxed">{hint}</p>}
+      {hint && <p className="text-xs text-steel-600 italic leading-relaxed break-words">{hint}</p>}
       <label className="block text-xs font-medium text-steel-400">
         {label}{required && <span className="text-red-400 ml-0.5">*</span>}
       </label>
@@ -231,10 +231,10 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
           <div className="flex gap-5">
 
             {/* ── LEFT: input form ── */}
-            <div className="flex-1 min-w-0 flex flex-col gap-3">
+            <div className="flex-1 min-w-0 flex flex-col gap-3 overflow-hidden">
 
               {/* Row 1: name + industry */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 min-w-0">
                 <Field label="Organisation name" required hint={ref?.fields?.name}>
                   <input maxLength={100} value={ctx.name} onChange={e => set('name', e.target.value)}
                     placeholder="e.g. Bharat Precision Parts Pvt Ltd"
@@ -255,7 +255,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
               </Field>
 
               {/* Row 3: size + customers */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-3 min-w-0">
                 <Field label="Organisation size" hint={ref?.fields?.size}>
                   <select value={ctx.size} onChange={e => set('size', e.target.value)}
                     className="input-field w-full text-sm">
@@ -322,7 +322,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
 
             {/* ── RIGHT: reference panel ── */}
             {ref && (
-              <div className="w-68 flex-shrink-0 flex flex-col gap-3 self-start text-xs">
+              <div className="w-72 flex-shrink-0 flex flex-col gap-3 self-start text-xs">
 
                 {/* What AI generates */}
                 <div className="bg-navy-800 border border-navy-700 rounded-xl p-3">
