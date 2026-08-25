@@ -79,6 +79,16 @@ const CAPATracker = lazy_(() => import('./pages/reporting/CAPATracker'))
 const AuditUniverseLive = lazy_(() => import('./pages/reporting/AuditUniverseLive'))
 const RiskRegisterLive = lazy_(() => import('./pages/reporting/RiskRegisterLive'))
 
+// QMS Implementation
+const QMSLanding = lazy_(() => import('./pages/qms/QMSLanding'))
+const ContextForm = lazy_(() => import('./pages/qms/ContextForm'))
+const StakeholderRegister = lazy_(() => import('./pages/qms/StakeholderRegister'))
+const QualityPolicy = lazy_(() => import('./pages/qms/QualityPolicy'))
+const ObjectivesRegister = lazy_(() => import('./pages/qms/ObjectivesRegister'))
+const ChangeRegister = lazy_(() => import('./pages/qms/ChangeRegister'))
+const CompetenceRegister = lazy_(() => import('./pages/qms/CompetenceRegister'))
+const DocumentRegister = lazy_(() => import('./pages/qms/DocumentRegister'))
+
 function AppShell() {
   const { user, loading, profile } = useAuth()
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -177,6 +187,16 @@ function AppShell() {
                 <Route path="/reporting/capa" element={<CAPATracker />} />
                 <Route path="/reporting/universe" element={<AuditUniverseLive />} />
                 <Route path="/reporting/risks" element={<RiskRegisterLive />} />
+
+                {/* QMS Implementation */}
+                <Route path="/qms" element={<QMSLanding />} />
+                <Route path="/qms/context" element={<ContextForm />} />
+                <Route path="/qms/stakeholders" element={<StakeholderRegister />} />
+                <Route path="/qms/policy" element={<QualityPolicy />} />
+                <Route path="/qms/objectives" element={<ObjectivesRegister />} />
+                <Route path="/qms/changes" element={<ChangeRegister />} />
+                <Route path="/qms/competence" element={<CompetenceRegister />} />
+                <Route path="/qms/documents" element={<DocumentRegister />} />
 
                 <Route path="*" element={<ComingSoon />} />
               </Routes>

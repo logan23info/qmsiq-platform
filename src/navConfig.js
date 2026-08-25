@@ -69,6 +69,19 @@ export const navSections = [
       { id: '9001-cl10', label: 'Clause 10 — Improvement', path: '/iso9001/clause10', icon: 'RefreshCw', tooltip: 'Nonconformity, corrective action, continual improvement' },
     ]
   },
+  {
+    id: 'qms-implement', label: 'Implement Your QMS — ISO 9001',
+    items: [
+      { id: 'qms', label: 'Implementation Overview', path: '/qms', icon: 'CheckCircle', tooltip: 'ISO 9001:2015 implementation tracker — progress across all mandatory clauses' },
+      { id: 'qms-context', label: 'Cl.4 — Context & Scope', path: '/qms/context', icon: 'Map', tooltip: 'Internal/external issues, QMS scope and exclusions (Cl.4.1–4.3)' },
+      { id: 'qms-stakeholders', label: 'Cl.4 — Interested Parties', path: '/qms/stakeholders', icon: 'Users', tooltip: 'Stakeholder register — needs, expectations and relevance (Cl.4.2)' },
+      { id: 'qms-policy', label: 'Cl.5 — Quality Policy', path: '/qms/policy', icon: 'FileText', tooltip: 'Quality policy statement — approved and communicated (Cl.5.2)' },
+      { id: 'qms-objectives', label: 'Cl.6 — Quality Objectives', path: '/qms/objectives', icon: 'Target', tooltip: 'SMART quality objectives with measures, targets and owners (Cl.6.2)' },
+      { id: 'qms-changes', label: 'Cl.6 — Change Register', path: '/qms/changes', icon: 'RefreshCw', tooltip: 'Planned QMS changes — reason, impact, owner and status (Cl.6.3)' },
+      { id: 'qms-competence', label: 'Cl.7 — Competence Register', path: '/qms/competence', icon: 'GraduationCap', tooltip: 'Staff competence — required, evidence, gaps and training actions (Cl.7.2)' },
+      { id: 'qms-documents', label: 'Cl.7 — Document Register', path: '/qms/documents', icon: 'FolderOpen', tooltip: 'Documented information register — procedures, forms, records (Cl.7.5)' },
+    ]
+  },
 ]
 
 export default navSections
