@@ -8,7 +8,9 @@ import { useToast } from '../../components/Toast'
 import { getQMSContext, saveQMSContext } from '../../lib/supabase'
 import { Save, Sparkles } from 'lucide-react'
 
-const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOURCE OF TRUTH] Use ONLY the organisation context in the user message. [DETERMINISM] Return INSUFFICIENT_DATA if context is too vague. [OUTPUT] JSON only — single object: {internal_issues, external_issues, scope, exclusions}. internal_issues and external_issues: bullet list of max 5 points each. scope: 2-3 sentences. exclusions: blank if none. [FABRICATION GUARD] No invented market data. No financial figures. No clause text verbatim.`
+const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOURCE OF TRUTH] Use ONLY the structured organisation context provided — Organisation, Industry, Products/services, Size, Customers, Regulations, Additional context. [DETERMINISM] If industry or products are missing, return exactly: INSUFFICIENT_DATA [OUTPUT] JSON only, no markdown, no preamble — single object: {"internal_issues":"bullet list 
+ separated, max 5 SWOT internal factors specific to this org","external_issues":"bullet list 
+ separated, max 5 PESTLE factors specific to this industry","scope":"2-3 sentences describing what the QMS covers based on the products and sites","exclusions":""} [FABRICATION GUARD] No invented market share, revenue, or financial data. No named competitors. No specific regulatory citations unless the user provided them. Targets and numbers must use [SAMPLE] placeholder.`
 const REQUIRED = ['internal_issues', 'external_issues', 'scope']
 const EMPTY = Object.fromEntries(['internal_issues', 'external_issues', 'scope', 'exclusions'].map(k => [k, '']))
 

@@ -8,7 +8,7 @@ import { useToast } from '../../components/Toast'
 import { getQMSPolicy, saveQMSPolicy } from '../../lib/supabase'
 import { Save, Sparkles } from 'lucide-react'
 
-const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOURCE OF TRUTH] Organisation context only. [OUTPUT] JSON — single object: {policy_text, version}. policy_text must reference: customer focus, continual improvement, and regulatory compliance — without quoting clause text. Max 150 words. version: "1.0 DRAFT". approved_by and approved_date: leave blank — human must complete. [FABRICATION GUARD] No specific performance targets. No named individuals.`
+const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOURCE OF TRUTH] Use ONLY the structured organisation context provided. [DETERMINISM] If organisation name or products are missing, return exactly: INSUFFICIENT_DATA [OUTPUT] JSON only, no markdown — single object: {"policy_text":"quality policy statement max 150 words. Must reference: customer focus, continual improvement, regulatory compliance. Must NOT quote ISO clause text verbatim. Must mention the organisation name and product/service type.","version":"1.0 DRAFT"} Leave approved_by and approved_date blank — human must complete. [FABRICATION GUARD] No specific performance targets or percentages. No named individuals.`
 const REQUIRED = ['policy_text']
 const EMPTY = Object.fromEntries(['policy_text', 'approved_by', 'approved_date', 'version', 'communicated'].map(k => [k, '']))
 

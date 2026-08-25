@@ -10,7 +10,7 @@ import { getChanges, createChange, updateChange, deleteChange } from '../../lib/
 import { Plus, Save, X } from 'lucide-react'
 
 const COLUMNS = [{'key': 'description', 'label': 'Change'}, {'key': 'reason', 'label': 'Reason'}, {'key': 'owner', 'label': 'Owner'}, {'key': 'planned_date', 'label': 'Planned date'}, {'key': 'status', 'label': 'Status'}]
-const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS consultant. [SOURCE OF TRUTH] Organisation context only. [OUTPUT] JSON array — each: {description, reason, impact, owner, planned_date, status}. Generate 3 typical QMS implementation changes (e.g. process documentation, procedure creation, training). status: Planned. planned_date: next 3-6 months. [FABRICATION GUARD] No specific system or vendor names unless user provides them.`
+const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOURCE OF TRUTH] Use ONLY the structured organisation context provided. [DETERMINISM] If industry or products are missing, return exactly: INSUFFICIENT_DATA [OUTPUT] JSON array only — each object: {"description":"change description","reason":"business/quality reason for change","impact":"effect on QMS integrity and processes","owner":"responsible role title","planned_date":"ISO date 3-6 months from today","status":"Planned"} Generate 3 typical QMS implementation changes relevant to this industry. [FABRICATION GUARD] No specific vendor or system names unless user provided them.`
 const REQUIRED = ['description', 'reason']
 
 const EMPTY = Object.fromEntries(['description', 'reason', 'impact', 'owner', 'planned_date', 'status'].map(k => [k, '']))

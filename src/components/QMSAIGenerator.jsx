@@ -35,6 +35,7 @@ function validateJSON(raw, requiredFields) {
 
 export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = [], placeholder, onGenerated }) {
   const [input, setInput] = useState('')
+  const [ctx, setCtx] = useState({name:'',industry:'',products:'',size:'',customers:'',regulations:'',extra:''})
   const [loading, setLoading] = useState(false)
   const [draft, setDraft] = useState(null)
   const [errors, setErrors] = useState([])
@@ -42,12 +43,23 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
   const toast = useToast()
 
   const generate = async () => {
-    if (!input.trim()) { toast('Describe your organisation first', 'error'); return }
+    if (!ctx.name.trim() || !ctx.industry.trim() || !ctx.products.trim()) {
+      toast('Please fill in organisation name, industry and products/services', 'error'); return
+    }
+    const builtInput = [
+      `Organisation: ${ctx.name}`,
+      `Industry/sector: ${ctx.industry}`,
+      `Products/services: ${ctx.products}`,
+      ctx.size ? `Size: ${ctx.size}` : '',
+      ctx.customers ? `Key customers/markets: ${ctx.customers}` : '',
+      ctx.regulations ? `Key regulations/standards: ${ctx.regulations}` : '',
+      ctx.extra ? `Additional context: ${ctx.extra}` : '',
+    ].filter(Boolean).join('\n')
     setLoading(true); setDraft(null); setErrors([])
     try {
-      const raw = await callEdge(systemPrompt, input)
+      const raw = await callEdge(systemPrompt, builtInput)
       if (raw.includes('INSUFFICIENT_DATA')) {
-        setErrors(['Not enough detail — please describe your organisation, industry, and products/services more specifically.'])
+        setErrors(['Please fill in more detail — at minimum: organisation name, industry, and products/services. The more context you provide, the more relevant the AI output will be.'])
         setLoading(false); return
       }
       const { records, errors: errs } = validateJSON(raw, requiredFields)
@@ -61,6 +73,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
     const stamped = draft.map(r => ({ ...r, ai_generated: true, status: r.status || 'Draft' }))
     onGenerated(stamped)
     setDraft(null); setInput('')
+    setCtx({name:'',industry:'',products:'',size:'',customers:'',regulations:'',extra:''})
     toast('AI draft loaded — review and save to confirm')
   }
 
@@ -76,11 +89,43 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
 
       {open && (
         <div className="p-4 bg-navy-900 space-y-3">
-          <textarea
-            value={input} onChange={e => setInput(e.target.value)}
-            maxLength={1000}
-            placeholder={placeholder || 'Describe your organisation — industry, size, products/services, key processes...'}
-            className="input-field w-full h-24 text-sm resize-none" />
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Organisation name <span className="text-red-400">*</span></label>
+              <input maxLength={100} value={ctx.name} onChange={e => setCtx(c=>({...c,name:e.target.value}))} placeholder="e.g. Acme Manufacturing Ltd" className="input-field w-full text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Industry / sector <span className="text-red-400">*</span></label>
+              <input maxLength={100} value={ctx.industry} onChange={e => setCtx(c=>({...c,industry:e.target.value}))} placeholder="e.g. Automotive components" className="input-field w-full text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Products / services <span className="text-red-400">*</span></label>
+              <input maxLength={200} value={ctx.products} onChange={e => setCtx(c=>({...c,products:e.target.value}))} placeholder="e.g. Precision machined parts for OEMs" className="input-field w-full text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Organisation size</label>
+              <select value={ctx.size} onChange={e => setCtx(c=>({...c,size:e.target.value}))} className="input-field w-full text-sm">
+                <option value="">Select...</option>
+                <option>1–10 employees</option>
+                <option>11–50 employees</option>
+                <option>51–250 employees</option>
+                <option>251–1000 employees</option>
+                <option>1000+ employees</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Key customers / markets</label>
+              <input maxLength={200} value={ctx.customers} onChange={e => setCtx(c=>({...c,customers:e.target.value}))} placeholder="e.g. Tier 1 automotive OEMs, EU market" className="input-field w-full text-sm" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Key regulations / standards</label>
+              <input maxLength={200} value={ctx.regulations} onChange={e => setCtx(c=>({...c,regulations:e.target.value}))} placeholder="e.g. ISO 9001, IATF 16949, REACH" className="input-field w-full text-sm" />
+            </div>
+          </div>
+          <div>
+            <label className="block text-xs text-steel-400 mb-1">Additional context (optional)</label>
+            <textarea maxLength={500} value={ctx.extra} onChange={e => setCtx(c=>({...c,extra:e.target.value}))} placeholder="Key processes, locations, known challenges, current certifications..." className="input-field w-full h-16 text-sm resize-none" />
+          </div>
 
           <div className="flex gap-2">
             <button onClick={generate} disabled={loading || !input.trim()}
