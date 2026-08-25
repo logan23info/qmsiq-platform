@@ -426,3 +426,79 @@ export async function deleteProgramme(id) {
   const { error } = await supabase.from('audit_programmes').delete().eq('id', id)
   if (error) throw error
 }
+
+// ─── QMS IMPLEMENTATION ────────────────────────────────────────
+
+// Generic helpers — used by all 7 QMS modules
+async function qmsGet(table, programmeId) {
+  const { data } = await supabase.from(table).select('*').eq('programme_id', programmeId).order('created_at')
+  return data || []
+}
+async function qmsGetOne(table, programmeId) {
+  const { data } = await supabase.from(table).select('*').eq('programme_id', programmeId).maybeSingle()
+  return data
+}
+async function qmsUpsertOne(table, programmeId, userId, updates) {
+  const { data, error } = await supabase.from(table).upsert(
+    { programme_id: programmeId, user_id: userId, ...updates, updated_at: new Date().toISOString() },
+    { onConflict: 'programme_id' }
+  ).select().single()
+  if (error) throw error
+  return data
+}
+async function qmsInsert(table, programmeId, userId, record) {
+  const { data, error } = await supabase.from(table).insert(
+    { programme_id: programmeId, user_id: userId, ...record, updated_at: new Date().toISOString() }
+  ).select().single()
+  if (error) throw error
+  return data
+}
+async function qmsUpdate(table, id, updates) {
+  const { data, error } = await supabase.from(table).update(
+    { ...updates, updated_at: new Date().toISOString() }
+  ).eq('id', id).select().single()
+  if (error) throw error
+  return data
+}
+async function qmsDelete(table, id) {
+  const { error } = await supabase.from(table).delete().eq('id', id)
+  if (error) throw error
+}
+
+// ── Context (Cl.4.1–4.3) — one-row ─────────────────────────
+export const getQMSContext = (pid) => qmsGetOne('qms_context', pid)
+export const saveQMSContext = (pid, uid, data) => qmsUpsertOne('qms_context', pid, uid, data)
+
+// ── Stakeholders (Cl.4.2) ───────────────────────────────────
+export const getStakeholders = (pid) => qmsGet('qms_stakeholders', pid)
+export const createStakeholder = (pid, uid, r) => qmsInsert('qms_stakeholders', pid, uid, r)
+export const updateStakeholder = (id, r) => qmsUpdate('qms_stakeholders', id, r)
+export const deleteStakeholder = (id) => qmsDelete('qms_stakeholders', id)
+
+// ── Policy (Cl.5.2) — one-row ───────────────────────────────
+export const getQMSPolicy = (pid) => qmsGetOne('qms_policy', pid)
+export const saveQMSPolicy = (pid, uid, data) => qmsUpsertOne('qms_policy', pid, uid, data)
+
+// ── Objectives (Cl.6.2) ─────────────────────────────────────
+export const getObjectives = (pid) => qmsGet('qms_objectives', pid)
+export const createObjective = (pid, uid, r) => qmsInsert('qms_objectives', pid, uid, r)
+export const updateObjective = (id, r) => qmsUpdate('qms_objectives', id, r)
+export const deleteObjective = (id) => qmsDelete('qms_objectives', id)
+
+// ── Changes (Cl.6.3) ────────────────────────────────────────
+export const getChanges = (pid) => qmsGet('qms_changes', pid)
+export const createChange = (pid, uid, r) => qmsInsert('qms_changes', pid, uid, r)
+export const updateChange = (id, r) => qmsUpdate('qms_changes', id, r)
+export const deleteChange = (id) => qmsDelete('qms_changes', id)
+
+// ── Competence (Cl.7.2) ─────────────────────────────────────
+export const getCompetence = (pid) => qmsGet('qms_competence', pid)
+export const createCompetence = (pid, uid, r) => qmsInsert('qms_competence', pid, uid, r)
+export const updateCompetence = (id, r) => qmsUpdate('qms_competence', id, r)
+export const deleteCompetence = (id) => qmsDelete('qms_competence', id)
+
+// ── Documents (Cl.7.5) ──────────────────────────────────────
+export const getDocuments = (pid) => qmsGet('qms_documents', pid)
+export const createDocument = (pid, uid, r) => qmsInsert('qms_documents', pid, uid, r)
+export const updateDocument = (id, r) => qmsUpdate('qms_documents', id, r)
+export const deleteDocument = (id) => qmsDelete('qms_documents', id)
