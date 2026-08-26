@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Sparkles, Loader2, AlertTriangle, CheckCircle2, ChevronDown, ChevronUp, BookOpen, Lightbulb } from 'lucide-react'
 import { useToast } from './Toast'
 
@@ -190,11 +190,12 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
   const toast = useToast()
   const ref = CLAUSE_REFS[clause]
   // Pre-fill from Cl.4.1 org profile when available
-  const prevProfile = typeof window !== 'undefined' ? window.__qmsLastProfile : null
-  if (orgProfile && orgProfile.name && ctx.name === '' && orgProfile.name !== prevProfile) {
-    if (typeof window !== 'undefined') window.__qmsLastProfile = orgProfile.name
-    setTimeout(() => setCtx(p => p.name ? p : { ...orgProfile }), 0)
-  }
+  // Pre-fill from Cl.4.1 org profile when it loads — only if user hasn't typed yet
+  useEffect(() => {
+    if (orgProfile && orgProfile.name && !ctx.name) {
+      setCtx(orgProfile)
+    }
+  }, [orgProfile])
 
   const set = (k, v) => { setCtx(c => { const next = { ...c, [k]: v }; onContextChange?.(next); return next }) }
   const isReady = ctx.name.trim() && ctx.industry.trim() && ctx.products.trim()
