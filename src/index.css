@@ -404,3 +404,50 @@ select.input-field {
   /* Report builder specific */
   #main-content { max-width: 100% !important; }
 }
+
+/* ── Light mode: coloured opacity backgrounds used in QMS/landing pages ── */
+/* These tinted backgrounds look dark in light mode without overrides */
+.light .bg-amber-900\/10, .light .bg-amber-900\/20 { background-color: #fef3c7 !important; }
+.light .bg-red-900\/20 { background-color: #fee2e2 !important; }
+.light .bg-emerald-900\/10, .light .bg-emerald-900\/20 { background-color: #d1fae5 !important; }
+.light .bg-blue-900\/10, .light .bg-blue-900\/20 { background-color: #dbeafe !important; }
+.light .bg-teal-900\/10, .light .bg-teal-900\/20 { background-color: #ccfbf1 !important; }
+.light .bg-purple-900\/10, .light .bg-purple-900\/20 { background-color: #ede9fe !important; }
+
+/* Coloured borders in light mode */
+.light .border-amber-800\/40, .light .border-amber-800\/50 { border-color: #f59e0b !important; }
+.light .border-red-800\/40 { border-color: #ef4444 !important; }
+.light .border-emerald-800\/40 { border-color: #10b981 !important; }
+.light .border-blue-800\/40 { border-color: #3b82f6 !important; }
+.light .border-teal-800\/40 { border-color: #14b8a6 !important; }
+.light .border-purple-800\/40 { border-color: #8b5cf6 !important; }
+
+/* Text colours in coloured panels — ensure readability on light tinted bg */
+.light .bg-amber-900\/20 .text-amber-400,
+.light .bg-amber-900\/10 .text-amber-audit { color: #b45309 !important; }
+.light .bg-red-900\/20 .text-red-400 { color: #dc2626 !important; }
+.light .bg-emerald-900\/20 .text-emerald-400,
+.light .bg-emerald-900\/10 .text-emerald-400 { color: #059669 !important; }
+.light .bg-blue-900\/20 .text-blue-400 { color: #2563eb !important; }
+.light .bg-teal-900\/20 .text-teal-400,
+.light .bg-teal-900\/10 .text-teal-400 { color: #0d9488 !important; }
+.light .bg-purple-900\/20 .text-purple-400,
+.light .bg-purple-900\/10 .text-purple-400 { color: #7c3aed !important; }
+
+/* Card and panel backgrounds — navy opacity variants */
+.light .bg-navy-800\/60 { background-color: rgba(241,245,249,0.9) !important; }
+.light .bg-navy-900\/50 { background-color: rgba(255,255,255,0.9) !important; }
+.light .bg-navy-700\/50 { background-color: rgba(226,232,240,0.7) !important; }
+
+/* Badge backgrounds in light mode */
+.light .bg-amber-900\/40 { background-color: #fef3c7 !important; }
+.light .bg-red-900\/40 { background-color: #fee2e2 !important; }
+.light .bg-emerald-900\/40 { background-color: #d1fae5 !important; }
+.light .bg-blue-900\/40 { background-color: #dbeafe !important; }
+.light .bg-orange-900\/40 { background-color: #ffedd5 !important; }
+.light .bg-purple-900\/40 { background-color: #ede9fe !important; }
+.light .text-amber-300 { color: #b45309 !important; }
+.light .text-orange-300 { color: #c2410c !important; }
+.light .text-blue-300, .light .text-blue-400 { color: #2563eb !important; }
+.light .text-purple-300, .light .text-purple-400 { color: #7c3aed !important; }
+.light .text-teal-400 { color: #0d9488 !important; }
