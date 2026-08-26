@@ -100,7 +100,7 @@ select.input-field {
 .light .text-steel-300 { color: #334155 !important; }
 .light .text-steel-400 { color: #64748b !important; }
 .light .text-steel-500 { color: #94a3b8 !important; }
-.light .text-steel-600 { color: #cbd5e1 !important; }
+.light .text-steel-600 { color: #94a3b8 !important; }
 
 /* Backgrounds */
 .light .bg-navy-950 { background-color: #f0f4f8 !important; }

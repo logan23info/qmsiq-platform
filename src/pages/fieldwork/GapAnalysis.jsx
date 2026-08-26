@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react'
 import PageHeader from '../../components/PageHeader'
 import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
+import { useNavigate } from 'react-router-dom'
 import { getGapAnalysis, upsertGapAnalysis } from '../../lib/supabase'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
-import { Save, RefreshCw } from 'lucide-react'
+import { Save, RefreshCw, ArrowRight } from 'lucide-react'
 import ExportMenu from '../../components/ExportMenu'
 
 const clauses = [
@@ -85,6 +86,7 @@ function ScoreBadge({ pct }) {
 
 export default function GapAnalysis() {
   const { activeProgramme } = useProgramme()
+  const navigate = useNavigate()
   const { user } = useAuth()
   const { toast } = useToast()
   const [ratings, setRatings] = useState({})
@@ -165,7 +167,13 @@ export default function GapAnalysis() {
             </div>
           </div>
           <div className="ml-auto flex gap-2">
-            <ExportMenu type="gap" gapRatings={ratings} gapNotes={notes} programme={activeProgramme} />
+            <div className="flex items-center justify-between mb-4 p-3 bg-amber-900/20 border border-amber-800/40 rounded-xl">
+        <div className="text-xs text-steel-300">Red or Amber clauses? Go to Implementation to address them.</div>
+        <button onClick={() => navigate('/qms')} className="btn-secondary text-xs flex items-center gap-1.5">
+          Implement Your QMS <ArrowRight size={11} />
+        </button>
+      </div>
+      <ExportMenu type="gap" gapRatings={ratings} gapNotes={notes} programme={activeProgramme} />
             <button onClick={reset} className="btn-secondary text-xs py-1.5">
               <RefreshCw size={12} /> Reset
             </button>

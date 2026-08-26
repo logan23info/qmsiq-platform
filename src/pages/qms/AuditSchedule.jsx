@@ -56,11 +56,19 @@ export default function AuditSchedule() {
     <div className="max-w-4xl">
       <PageHeader title="Internal Audit Schedule" subtitle="ISO 9001:2015 Cl.9.2 — Annual audit plan" />
 
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-xs text-steel-400">Plan and track internal audits across all QMS clauses and process areas. All clauses must be audited within each audit cycle.</p>
-        <button onClick={() => navigate('/reporting/universe')} className="btn-secondary text-xs flex items-center gap-1.5">
-          Audit Universe <ExternalLink size={11} />
-        </button>
+      <div className="card mb-4 space-y-2 text-xs text-steel-400">
+        <div className="font-medium text-white text-sm">ISO 9001 Cl.9.2 — Internal audit requirements</div>
+        <div>✓ All QMS clauses must be audited within each audit programme cycle</div>
+        <div>✓ Audit frequency should be risk-based — higher-risk processes audited more often</div>
+        <div>✓ Auditors must be objective and impartial — cannot audit their own work</div>
+        <div>✓ Results must be reported to management and retained as evidence</div>
+        <div>✓ Minimum: one full-cycle audit before certification, then annual surveillance</div>
+        <div className="flex justify-between items-center pt-1 border-t border-navy-700">
+          <span className="italic">No AI generator — audit schedules must be planned by the Lead Auditor</span>
+          <button onClick={() => navigate('/reporting/universe')} className="btn-secondary text-xs flex items-center gap-1.5">
+            Audit Universe <ExternalLink size={11} />
+          </button>
+        </div>
       </div>
 
       {showForm && (

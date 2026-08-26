@@ -1,9 +1,10 @@
 import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
-import { Plus, CheckCircle2, Clock, AlertTriangle, Loader2, Save, ChevronDown, ChevronUp } from 'lucide-react'
+import { Plus, CheckCircle2, Clock, AlertTriangle, Loader2, Save, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
 import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
+import { useNavigate } from 'react-router-dom'
 import { getFindings, updateFinding } from '../../lib/supabase'
 import AIPanel from '../../components/AIPanel'
 import ExportMenu from '../../components/ExportMenu'
@@ -105,6 +106,7 @@ function CAPARow({ finding, onUpdate }) {
 
 export default function CAPATracker() {
   const { activeProgramme } = useProgramme()
+  const navigate = useNavigate()
   const [findings, setFindings] = useState([])
   const [loading, setLoading] = useState(false)
   const [filter, setFilter] = useState('All')
