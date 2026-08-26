@@ -157,6 +157,16 @@ function validateJSON(raw, requiredFields) {
     } else if (objStart !== -1) {
       text = text.slice(objStart, text.lastIndexOf('}') + 1)
     }
+    // Attempt repair if array is truncated mid-stream
+    if (text.startsWith('[') && !text.trim().endsWith(']')) {
+      const lastComma = text.lastIndexOf(',')
+      const lastBrace = text.lastIndexOf('}')
+      if (lastBrace > lastComma) {
+        text = text.slice(0, lastBrace + 1) + ']'
+      } else {
+        text = text.slice(0, lastComma) + ']'
+      }
+    }
     const parsed = JSON.parse(text)
     const records = Array.isArray(parsed) ? parsed : [parsed]
     const errors = []
