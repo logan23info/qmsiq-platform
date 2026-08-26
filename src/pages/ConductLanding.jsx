@@ -37,7 +37,7 @@ const PHASES = [
     steps: [
       { label: 'Surveillance Audit', path: '/surveillance', icon: Shield, desc: 'Periodic surveillance — targeted scope' },
       { label: 'Supplier Audit', path: '/fieldwork/supplier', icon: Truck, desc: 'ISO 9001 Cl.8.4 — external provider control' },
-      { label: 'Recertification Audit', path: '/recertification', icon: RefreshCw, desc: 'Full-scope recertification cycle' },
+      { label: 'Recertification Audit', path: '/surveillance', icon: RefreshCw, desc: 'Full-scope recertification cycle — uses Surveillance Audit workflow' },
       { label: 'Audit Universe', path: '/reporting/universe', icon: BookOpen, desc: 'Multi-programme audit planning' },
     ]
   },
