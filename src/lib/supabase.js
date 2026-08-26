@@ -444,8 +444,10 @@ async function qmsGetOne(table, programmeId) {
   return data
 }
 async function qmsUpsertOne(table, programmeId, userId, updates) {
+  // Strip DB-managed columns that should never be in the payload
+  const { id: _id, programme_id: _pid, user_id: _uid, created_at: _ca, ...clean } = updates
   const { data, error } = await supabase.from(table).upsert(
-    { programme_id: programmeId, user_id: userId, ...updates, updated_at: new Date().toISOString() },
+    { programme_id: programmeId, user_id: userId, ...clean, updated_at: new Date().toISOString() },
     { onConflict: 'programme_id' }
   ).select().single()
   if (error) throw error
@@ -521,3 +523,9 @@ export async function getAllQMSData(programmeId) {
   ])
   return { ctx, sth, pol, obj, chg, cmp, doc }
 }
+
+// ─── Operational Planning (Cl.8.1) ────────────────────────
+export const getOperational = (pid) => qmsGet('qms_operational', pid)
+export const createOperational = (pid, uid, r) => qmsInsert('qms_operational', pid, uid, r)
+export const updateOperational = (id, r) => qmsUpdate('qms_operational', id, r)
+export const deleteOperational = (id) => qmsDelete('qms_operational', id)

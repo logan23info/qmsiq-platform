@@ -261,3 +261,15 @@ export function exportDocumentsXLSX(rows, prog) {
   XLSX.utils.book_append_sheet(wb, ws, 'Document Register')
   XLSX.writeFile(wb, `QMSiQ_Documents_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
 }
+
+export function exportOperationalXLSX(rows, prog) {
+  const wb = XLSX.utils.book_new()
+  const ws = XLSX.utils.json_to_sheet(rows.filter(r=>!r._pending).map(r=>({
+    'Process': r.process_name, 'Description': r.description, 'Inputs': r.inputs,
+    'Outputs': r.outputs, 'Controls': r.controls, 'Owner': r.owner,
+    'Key Risk': r.risk, 'Status': r.status
+  })))
+  autoWidth(ws, rows); ws['!freeze'] = { xSplit:0, ySplit:1 }
+  XLSX.utils.book_append_sheet(wb, ws, 'Operational Planning')
+  XLSX.writeFile(wb, `QMSiQ_Operational_${prog||'Export'}_${new Date().toISOString().slice(0,10)}.xlsx`)
+}

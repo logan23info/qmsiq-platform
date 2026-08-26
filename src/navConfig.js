@@ -80,6 +80,7 @@ export const navSections = [
       { id: 'qms-changes', label: 'Cl.6 — Change Register', path: '/qms/changes', icon: 'RefreshCw', tooltip: 'Planned QMS changes — reason, impact, owner and status (Cl.6.3)' },
       { id: 'qms-competence', label: 'Cl.7 — Competence Register', path: '/qms/competence', icon: 'GraduationCap', tooltip: 'Staff competence — required, evidence, gaps and training actions (Cl.7.2)' },
       { id: 'qms-documents', label: 'Cl.7 — Document Register', path: '/qms/documents', icon: 'FolderOpen', tooltip: 'Documented information register — procedures, forms, records (Cl.7.5)' },
+      { id: 'qms-operational', label: 'Cl.8 — Operational Planning', path: '/qms/operational', icon: 'Settings', tooltip: 'Key process register — inputs, outputs, controls and risks (Cl.8.1)' },
     ]
   },
 ]

@@ -42,6 +42,7 @@ const MODULE_DEPS = {
   'ISO 9001:2015 Cl.6.3':     ['ctx', 'obj'],
   'ISO 9001:2015 Cl.7.2':     ['ctx', 'obj'],
   'ISO 9001:2015 Cl.7.5':     ['ctx', 'pol', 'obj'],
+  'ISO 9001:2015 Cl.8.1':     ['ctx', 'pol', 'obj'],
 }
 
 export function useQMSContext(clause, programmeId) {
@@ -91,5 +92,6 @@ export const NEXT_MODULE = {
   'ISO 9001:2015 Cl.6.2':     { label: 'Change Register', path: '/qms/changes' },
   'ISO 9001:2015 Cl.6.3':     { label: 'Competence Register', path: '/qms/competence' },
   'ISO 9001:2015 Cl.7.2':     { label: 'Document Register', path: '/qms/documents' },
-  'ISO 9001:2015 Cl.7.5':     null,
+  'ISO 9001:2015 Cl.7.5':     { label: 'Operational Planning', path: '/qms/operational' },
+  'ISO 9001:2015 Cl.8.1':     null,
 }

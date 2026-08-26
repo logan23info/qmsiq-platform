@@ -30,7 +30,7 @@ export default function QualityPolicy() {
 
   useEffect(() => {
     if (!activeProgramme) return
-    getQMSPolicy(activeProgramme.id).then(d => { if (d) setForm(f => ({ ...f, ...d })) })
+    getQMSPolicy(activeProgramme.id).then(d => { if (d) { const pick = ['policy_text', 'approved_by', 'approved_date', 'version', 'communicated', 'ai_generated', 'status']; setForm(f => ({ ...f, ...Object.fromEntries(pick.filter(k => k in d).map(k => [k, d[k]])) })) } })
   }, [activeProgramme])
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
