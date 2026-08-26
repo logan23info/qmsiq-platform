@@ -147,7 +147,16 @@ async function callEdge(systemPrompt, userMessage) {
 
 function validateJSON(raw, requiredFields) {
   try {
-    const text = raw.replace(/```json|```/g, '').trim()
+    // Strip markdown fences and any preamble/postamble text
+    let text = raw.replace(/```json|```/g, '').trim()
+    // Extract JSON array or object — find first [ or { 
+    const arrStart = text.indexOf('[')
+    const objStart = text.indexOf('{')
+    if (arrStart !== -1 && (objStart === -1 || arrStart < objStart)) {
+      text = text.slice(arrStart, text.lastIndexOf(']') + 1)
+    } else if (objStart !== -1) {
+      text = text.slice(objStart, text.lastIndexOf('}') + 1)
+    }
     const parsed = JSON.parse(text)
     const records = Array.isArray(parsed) ? parsed : [parsed]
     const errors = []
