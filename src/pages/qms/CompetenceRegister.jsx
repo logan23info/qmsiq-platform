@@ -21,7 +21,7 @@ const EMPTY = Object.fromEntries(['person_name', 'role', 'competence_required', 
 export default function CompetenceRegister() {
   const { activeProgramme } = useProgramme()
   const navigate = useNavigate()
-  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.7.2', activeProgramme?.id)
+  const { priorContext, priorLoading, orgProfile } = useQMSContext('ISO 9001:2015 Cl.7.2', activeProgramme?.id)
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.7.2']
   const { isLead, isReviewer, canDelete } = useTeam()
   const { user } = useAuth()
@@ -107,7 +107,7 @@ export default function CompetenceRegister() {
   return (
     <div className="max-w-4xl">
       <PageHeader title="Competence Register" subtitle="ISO 9001:2015 Cl.7.2" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.7.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — key roles involved in QMS, industry, any known skill gaps..." onGenerated={onGenerated} priorContext={priorContext} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.7.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — key roles involved in QMS, industry, any known skill gaps..." onGenerated={onGenerated} priorContext={priorContext} orgProfile={orgProfile} />}
       {showForm && (
         <div className="card mb-4 space-y-3">
           <div className="flex items-center justify-between mb-1">

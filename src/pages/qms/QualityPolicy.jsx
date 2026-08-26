@@ -18,7 +18,7 @@ const EMPTY = Object.fromEntries(['policy_text', 'approved_by', 'approved_date',
 export default function QualityPolicy() {
   const { activeProgramme } = useProgramme()
   const navigate = useNavigate()
-  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.5.2', activeProgramme?.id)
+  const { priorContext, priorLoading, orgProfile } = useQMSContext('ISO 9001:2015 Cl.5.2', activeProgramme?.id)
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.5.2']
   const { isReviewer } = useTeam()
   const { user } = useAuth()
@@ -54,7 +54,7 @@ export default function QualityPolicy() {
   return (
     <div className="max-w-2xl">
       <PageHeader title="Quality Policy" subtitle="ISO 9001:2015 Cl.5.2" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.5.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — name, industry, what you make or deliver, your key quality commitments..." onGenerated={onGenerated} priorContext={priorContext} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.5.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — name, industry, what you make or deliver, your key quality commitments..." onGenerated={onGenerated} priorContext={priorContext} orgProfile={orgProfile} />}
       {form.ai_generated && form.status === 'Draft' && (
         <div className="flex items-center gap-2 text-xs text-amber-audit bg-amber-900/20 border border-amber-800/40 rounded-lg px-3 py-2 mb-4">
           <Sparkles size={12} /> AI draft — review content below then click Save to confirm.

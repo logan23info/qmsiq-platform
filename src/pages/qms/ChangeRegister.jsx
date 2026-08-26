@@ -21,7 +21,7 @@ const EMPTY = Object.fromEntries(['description', 'reason', 'impact', 'owner', 'p
 export default function ChangeRegister() {
   const { activeProgramme } = useProgramme()
   const navigate = useNavigate()
-  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.6.3', activeProgramme?.id)
+  const { priorContext, priorLoading, orgProfile } = useQMSContext('ISO 9001:2015 Cl.6.3', activeProgramme?.id)
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.6.3']
   const { isLead, isReviewer, canDelete } = useTeam()
   const { user } = useAuth()
@@ -107,7 +107,7 @@ export default function ChangeRegister() {
   return (
     <div className="max-w-4xl">
       <PageHeader title="Change Register" subtitle="ISO 9001:2015 Cl.6.3" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.6.3" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation and the QMS changes you are planning to implement..." onGenerated={onGenerated} priorContext={priorContext} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.6.3" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation and the QMS changes you are planning to implement..." onGenerated={onGenerated} priorContext={priorContext} orgProfile={orgProfile} />}
       {showForm && (
         <div className="card mb-4 space-y-3">
           <div className="flex items-center justify-between mb-1">

@@ -15,12 +15,12 @@ const SYSTEM_PROMPT = `[ROLE] ISO 9001:2015 QMS implementation consultant. [SOUR
  separated, max 5 SWOT internal factors specific to this org","external_issues":"bullet list 
  separated, max 5 PESTLE factors specific to this industry","scope":"2-3 sentences describing what the QMS covers based on the products and sites","exclusions":""} [FABRICATION GUARD] No invented market share, revenue, or financial data. No named competitors. No specific regulatory citations unless the user provided them. Targets and numbers must use [SAMPLE] placeholder.`
 const REQUIRED = ['internal_issues', 'external_issues', 'scope']
-const EMPTY = Object.fromEntries(['internal_issues', 'external_issues', 'scope', 'exclusions'].map(k => [k, '']))
+const EMPTY = Object.fromEntries(['internal_issues', 'external_issues', 'scope', 'exclusions', 'org_name', 'industry', 'products', 'org_size', 'customers', 'regulations'].map(k => [k, '']))
 
 export default function ContextForm() {
   const { activeProgramme } = useProgramme()
   const navigate = useNavigate()
-  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.4.1–4.3', activeProgramme?.id)
+  const { priorContext, priorLoading, orgProfile } = useQMSContext('ISO 9001:2015 Cl.4.1–4.3', activeProgramme?.id)
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.4.1–4.3']
   const { isReviewer } = useTeam()
   const { user } = useAuth()
@@ -41,7 +41,11 @@ export default function ContextForm() {
     if (!activeProgramme) return
     setSaving(true)
     try {
-      await saveQMSContext(activeProgramme.id, user.id, { ...form, status: 'Complete' })
+      // Save org profile fields alongside context so later clauses can pre-fill
+      await saveQMSContext(activeProgramme.id, user.id, {
+        ...form,
+        status: 'Complete',
+      })
       toast('Context & Scope saved')
     } catch(e) { toast(e.message, 'error') }
     setSaving(false)
@@ -56,7 +60,7 @@ export default function ContextForm() {
   return (
     <div className="max-w-2xl">
       <PageHeader title="Context & Scope" subtitle="ISO 9001:2015 Cl.4.1–4.3" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.4.1–4.3" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — industry, size, main products or services, key locations..." onGenerated={onGenerated} priorContext={priorContext} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.4.1–4.3" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — industry, size, main products or services, key locations..." onGenerated={onGenerated} priorContext={priorContext} orgProfile={orgProfile} onContextChange={fields => setForm(f => ({ ...f, org_name: fields.name || f.org_name, industry: fields.industry || f.industry, products: fields.products || f.products, org_size: fields.size || f.org_size, customers: fields.customers || f.customers, regulations: fields.regulations || f.regulations }))} />}
       {form.ai_generated && form.status === 'Draft' && (
         <div className="flex items-center gap-2 text-xs text-amber-audit bg-amber-900/20 border border-amber-800/40 rounded-lg px-3 py-2 mb-4">
           <Sparkles size={12} /> AI draft — review content below then click Save to confirm.

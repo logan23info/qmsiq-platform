@@ -47,6 +47,7 @@ const MODULE_DEPS = {
 export function useQMSContext(clause, programmeId) {
   const [priorContext, setPriorContext] = useState(null)
   const [priorLoading, setPriorLoading] = useState(false)
+  const [orgProfile, setOrgProfile] = useState(null)
 
   useEffect(() => {
     const deps = MODULE_DEPS[clause] || []
@@ -62,12 +63,24 @@ export function useQMSContext(clause, programmeId) {
       .then(entries => {
         const data = Object.fromEntries(entries)
         setPriorContext(buildContextBlock(data))
+        // Expose org profile for pre-filling AI generator fields
+        if (data.ctx) {
+          setOrgProfile({
+            name: data.ctx.org_name || '',
+            industry: data.ctx.industry || '',
+            products: data.ctx.products || '',
+            size: data.ctx.org_size || '',
+            customers: data.ctx.customers || '',
+            regulations: data.ctx.regulations || '',
+            extra: '',
+          })
+        }
         setPriorLoading(false)
       })
       .catch(() => setPriorLoading(false))
   }, [clause, programmeId])
 
-  return { priorContext, priorLoading }
+  return { priorContext, priorLoading, orgProfile }
 }
 
 // Next module map for navigation continuity

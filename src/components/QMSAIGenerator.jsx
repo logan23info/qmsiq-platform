@@ -181,7 +181,7 @@ function Field({ label, required, hint, children }) {
   )
 }
 
-export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = [], onGenerated, priorContext }) {
+export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = [], onGenerated, priorContext, orgProfile, onContextChange }) {
   const [ctx, setCtx] = useState(EMPTY_CTX)
   const [loading, setLoading] = useState(false)
   const [draft, setDraft] = useState(null)
@@ -189,7 +189,14 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
   const [open, setOpen] = useState(true)
   const toast = useToast()
   const ref = CLAUSE_REFS[clause]
-  const set = (k, v) => setCtx(c => ({ ...c, [k]: v }))
+  // Pre-fill from Cl.4.1 org profile when available
+  const prevProfile = typeof window !== 'undefined' ? window.__qmsLastProfile : null
+  if (orgProfile && orgProfile.name && ctx.name === '' && orgProfile.name !== prevProfile) {
+    if (typeof window !== 'undefined') window.__qmsLastProfile = orgProfile.name
+    setTimeout(() => setCtx(p => p.name ? p : { ...orgProfile }), 0)
+  }
+
+  const set = (k, v) => { setCtx(c => { const next = { ...c, [k]: v }; onContextChange?.(next); return next }) }
   const isReady = ctx.name.trim() && ctx.industry.trim() && ctx.products.trim()
 
   const generate = async () => {
@@ -234,6 +241,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
         <span className="text-sm font-medium text-white">AI Draft Generator — {clause}</span>
         <span className="ml-auto text-xs text-steel-500 mr-2">Output is DRAFT — human review required</span>
         {priorContext && <span className="text-xs text-emerald-600 mr-2" title="Prior clause data loaded as context">● Prior context loaded</span>}
+        {orgProfile?.name && <span className="text-xs text-blue-400 mr-2" title="Organisation profile pre-filled from Cl.4.1">● Org profile pre-filled</span>}
         {open ? <ChevronUp size={13} className="text-steel-500" /> : <ChevronDown size={13} className="text-steel-500" />}
       </button>
 
