@@ -46,7 +46,16 @@ export default function QMSLanding() {
         context: ctx ? 1 : 0, stakeholders: sth.length, policy: pol ? 1 : 0,
         objectives: obj.length, changes: chg.length, competence: cmp.length, documents: doc.length
       })
-      setData({ context: ctx, policy: pol })
+      const allDraft = (arr) => arr.length > 0 && arr.every(r => r.ai_generated && r.status === 'Draft')
+      setData({
+        context: ctx,
+        policy: pol,
+        stakeholders: { hasDraft: allDraft(sth) },
+        objectives: { hasDraft: allDraft(obj) },
+        changes: { hasDraft: allDraft(chg) },
+        competence: { hasDraft: allDraft(cmp) },
+        documents: { hasDraft: allDraft(doc) },
+      })
       setLoading(false)
     }).catch(() => setLoading(false))
   }, [activeProgramme])
