@@ -62,6 +62,24 @@ export default function ManagementReview() {
     wpComplete: workpapers.length > 0 ? Math.round((workpapers.filter(w => w.status === 'Signed Off').length / workpapers.length) * 100) : 0,
   }
 
+  const saveReview = async () => {
+    if (!activeProgramme || !user) return
+    setSaving(true)
+    try {
+      const payload = { ...reviewForm, completed_inputs: completedInputs, status: 'Complete' }
+      const { id: _i, programme_id: _p, user_id: _u, created_at: _c, updated_at: _u2, ...clean } = payload
+      if (savedReview) {
+        const updated = await updateMgmtReview(savedReview.id, clean)
+        setSavedReview(updated)
+      } else {
+        const created = await createMgmtReview(activeProgramme.id, user.id, clean)
+        setSavedReview(created)
+      }
+      toast('Management review saved')
+    } catch(e) { toast(e.message, 'error') }
+    setSaving(false)
+  }
+
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader

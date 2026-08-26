@@ -320,20 +320,6 @@ export default function FindingRegister() {
         </div>
       )}
 
-      {/* AI panel for generating findings */}
-      <div className="mt-6">
-        <AIPanel
-          title="AI — Generate Finding (4Cs Framework)"
-          systemPrompt="You are an ISO 9001:2015 quality audit specialist. Generate a complete finding using the 4Cs framework: Condition (what you found — factual observation), Criteria (what the standard/policy requires — ISO 9001 clause or internal procedure), Cause (root cause using 5-Why analysis), Consequence (impact on product quality or customer satisfaction if not remediated). Also suggest a rating (Major NC/Minor NC/Observation) and agreed action."
-          placeholder="e.g. Generate a Major NC finding for ISO 9001 Cl.8.4 — no formal supplier evaluation process, 3 critical suppliers not assessed in 24 months"
-          contextFields={[
-            { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 9001 Cl. 8.4 — External Provider Control' },
-            { id: 'observation', label: 'What You Observed', type: 'textarea', placeholder: 'e.g. Patch scan shows 47 critical servers with CVEs > 90 days old. No formal patch schedule exists.' },
-            { id: 'rating', label: 'Expected Rating', type: 'select', options: ['Critical', 'High', 'Medium', 'Low / Advisory'] },
-          ]}
-        />
-      </div>
-
       {confirmDel && <ConfirmModal {...confirmDel} onClose={() => setConfirmDel(null)} />}
       {showModal && (
         <NewFindingModal programmeId={activeProgramme?.id} userId={user?.id}
