@@ -1,0 +1,231 @@
+{
+  "standard": "ISO 9001:2015",
+  "version": "2015",
+  "fabrication_guard": "Structural descriptions only — no clause text reproduced verbatim. All descriptions are paraphrased summaries of requirements.",
+  "clauses": {
+    "4.1": {
+      "id": "4.1",
+      "title": "Understanding the organisation and its context",
+      "process_area": "Context",
+      "description": "The organisation shall determine internal and external issues relevant to its purpose and strategic direction that affect its ability to achieve intended QMS outcomes.",
+      "mandatory_evidence": ["Context analysis document (SWOT/PESTLE)", "Management review records referencing context"],
+      "common_ncs": ["No documented context analysis", "Context not reviewed at planned intervals", "Issues not linked to QMS scope"]
+    },
+    "4.2": {
+      "id": "4.2",
+      "title": "Understanding the needs and expectations of interested parties",
+      "process_area": "Context",
+      "description": "The organisation shall determine interested parties relevant to the QMS and their relevant requirements, and monitor and review this information.",
+      "mandatory_evidence": ["Interested parties register", "Review records"],
+      "common_ncs": ["Incomplete stakeholder list", "Requirements not determined", "No periodic review"]
+    },
+    "4.3": {
+      "id": "4.3",
+      "title": "Determining the scope of the QMS",
+      "process_area": "Context",
+      "description": "The organisation shall determine the boundaries and applicability of the QMS. The scope shall state products/services covered and justify any exclusions (Cl.8 only).",
+      "mandatory_evidence": ["Documented QMS scope statement"],
+      "common_ncs": ["Scope not documented", "Exclusions not justified", "Scope does not reflect actual operations"]
+    },
+    "4.4": {
+      "id": "4.4",
+      "title": "Quality management system and its processes",
+      "process_area": "Context",
+      "description": "The organisation shall establish, implement, maintain and continually improve the QMS, including determining processes needed and their sequence, interaction, inputs, outputs, resources, responsibilities, risks and opportunities, and performance indicators.",
+      "mandatory_evidence": ["Process map or turtle diagrams", "Procedure documents", "Process performance data"],
+      "common_ncs": ["Processes not defined", "Interactions not determined", "No performance monitoring"]
+    },
+    "5.1": {
+      "id": "5.1",
+      "title": "Leadership and commitment",
+      "process_area": "Leadership",
+      "description": "Top management shall demonstrate leadership and commitment to the QMS by taking accountability, ensuring policy and objectives are established, ensuring integration with business processes, promoting process approach and risk-based thinking, and ensuring resources are available.",
+      "mandatory_evidence": ["Management review records", "QMS policy signed by top management", "Resource allocation evidence"],
+      "common_ncs": ["No evidence of management engagement", "Policy not reviewed by top management", "Resources not formally allocated"]
+    },
+    "5.2": {
+      "id": "5.2",
+      "title": "Quality policy",
+      "process_area": "Leadership",
+      "description": "Top management shall establish a quality policy appropriate to the organisation's purpose, including commitment to applicable requirements and continual improvement. The policy shall be available as documented information, communicated, understood and available to interested parties.",
+      "mandatory_evidence": ["Signed quality policy", "Communication records", "Evidence staff are aware of policy"],
+      "common_ncs": ["Policy not signed", "Staff unaware of policy content", "Policy not reviewed", "Policy does not reference continual improvement"]
+    },
+    "5.3": {
+      "id": "5.3",
+      "title": "Organisational roles, responsibilities and authorities",
+      "process_area": "Leadership",
+      "description": "Top management shall assign, communicate and ensure responsibility and authority for ensuring QMS conformity, reporting QMS performance, promoting customer focus, and maintaining QMS integrity during change.",
+      "mandatory_evidence": ["Organisation chart", "Job descriptions", "RACI matrix or documented responsibilities"],
+      "common_ncs": ["Responsibilities not documented", "No management representative designated", "Roles not communicated"]
+    },
+    "6.1": {
+      "id": "6.1",
+      "title": "Actions to address risks and opportunities",
+      "process_area": "Planning",
+      "description": "The organisation shall determine risks and opportunities from context and interested parties analysis, and plan actions to address them, integrated into QMS processes, with evaluation of effectiveness.",
+      "mandatory_evidence": ["Risk register", "Risk assessment methodology", "Evidence actions taken and effectiveness evaluated"],
+      "common_ncs": ["No formal risk assessment", "Risks not linked to context analysis", "No evidence of effectiveness evaluation"]
+    },
+    "6.2": {
+      "id": "6.2",
+      "title": "Quality objectives and planning to achieve them",
+      "process_area": "Planning",
+      "description": "Quality objectives shall be established at relevant functions, levels and processes. They shall be measurable, consistent with quality policy, monitored, communicated and updated. Planning shall determine what, resources, who, when and how results will be evaluated.",
+      "mandatory_evidence": ["Quality objectives register", "Measurement and monitoring records", "Review of objectives against targets"],
+      "common_ncs": ["Objectives not measurable", "No monitoring records", "Objectives not linked to policy", "Objectives not reviewed"]
+    },
+    "6.3": {
+      "id": "6.3",
+      "title": "Planning of changes",
+      "process_area": "Planning",
+      "description": "Changes to the QMS shall be carried out in a planned manner considering purpose, consequences for integrity, resource availability, and allocation of responsibilities.",
+      "mandatory_evidence": ["Change register", "Change impact assessments", "Approval records for significant changes"],
+      "common_ncs": ["No change control process", "Changes made without assessment", "Resources not considered before change"]
+    },
+    "7.1": {
+      "id": "7.1",
+      "title": "Resources",
+      "process_area": "Support",
+      "description": "The organisation shall determine and provide resources needed for the QMS including people, infrastructure, process environment, monitoring and measurement resources, and organisational knowledge.",
+      "mandatory_evidence": ["Resource plans", "Equipment calibration records", "Infrastructure maintenance records"],
+      "common_ncs": ["Inadequate resources for QMS", "Calibration not maintained", "Organisational knowledge not captured"]
+    },
+    "7.2": {
+      "id": "7.2",
+      "title": "Competence",
+      "process_area": "Support",
+      "description": "The organisation shall determine necessary competence for persons affecting quality performance, ensure they are competent based on education, training or experience, take actions where applicable, and retain documented information as evidence.",
+      "mandatory_evidence": ["Competence register", "Training records", "Qualification certificates", "Evidence of competence evaluation"],
+      "common_ncs": ["No competence records", "Training not documented", "Gap analysis not performed", "Records incomplete"]
+    },
+    "7.3": {
+      "id": "7.3",
+      "title": "Awareness",
+      "process_area": "Support",
+      "description": "Persons working under the organisation's control shall be aware of quality policy, relevant objectives, their contribution to QMS effectiveness, and implications of not conforming.",
+      "mandatory_evidence": ["Awareness training records", "Communication logs", "Staff induction records"],
+      "common_ncs": ["Staff unaware of quality policy", "No awareness training", "No communication of objectives"]
+    },
+    "7.4": {
+      "id": "7.4",
+      "title": "Communication",
+      "process_area": "Support",
+      "description": "The organisation shall determine internal and external communications relevant to the QMS including what, when, with whom, how, and who communicates.",
+      "mandatory_evidence": ["Communication plan", "Meeting minutes", "External communication records"],
+      "common_ncs": ["No communication plan", "QMS-related communications not recorded"]
+    },
+    "7.5": {
+      "id": "7.5",
+      "title": "Documented information",
+      "process_area": "Support",
+      "description": "The QMS shall include documented information required by the standard and determined necessary by the organisation. Documented information shall be controlled for availability, suitability, protection, distribution, storage, retrieval, and disposition.",
+      "mandatory_evidence": ["Document register", "Document control procedure", "Records of document review and approval"],
+      "common_ncs": ["Obsolete documents in use", "No document control procedure", "Documents not reviewed/approved", "Records not retained"]
+    },
+    "8.1": {
+      "id": "8.1",
+      "title": "Operational planning and control",
+      "process_area": "Operation",
+      "description": "The organisation shall plan, implement, control, maintain and retain documented information for processes needed to meet requirements, including establishing criteria for processes and products, controlling processes to the criteria, and controlling planned changes.",
+      "mandatory_evidence": ["Process procedures/work instructions", "Production/service records", "Change control records"],
+      "common_ncs": ["Processes not documented", "No criteria established", "Uncontrolled process changes"]
+    },
+    "8.2": {
+      "id": "8.2",
+      "title": "Requirements for products and services",
+      "process_area": "Operation",
+      "description": "The organisation shall ensure requirements for products and services are determined, including legal/regulatory requirements. Customer communication, review of requirements before commitment, and changes to requirements shall be controlled.",
+      "mandatory_evidence": ["Customer orders/contracts reviewed", "Requirements review records", "Change notification records"],
+      "common_ncs": ["Requirements not reviewed before acceptance", "Customer changes not controlled", "Legal requirements not identified"]
+    },
+    "8.3": {
+      "id": "8.3",
+      "title": "Design and development of products and services",
+      "process_area": "Operation",
+      "description": "The organisation shall establish a design and development process including planning, inputs, controls (reviews, verification, validation), outputs, and change control. Design changes shall be identified, reviewed and controlled.",
+      "mandatory_evidence": ["Design plan", "Design inputs and outputs records", "Review, verification and validation records", "Design change records"],
+      "common_ncs": ["No design review records", "Verification not performed", "Validation not completed before release", "Design changes uncontrolled"]
+    },
+    "8.4": {
+      "id": "8.4",
+      "title": "Control of externally provided processes, products and services",
+      "process_area": "Operation",
+      "description": "The organisation shall ensure externally provided processes, products and services conform to requirements. Controls shall include supplier evaluation, monitoring of performance, and communication of requirements to external providers.",
+      "mandatory_evidence": ["Approved supplier list", "Supplier evaluation records", "Purchase orders with quality requirements", "Incoming inspection records"],
+      "common_ncs": ["No approved supplier list", "Supplier performance not monitored", "Requirements not communicated to suppliers"]
+    },
+    "8.5": {
+      "id": "8.5",
+      "title": "Production and service provision",
+      "process_area": "Operation",
+      "description": "Production and service provision shall be implemented under controlled conditions including documented information, suitable monitoring resources, infrastructure, competent persons, validation where output cannot be verified, measures to prevent human error, and release/delivery/post-delivery activities.",
+      "mandatory_evidence": ["Work instructions", "Production records", "Inspection records", "Traceability records"],
+      "common_ncs": ["No traceability", "Human error prevention measures absent", "Post-delivery activities not defined"]
+    },
+    "8.6": {
+      "id": "8.6",
+      "title": "Release of products and services",
+      "process_area": "Operation",
+      "description": "The organisation shall implement planned arrangements at appropriate stages to verify product/service requirements have been met. Evidence of conformity and traceability to authorising person shall be retained.",
+      "mandatory_evidence": ["Final inspection records", "Release authorisation records", "Certificate of conformance"],
+      "common_ncs": ["No documented release authority", "Inspection records missing", "Products released without verification"]
+    },
+    "8.7": {
+      "id": "8.7",
+      "title": "Control of nonconforming outputs",
+      "process_area": "Operation",
+      "description": "Outputs not conforming to requirements shall be identified and controlled to prevent unintended use or delivery. Actions shall include correction, segregation, return or suspension. Nonconforming outputs released under concession shall be authorised.",
+      "mandatory_evidence": ["Nonconformance records", "Disposition records", "Concession records"],
+      "common_ncs": ["No NC records", "NC product not segregated", "No disposition documented", "Concession not authorised"]
+    },
+    "9.1": {
+      "id": "9.1",
+      "title": "Monitoring, measurement, analysis and evaluation",
+      "process_area": "Performance evaluation",
+      "description": "The organisation shall determine what needs to be monitored and measured, methods for valid results, when monitoring/measurement shall be performed and analysed, and when results shall be reported. Customer satisfaction shall be monitored.",
+      "mandatory_evidence": ["KPI/measurement records", "Customer satisfaction data", "Data analysis records", "Management review inputs"],
+      "common_ncs": ["No customer satisfaction measurement", "KPIs not monitored", "Data not analysed", "No evaluation of QMS effectiveness"]
+    },
+    "9.2": {
+      "id": "9.2",
+      "title": "Internal audit",
+      "process_area": "Performance evaluation",
+      "description": "The organisation shall conduct internal audits at planned intervals to provide information on QMS conformity and effective implementation. An audit programme shall consider importance of processes, changes affecting the organisation, and results of previous audits.",
+      "mandatory_evidence": ["Audit programme", "Audit plans", "Audit reports", "NC records from audits", "Follow-up records"],
+      "common_ncs": ["No audit programme", "Audits not conducted at planned intervals", "Auditors not independent", "Follow-up not completed"]
+    },
+    "9.3": {
+      "id": "9.3",
+      "title": "Management review",
+      "process_area": "Performance evaluation",
+      "description": "Top management shall review the QMS at planned intervals to ensure suitability, adequacy, effectiveness and alignment with strategic direction. Inputs and outputs shall meet specified requirements.",
+      "mandatory_evidence": ["Management review agenda and minutes", "Evidence of all mandatory inputs reviewed", "Action items and decisions recorded"],
+      "common_ncs": ["Management review not conducted", "Mandatory inputs missing", "No decisions or actions recorded", "Actions not followed up"]
+    },
+    "10.1": {
+      "id": "10.1",
+      "title": "Improvement — General",
+      "process_area": "Improvement",
+      "description": "The organisation shall determine and select opportunities for improvement and implement actions to meet customer requirements and enhance satisfaction.",
+      "mandatory_evidence": ["Improvement register", "Evidence of improvement actions", "Effectiveness evaluation"],
+      "common_ncs": ["No improvement process defined", "Improvements not tracked", "Effectiveness not evaluated"]
+    },
+    "10.2": {
+      "id": "10.2",
+      "title": "Nonconformity and corrective action",
+      "process_area": "Improvement",
+      "description": "The organisation shall react to nonconformities by taking action, evaluating need for corrective action, implementing action, reviewing effectiveness, updating risks and opportunities, and making changes to QMS if necessary. Root cause shall be determined. Documented information shall be retained.",
+      "mandatory_evidence": ["Nonconformance records", "Root cause analysis", "Corrective action records", "Effectiveness verification records"],
+      "common_ncs": ["No root cause analysis", "Corrective actions not implemented", "Effectiveness not verified", "CAPA records incomplete"]
+    },
+    "10.3": {
+      "id": "10.3",
+      "title": "Continual improvement",
+      "process_area": "Improvement",
+      "description": "The organisation shall continually improve the suitability, adequacy and effectiveness of the QMS using results of analysis, evaluation, management review outputs and audit results.",
+      "mandatory_evidence": ["Improvement register", "Management review decisions on improvement", "Trend data showing improvement over time"],
+      "common_ncs": ["No continual improvement evidence", "Improvement not data-driven", "Management review outputs not acted upon"]
+    }
+  }
+}
