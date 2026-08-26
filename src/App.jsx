@@ -89,6 +89,8 @@ const ChangeRegister = lazy_(() => import('./pages/qms/ChangeRegister'))
 const CompetenceRegister = lazy_(() => import('./pages/qms/CompetenceRegister'))
 const DocumentRegister = lazy_(() => import('./pages/qms/DocumentRegister'))
 const OperationalPlanning = lazy_(() => import('./pages/qms/OperationalPlanning'))
+const ConductLanding = lazy_(() => import('./pages/ConductLanding'))
+const ReviewLanding = lazy_(() => import('./pages/ReviewLanding'))
 
 function AppShell() {
   const { user, loading, profile } = useAuth()
@@ -199,6 +201,8 @@ function AppShell() {
                 <Route path="/qms/competence" element={<CompetenceRegister />} />
                 <Route path="/qms/documents" element={<DocumentRegister />} />
                 <Route path="/qms/operational" element={<OperationalPlanning />} />
+                <Route path="/conduct" element={<ConductLanding />} />
+                <Route path="/review" element={<ReviewLanding />} />
 
                 <Route path="*" element={<ComingSoon />} />
               </Routes>

@@ -8,7 +8,7 @@ import { supabase } from '../lib/supabase'
 import {
   ClipboardList, AlertTriangle, CheckCircle2, BarChart3,
   ArrowRight, Shield, FileText, Target, TrendingUp,
-  Activity, Globe, FolderOpen, Users, Plus
+  Activity, Globe, FolderOpen, Users, Plus, CheckSquare
 } from 'lucide-react'
 
 function ModeCard({ mode, title, desc, color, accent, items, cta, ctaPath, navigate }) {
@@ -150,8 +150,8 @@ export default function Dashboard() {
           color="text-teal-400"
           accent="border-l-teal-500"
           navigate={navigate}
-          ctaPath="/iso19011/clause4"
-          cta="Start with ISO 19011 methodology"
+          ctaPath="/conduct"
+          cta="Go to Conduct an Audit"
           items={[
             { label: 'PBC evidence list', path: '/fieldwork/pbc', icon: ClipboardList },
             { label: 'Fieldwork tracker', path: '/fieldwork/tracker', icon: CheckCircle2 },
@@ -168,8 +168,8 @@ export default function Dashboard() {
           color="text-purple-400"
           accent="border-l-purple-500"
           navigate={navigate}
-          ctaPath="/fieldwork/gap-analysis"
-          cta="Start with gap analysis"
+          ctaPath="/review"
+          cta="Go to Review Your QMS"
           items={[
             { label: 'Gap analysis', path: '/fieldwork/gap-analysis', icon: Target },
             { label: 'Risk register', path: '/reporting/risks', icon: BarChart3 },
@@ -177,6 +177,24 @@ export default function Dashboard() {
             { label: 'KPI dashboard', path: '/reporting/kpi', icon: Activity },
             { label: 'Management review', path: '/reporting/management-review', icon: TrendingUp },
             { label: 'Audit universe', path: '/reporting/universe', icon: Globe },
+          ]}
+        />
+        <ModeCard
+          mode="Implement your QMS"
+          title="ISO 9001:2015 implementation"
+          desc="Build your QMS from scratch — context, policy, objectives, competence, documents, operational planning."
+          color="text-amber-audit"
+          accent="border-l-amber-600"
+          navigate={navigate}
+          ctaPath="/qms"
+          cta="Go to Implementation Overview"
+          items={[
+            { label: 'Context & Scope', path: '/qms/context', icon: CheckSquare },
+            { label: 'Quality Policy', path: '/qms/policy', icon: FileText },
+            { label: 'Quality Objectives', path: '/qms/objectives', icon: Target },
+            { label: 'Competence Register', path: '/qms/competence', icon: Users },
+            { label: 'Document Register', path: '/qms/documents', icon: FolderOpen },
+            { label: 'Operational Planning', path: '/qms/operational', icon: Activity },
           ]}
         />
       </div>

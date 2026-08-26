@@ -5,6 +5,8 @@ export const navSections = [
       { id: 'dashboard', label: 'Dashboard', path: '/', icon: 'LayoutDashboard', tooltip: 'QMS audit programme overview — live stats and recent activity' },
       { id: 'programmes', label: 'All Programmes', path: '/programmes', icon: 'LayoutGrid', tooltip: 'Overview of all audit programmes — status, quick access, client switcher' },
       { id: 'wiki', label: 'How to Use (Wiki)', path: '/wiki', icon: 'BookOpen', tooltip: 'Platform guide — full audit and review workflow from planning to improvement' },
+      { id: 'conduct', label: 'Conduct an Audit', path: '/conduct', icon: 'ClipboardList', tooltip: 'Auditor entry point — ISO 19011 methodology, fieldwork, findings, reports' },
+      { id: 'review', label: 'Review Your QMS', path: '/review', icon: 'BarChart3', tooltip: 'Quality manager entry point — KPI, CAPA, risk, management review' },
       { id: 'faq', label: 'FAQ', path: '/faq', icon: 'HelpCircle', tooltip: 'Frequently asked questions about QMSiQ and ISO 9001 audit methodology' },
       { id: 'profile', label: 'My Profile', path: '/profile', icon: 'User', tooltip: 'Edit your name, role, organisation, and change password' },
       { id: 'team', label: 'Team Members', path: '/team', icon: 'Users', tooltip: 'Manage team access — invite members, assign roles, share your User ID' },
