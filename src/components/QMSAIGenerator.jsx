@@ -172,7 +172,7 @@ function Field({ label, required, hint, children }) {
   )
 }
 
-export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = [], onGenerated }) {
+export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = [], onGenerated, priorContext }) {
   const [ctx, setCtx] = useState(EMPTY_CTX)
   const [loading, setLoading] = useState(false)
   const [draft, setDraft] = useState(null)
@@ -185,6 +185,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
 
   const generate = async () => {
     if (!isReady) { toast('Fill in name, industry and products/services first', 'error'); return }
+    const contextBlock = priorContext ? `\n\n[PRIOR CONTEXT FROM EARLIER CLAUSES — use this to ensure consistency]\n${priorContext}` : ''
     const built = [
       `Organisation: ${ctx.name}`,
       `Industry: ${ctx.industry}`,
@@ -193,7 +194,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
       ctx.customers && `Key customers/markets: ${ctx.customers}`,
       ctx.regulations && `Key regulations/standards: ${ctx.regulations}`,
       ctx.extra && `Additional context: ${ctx.extra}`,
-    ].filter(Boolean).join('\n')
+    ].filter(Boolean).join('\n') + contextBlock
     setLoading(true); setDraft(null); setErrors([])
     try {
       const raw = await callEdge(systemPrompt, built)
@@ -223,6 +224,7 @@ export default function QMSAIGenerator({ clause, systemPrompt, requiredFields = 
         <Sparkles size={14} className="text-amber-audit" />
         <span className="text-sm font-medium text-white">AI Draft Generator — {clause}</span>
         <span className="ml-auto text-xs text-steel-500 mr-2">Output is DRAFT — human review required</span>
+        {priorContext && <span className="text-xs text-emerald-600 mr-2" title="Prior clause data loaded as context">● Prior context loaded</span>}
         {open ? <ChevronUp size={13} className="text-steel-500" /> : <ChevronDown size={13} className="text-steel-500" />}
       </button>
 

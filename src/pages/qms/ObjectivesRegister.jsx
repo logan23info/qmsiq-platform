@@ -3,6 +3,9 @@ import PageHeader from '../../components/PageHeader'
 import QMSRecordTable from '../../components/QMSRecordTable'
 import QMSAIGenerator from '../../components/QMSAIGenerator'
 import { useProgramme } from '../../context/ProgrammeContext'
+import { useNavigate } from 'react-router-dom'
+import { useQMSContext, NEXT_MODULE } from '../../hooks/useQMSContext'
+import { ArrowRight } from 'lucide-react'
 import { useTeam } from '../../context/TeamContext'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
@@ -17,6 +20,9 @@ const EMPTY = Object.fromEntries(['objective', 'measure', 'target', 'owner', 'pr
 
 export default function ObjectivesRegister() {
   const { activeProgramme } = useProgramme()
+  const navigate = useNavigate()
+  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.6.2', activeProgramme?.id)
+  const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.6.2']
   const { isLead, isReviewer, canDelete } = useTeam()
   const { user } = useAuth()
   const toast = useToast()
@@ -101,7 +107,7 @@ export default function ObjectivesRegister() {
   return (
     <div className="max-w-4xl">
       <PageHeader title="Quality Objectives" subtitle="ISO 9001:2015 Cl.6.2" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.6.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — industry, main processes, current quality challenges..." onGenerated={onGenerated} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.6.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — industry, main processes, current quality challenges..." onGenerated={onGenerated} priorContext={priorContext} />}
       {showForm && (
         <div className="card mb-4 space-y-3">
           <div className="flex items-center justify-between mb-1">
@@ -136,6 +142,13 @@ export default function ObjectivesRegister() {
         <div className="flex justify-end mb-2">
           <button onClick={exportXLSX} className="btn-secondary text-xs flex items-center gap-1.5">
             <Download size={12} /> Export XLSX
+          </button>
+        </div>
+      )}
+      {nextModule && (
+        <div className="flex justify-end mb-3">
+          <button onClick={() => navigate(nextModule.path)} className="btn-secondary text-sm flex items-center gap-1.5">
+            Next: {nextModule.label} <ArrowRight size={13} />
           </button>
         </div>
       )}

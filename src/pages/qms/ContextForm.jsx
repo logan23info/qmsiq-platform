@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import PageHeader from '../../components/PageHeader'
 import QMSAIGenerator from '../../components/QMSAIGenerator'
 import { useProgramme } from '../../context/ProgrammeContext'
+import { useNavigate } from 'react-router-dom'
+import { useQMSContext, NEXT_MODULE } from '../../hooks/useQMSContext'
+import { ArrowRight } from 'lucide-react'
 import { useTeam } from '../../context/TeamContext'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
@@ -16,6 +19,9 @@ const EMPTY = Object.fromEntries(['internal_issues', 'external_issues', 'scope',
 
 export default function ContextForm() {
   const { activeProgramme } = useProgramme()
+  const navigate = useNavigate()
+  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.4.1–4.3', activeProgramme?.id)
+  const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.4.1–4.3']
   const { isReviewer } = useTeam()
   const { user } = useAuth()
   const toast = useToast()
@@ -50,7 +56,7 @@ export default function ContextForm() {
   return (
     <div className="max-w-2xl">
       <PageHeader title="Context & Scope" subtitle="ISO 9001:2015 Cl.4.1–4.3" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.4.1–4.3" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — industry, size, main products or services, key locations..." onGenerated={onGenerated} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.4.1–4.3" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — industry, size, main products or services, key locations..." onGenerated={onGenerated} priorContext={priorContext} />}
       {form.ai_generated && form.status === 'Draft' && (
         <div className="flex items-center gap-2 text-xs text-amber-audit bg-amber-900/20 border border-amber-800/40 rounded-lg px-3 py-2 mb-4">
           <Sparkles size={12} /> AI draft — review content below then click Save to confirm.
@@ -61,7 +67,12 @@ export default function ContextForm() {
         <div><label className='block text-xs text-steel-400 mb-1'>External issues (PESTLE external factors) *</label><textarea maxLength={2000} value={form['external_issues'] || ''} onChange={e => set('external_issues', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
         <div><label className='block text-xs text-steel-400 mb-1'>QMS scope — products, services, sites *</label><textarea maxLength={2000} value={form['scope'] || ''} onChange={e => set('scope', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
         <div><label className='block text-xs text-steel-400 mb-1'>Justified exclusions (Cl.8 only, if any)</label><textarea maxLength={2000} value={form['exclusions'] || ''} onChange={e => set('exclusions', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
-        {canEdit && <button onClick={save} disabled={saving} className="btn-primary text-sm"><Save size={13} /> Save</button>}
+        <div className="flex items-center gap-3">
+          {canEdit && <button onClick={save} disabled={saving} className="btn-primary text-sm"><Save size={13} /> Save</button>}
+          {nextModule && <button onClick={() => navigate(nextModule.path)} className="btn-secondary text-sm flex items-center gap-1.5">
+            Next: {nextModule.label} <ArrowRight size={13} />
+          </button>}
+        </div>
       </div>
     </div>
   )

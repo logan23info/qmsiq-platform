@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import PageHeader from '../../components/PageHeader'
 import QMSAIGenerator from '../../components/QMSAIGenerator'
 import { useProgramme } from '../../context/ProgrammeContext'
+import { useNavigate } from 'react-router-dom'
+import { useQMSContext, NEXT_MODULE } from '../../hooks/useQMSContext'
+import { ArrowRight } from 'lucide-react'
 import { useTeam } from '../../context/TeamContext'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
@@ -14,6 +17,9 @@ const EMPTY = Object.fromEntries(['policy_text', 'approved_by', 'approved_date',
 
 export default function QualityPolicy() {
   const { activeProgramme } = useProgramme()
+  const navigate = useNavigate()
+  const { priorContext, priorLoading } = useQMSContext('ISO 9001:2015 Cl.5.2', activeProgramme?.id)
+  const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.5.2']
   const { isReviewer } = useTeam()
   const { user } = useAuth()
   const toast = useToast()
@@ -48,7 +54,7 @@ export default function QualityPolicy() {
   return (
     <div className="max-w-2xl">
       <PageHeader title="Quality Policy" subtitle="ISO 9001:2015 Cl.5.2" />
-      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.5.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — name, industry, what you make or deliver, your key quality commitments..." onGenerated={onGenerated} />}
+      {canEdit && <QMSAIGenerator clause="ISO 9001:2015 Cl.5.2" systemPrompt={SYSTEM_PROMPT} requiredFields={REQUIRED} placeholder="Describe your organisation — name, industry, what you make or deliver, your key quality commitments..." onGenerated={onGenerated} priorContext={priorContext} />}
       {form.ai_generated && form.status === 'Draft' && (
         <div className="flex items-center gap-2 text-xs text-amber-audit bg-amber-900/20 border border-amber-800/40 rounded-lg px-3 py-2 mb-4">
           <Sparkles size={12} /> AI draft — review content below then click Save to confirm.
@@ -60,7 +66,12 @@ export default function QualityPolicy() {
         <div><label className='block text-xs text-steel-400 mb-1'>Approval date</label><input type='date' maxLength={200} value={form['approved_date'] || ''} onChange={e => set('approved_date', e.target.value)} disabled={!canEdit} className='input-field w-full text-sm' /></div>
         <div><label className='block text-xs text-steel-400 mb-1'>Version</label><input type='text' maxLength={200} value={form['version'] || ''} onChange={e => set('version', e.target.value)} disabled={!canEdit} className='input-field w-full text-sm' /></div>
         <div><label className='block text-xs text-steel-400 mb-1'>Communicated to organisation? (yes/no)</label><input type='text' maxLength={200} value={form['communicated'] || ''} onChange={e => set('communicated', e.target.value)} disabled={!canEdit} className='input-field w-full text-sm' /></div>
-        {canEdit && <button onClick={save} disabled={saving} className="btn-primary text-sm"><Save size={13} /> Save</button>}
+        <div className="flex items-center gap-3">
+          {canEdit && <button onClick={save} disabled={saving} className="btn-primary text-sm"><Save size={13} /> Save</button>}
+          {nextModule && <button onClick={() => navigate(nextModule.path)} className="btn-secondary text-sm flex items-center gap-1.5">
+            Next: {nextModule.label} <ArrowRight size={13} />
+          </button>}
+        </div>
       </div>
     </div>
   )
