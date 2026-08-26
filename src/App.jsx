@@ -90,6 +90,9 @@ const CompetenceRegister = lazy_(() => import('./pages/qms/CompetenceRegister'))
 const DocumentRegister = lazy_(() => import('./pages/qms/DocumentRegister'))
 const OperationalPlanning = lazy_(() => import('./pages/qms/OperationalPlanning'))
 const ConductLanding = lazy_(() => import('./pages/ConductLanding'))
+const DesignDevelopment = lazy_(() => import('./pages/qms/DesignDevelopment'))
+const AuditSchedule = lazy_(() => import('./pages/qms/AuditSchedule'))
+const ContinualImprovement = lazy_(() => import('./pages/qms/ContinualImprovement'))
 const ReviewLanding = lazy_(() => import('./pages/ReviewLanding'))
 
 function AppShell() {
@@ -202,6 +205,9 @@ function AppShell() {
                 <Route path="/qms/documents" element={<DocumentRegister />} />
                 <Route path="/qms/operational" element={<OperationalPlanning />} />
                 <Route path="/conduct" element={<ConductLanding />} />
+                <Route path="/qms/design" element={<DesignDevelopment />} />
+                <Route path="/qms/audit-schedule" element={<AuditSchedule />} />
+                <Route path="/qms/improvements" element={<ContinualImprovement />} />
                 <Route path="/review" element={<ReviewLanding />} />
 
                 <Route path="*" element={<ComingSoon />} />

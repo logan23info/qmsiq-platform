@@ -83,6 +83,9 @@ export const navSections = [
       { id: 'qms-competence', label: 'Cl.7 — Competence Register', path: '/qms/competence', icon: 'GraduationCap', tooltip: 'Staff competence — required, evidence, gaps and training actions (Cl.7.2)' },
       { id: 'qms-documents', label: 'Cl.7 — Document Register', path: '/qms/documents', icon: 'FolderOpen', tooltip: 'Documented information register — procedures, forms, records (Cl.7.5)' },
       { id: 'qms-operational', label: 'Cl.8 — Operational Planning', path: '/qms/operational', icon: 'Settings', tooltip: 'Key process register — inputs, outputs, controls and risks (Cl.8.1)' },
+      { id: 'qms-design', label: 'Cl.8.3 — Design & Development', path: '/qms/design', icon: 'PenTool', tooltip: 'Design and development projects — inputs, outputs, verification, validation (Cl.8.3)' },
+      { id: 'qms-audit-schedule', label: 'Cl.9.2 — Audit Schedule', path: '/qms/audit-schedule', icon: 'Calendar', tooltip: 'Internal audit annual plan — scope, frequency, clause coverage (Cl.9.2)' },
+      { id: 'qms-improvements', label: 'Cl.10.3 — Improvement Register', path: '/qms/improvements', icon: 'TrendingUp', tooltip: 'Proactive continual improvement register — source, benefit, owner (Cl.10.3)' },
     ]
   },
 ]

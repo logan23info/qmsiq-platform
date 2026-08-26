@@ -4,7 +4,10 @@ import { BarChart2, CheckCircle2, AlertTriangle, TrendingUp, Loader2, FileText }
 import PageHeader from '../../components/PageHeader'
 import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { getFindings, getRisks, getWorkpapers } from '../../lib/supabase'
+import { getFindings, getRisks, getWorkpapers, getMgmtReviews, createMgmtReview, updateMgmtReview } from '../../lib/supabase'
+import { useAuth } from '../../context/AuthContext'
+import { useToast } from '../../components/Toast'
+import { Save, Plus } from 'lucide-react'
 
 const inputs = [
   { id: 'audit-results', label: 'Results of Audits', icon: FileText, desc: 'Internal audit findings and external audit outcomes from the period under review.' },
@@ -27,7 +30,12 @@ const outputs = [
 
 export default function ManagementReview() {
   const { activeProgramme } = useProgramme()
+  const { user } = useAuth()
+  const toast = useToast()
   const [findings, setFindings] = useState([])
+  const [savedReview, setSavedReview] = useState(null)
+  const [reviewForm, setReviewForm] = useState({ review_date: new Date().toISOString().slice(0,10), chair: '', attendees: '', decisions: '', next_review_date: '', action_items: [] })
+  const [saving, setSaving] = useState(false)
   const [risks, setRisks] = useState([])
   const [workpapers, setWorkpapers] = useState([])
   const [loading, setLoading] = useState(false)
@@ -136,6 +144,22 @@ export default function ManagementReview() {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Review record form */}
+      <div className="card mb-6 space-y-3">
+        <div className="flex items-center justify-between mb-1">
+          <h2 className="section-title mb-0">Review Record</h2>
+          {savedReview && <span className="text-xs text-emerald-400">Saved</span>}
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <div><label className="block text-xs text-steel-400 mb-1">Review date</label><input type="date" value={reviewForm.review_date} onChange={e=>setReviewForm(f=>({...f,review_date:e.target.value}))} className="input-field w-full text-sm" /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Next review date</label><input type="date" value={reviewForm.next_review_date||''} onChange={e=>setReviewForm(f=>({...f,next_review_date:e.target.value}))} className="input-field w-full text-sm" /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Chair (top management)</label><input maxLength={200} value={reviewForm.chair||''} onChange={e=>setReviewForm(f=>({...f,chair:e.target.value}))} className="input-field w-full text-sm" /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Attendees</label><input maxLength={500} value={reviewForm.attendees||''} onChange={e=>setReviewForm(f=>({...f,attendees:e.target.value}))} className="input-field w-full text-sm" placeholder="Names or roles" /></div>
+        </div>
+        <div><label className="block text-xs text-steel-400 mb-1">Decisions & outcomes</label><textarea maxLength={2000} value={reviewForm.decisions||''} onChange={e=>setReviewForm(f=>({...f,decisions:e.target.value}))} className="input-field w-full h-20 text-sm resize-none" /></div>
+        <button onClick={saveReview} disabled={saving} className="btn-primary text-sm flex items-center gap-2"><Save size={13} /> {saving?'Saving...':'Save review record'}</button>
       </div>
 
       <AIPanel

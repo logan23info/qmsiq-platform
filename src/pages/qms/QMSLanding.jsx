@@ -3,18 +3,18 @@ import { useNavigate } from 'react-router-dom'
 import { CheckCircle2, Circle, AlertCircle, ChevronRight, Award, TrendingUp, AlertTriangle, Link } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { getQMSContext, getStakeholders, getQMSPolicy, getObjectives, getChanges, getCompetence, getDocuments, getFindings, getOperational } from '../../lib/supabase'
+import { getQMSContext, getStakeholders, getQMSPolicy, getObjectives, getChanges, getCompetence, getDocuments, getFindings, getOperational, getDesign, getAuditSchedule, getImprovements } from '../../lib/supabase'
 
 // ─── Weighted minimums by org size ─────────────────────────
 // Source: ISO 9001:2015 implementation guidance, not mandated by standard
 const MINIMUMS = {
-  '1–10 employees':    { stakeholders: 4, objectives: 3, competence: 3, documents: 5, changes: 1, operational: 3 },
-  '11–50 employees':   { stakeholders: 6, objectives: 4, competence: 5, documents: 8, changes: 2, operational: 5 },
-  '51–250 employees':  { stakeholders: 8, objectives: 5, competence: 8, documents: 10, changes: 3, operational: 6 },
-  '251–1000 employees':{ stakeholders: 10, objectives: 6, competence: 12, documents: 15, changes: 4, operational: 7 },
-  '1000+ employees':   { stakeholders: 12, objectives: 8, competence: 15, documents: 20, changes: 5, operational: 8 },
+  '1–10 employees':    { stakeholders: 4, objectives: 3, competence: 3, documents: 5, changes: 1, operational: 3, design: 0, audit_schedule: 2, improvements: 2 },
+  '11–50 employees':   { stakeholders: 6, objectives: 4, competence: 5, documents: 8, changes: 2, operational: 5, design: 0, audit_schedule: 3, improvements: 3 },
+  '51–250 employees':  { stakeholders: 8, objectives: 5, competence: 8, documents: 10, changes: 3, operational: 6, design: 0, audit_schedule: 4, improvements: 4 },
+  '251–1000 employees':{ stakeholders: 10, objectives: 6, competence: 12, documents: 15, changes: 4, operational: 7, design: 0, audit_schedule: 5, improvements: 5 },
+  '1000+ employees':   { stakeholders: 12, objectives: 8, competence: 15, documents: 20, changes: 5, operational: 8, design: 0, audit_schedule: 6, improvements: 6 },
 }
-const DEFAULT_MIN = { stakeholders: 4, objectives: 3, competence: 3, documents: 5, changes: 1, operational: 3 }
+const DEFAULT_MIN = { stakeholders: 4, objectives: 3, competence: 3, documents: 5, changes: 1, operational: 3, design: 0, audit_schedule: 2, improvements: 2 }
 
 const MODULES = [
   { id: 'context', label: 'Context & Scope', clause: 'Cl.4.1–4.3', path: '/qms/context', mandatory: true, single: true },
@@ -25,6 +25,9 @@ const MODULES = [
   { id: 'competence', label: 'Competence Register', clause: 'Cl.7.2', path: '/qms/competence', mandatory: true, single: false },
   { id: 'documents', label: 'Document Register', clause: 'Cl.7.5', path: '/qms/documents', mandatory: true, single: false },
   { id: 'operational', label: 'Operational Planning', clause: 'Cl.8.1', path: '/qms/operational', mandatory: true, single: false },
+  { id: 'design', label: 'Design & Development', clause: 'Cl.8.3', path: '/qms/design', mandatory: false, single: false },
+  { id: 'audit_schedule', label: 'Internal Audit Schedule', clause: 'Cl.9.2', path: '/qms/audit-schedule', mandatory: true, single: false },
+  { id: 'improvements', label: 'Continual Improvement', clause: 'Cl.10.3', path: '/qms/improvements', mandatory: true, single: false },
 ]
 
 // Truth table: count × single × data → icon
@@ -52,6 +55,8 @@ function certScore(counts, data, findings, orgSize) {
     { label: 'Operational processes defined', pass: counts.operational >= min.operational },
     { label: 'No open Major NCs', pass: !findings.some(f => f.rating === 'Major NC' && f.status === 'Open') },
     { label: 'Change register maintained', pass: counts.changes >= min.changes },
+    { label: 'Internal audit schedule defined', pass: counts.audit_schedule >= min.audit_schedule },
+    { label: 'Improvement register maintained', pass: counts.improvements >= min.improvements },
   ]
   return checks
 }
@@ -73,11 +78,12 @@ export default function QMSLanding() {
       getQMSContext(pid), getStakeholders(pid), getQMSPolicy(pid),
       getObjectives(pid), getChanges(pid), getCompetence(pid),
       getDocuments(pid), getFindings(pid), getOperational(pid)
-    ]).then(([ctx, sth, pol, obj, chg, cmp, doc, fin, ops]) => {
+    ]).then(([ctx, sth, pol, obj, chg, cmp, doc, fin, ops, des, sch, imp]) => {
       setCounts({
         context: ctx ? 1 : 0, stakeholders: sth.length, policy: pol ? 1 : 0,
         objectives: obj.length, changes: chg.length, competence: cmp.length,
-        documents: doc.length, operational: ops.length
+        documents: doc.length, operational: ops.length,
+        design: des.length, audit_schedule: sch.length, improvements: imp.length
       })
       const allDraft = (arr) => arr.length > 0 && arr.every(r => r.ai_generated && r.status === 'Draft')
       setData({
@@ -88,6 +94,9 @@ export default function QMSLanding() {
         competence: { hasDraft: allDraft(cmp) },
         documents: { hasDraft: allDraft(doc) },
         operational: { hasDraft: allDraft(ops) },
+        design: { hasDraft: allDraft(des) },
+        audit_schedule: { hasDraft: allDraft(sch) },
+        improvements: { hasDraft: allDraft(imp) },
       })
       setFindings(fin || [])
       setLoading(false)

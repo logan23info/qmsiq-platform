@@ -529,3 +529,27 @@ export const getOperational = (pid) => qmsGet('qms_operational', pid)
 export const createOperational = (pid, uid, r) => qmsInsert('qms_operational', pid, uid, r)
 export const updateOperational = (id, r) => qmsUpdate('qms_operational', id, r)
 export const deleteOperational = (id) => qmsDelete('qms_operational', id)
+
+// ─── Cl.8.3 Design & Development ──────────────────────────
+export const getDesign = (pid) => qmsGet('qms_design', pid)
+export const createDesign = (pid, uid, r) => qmsInsert('qms_design', pid, uid, r)
+export const updateDesign = (id, r) => qmsUpdate('qms_design', id, r)
+export const deleteDesign = (id) => qmsDelete('qms_design', id)
+
+// ─── Cl.9.2 Audit Schedule ────────────────────────────────
+export const getAuditSchedule = (pid) => qmsGet('qms_audit_schedule', pid)
+export const createAuditSchedule = (pid, uid, r) => qmsInsert('qms_audit_schedule', pid, uid, r)
+export const updateAuditSchedule = (id, r) => qmsUpdate('qms_audit_schedule', id, r)
+export const deleteAuditSchedule = (id) => qmsDelete('qms_audit_schedule', id)
+
+// ─── Cl.9.3 Management Review ─────────────────────────────
+export const getMgmtReviews = (pid) => qmsGet('qms_mgmt_review', pid)
+export const createMgmtReview = (pid, uid, r) => qmsInsert('qms_mgmt_review', pid, uid, r)
+export const updateMgmtReview = (id, r) => qmsUpdate('qms_mgmt_review', id, r)
+export const deleteMgmtReview = (id) => qmsDelete('qms_mgmt_review', id)
+
+// ─── Cl.10.3 Continual Improvement ───────────────────────
+export const getImprovements = (pid) => qmsGet('qms_improvements', pid)
+export const createImprovement = (pid, uid, r) => qmsInsert('qms_improvements', pid, uid, r)
+export const updateImprovement = (id, r) => qmsUpdate('qms_improvements', id, r)
+export const deleteImprovement = (id) => qmsDelete('qms_improvements', id)
