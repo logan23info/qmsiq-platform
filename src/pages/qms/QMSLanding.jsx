@@ -22,6 +22,8 @@ function statusIcon(count, single, data) {
     if (data?.status === 'Complete' || data?.status === 'Approved') return <CheckCircle2 size={16} className="text-emerald-400" />
     return <AlertCircle size={16} className="text-amber-400" />
   }
+  // Many-record: check if any are Draft (ai_generated) vs all saved
+  if (data?.hasDraft) return <AlertCircle size={16} className="text-amber-400" />
   return <CheckCircle2 size={16} className="text-emerald-400" />
 }
 
@@ -69,6 +71,7 @@ export default function QMSLanding() {
           <div className="bg-amber-audit h-2 rounded-full transition-all" style={{ width: `${pct}%` }} />
         </div>
         <div className="mt-2 text-xs text-steel-500">{pct}% complete · {MODULES.filter(m => m.mandatory && !counts[m.id]).length} mandatory items outstanding</div>
+        <div className="mt-1 text-xs text-steel-600 italic">Progress reflects saved records only. AI drafts must be saved in each module to count.</div>
       </div>
 
       <div className="space-y-2">
@@ -84,7 +87,11 @@ export default function QMSLanding() {
                   {m.mandatory && <span className="text-xs text-amber-audit bg-amber-900/20 px-1.5 py-0.5 rounded">Required</span>}
                   {m.ai && <span className="text-xs text-purple-400 bg-purple-900/20 px-1.5 py-0.5 rounded">AI</span>}
                 </div>
-                <div className="text-xs text-steel-500 mt-0.5">{m.clause} · {count === 0 ? 'Not started' : `${count} record${count > 1 ? 's' : ''}`}</div>
+                <div className="text-xs text-steel-500 mt-0.5">
+                  {m.clause} · {count === 0 ? 'Not started' : 
+                    data[m.id]?.hasDraft ? `${count} record${count > 1 ? 's' : ''} — drafts unsaved` :
+                    `${count} record${count > 1 ? 's' : ''}`}
+                </div>
               </div>
               <ChevronRight size={14} className="text-steel-600 flex-shrink-0" />
             </button>
