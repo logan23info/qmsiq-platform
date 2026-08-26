@@ -32,7 +32,7 @@ export default function ContextForm() {
 
   useEffect(() => {
     if (!activeProgramme) return
-    getQMSContext(activeProgramme.id).then(d => { if (d) setForm(f => ({ ...f, ...d })) })
+    getQMSContext(activeProgramme.id).then(d => { if (d) { const pick = ['internal_issues', 'external_issues', 'scope', 'exclusions', 'org_name', 'industry', 'products', 'org_size', 'customers', 'regulations', 'ai_generated', 'status']; setForm(f => ({ ...f, ...Object.fromEntries(pick.filter(k => k in d).map(k => [k, d[k]])) })) } })
   }, [activeProgramme])
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
@@ -67,10 +67,49 @@ export default function ContextForm() {
         </div>
       )}
       <div className="card space-y-4">
-                <div><label className='block text-xs text-steel-400 mb-1'>Internal issues (SWOT internal factors) *</label><textarea maxLength={2000} value={form['internal_issues'] || ''} onChange={e => set('internal_issues', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
-        <div><label className='block text-xs text-steel-400 mb-1'>External issues (PESTLE external factors) *</label><textarea maxLength={2000} value={form['external_issues'] || ''} onChange={e => set('external_issues', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
-        <div><label className='block text-xs text-steel-400 mb-1'>QMS scope — products, services, sites *</label><textarea maxLength={2000} value={form['scope'] || ''} onChange={e => set('scope', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
-        <div><label className='block text-xs text-steel-400 mb-1'>Justified exclusions (Cl.8 only, if any)</label><textarea maxLength={2000} value={form['exclusions'] || ''} onChange={e => set('exclusions', e.target.value)} disabled={!canEdit} className='input-field w-full h-32 text-sm resize-none' /></div>
+        {/* Organisation profile — saved once, reused by all subsequent clauses */}
+        <div className="pb-3 border-b border-navy-700">
+          <p className="text-xs text-amber-audit font-medium mb-3">Organisation Profile — saved here, auto-filled in Cl.5–7</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Organisation name <span className="text-red-400">*</span></label>
+              <input maxLength={100} value={form.org_name || ''} onChange={e => set('org_name', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. Bharat Precision Parts Pvt Ltd" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Industry / sector <span className="text-red-400">*</span></label>
+              <input maxLength={100} value={form.industry || ''} onChange={e => set('industry', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. Automotive components manufacturing" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Products / services <span className="text-red-400">*</span></label>
+              <input maxLength={200} value={form.products || ''} onChange={e => set('products', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. Forged steel components for OEMs" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Organisation size</label>
+              <select value={form.org_size || ''} onChange={e => set('org_size', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm">
+                <option value="">Select...</option>
+                <option>1–10 employees</option>
+                <option>11–50 employees</option>
+                <option>51–250 employees</option>
+                <option>251–1000 employees</option>
+                <option>1000+ employees</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Key customers / markets</label>
+              <input maxLength={200} value={form.customers || ''} onChange={e => set('customers', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. Maruti Suzuki Tier 1 supply chain" />
+            </div>
+            <div>
+              <label className="block text-xs text-steel-400 mb-1">Applicable regulations / standards</label>
+              <input maxLength={200} value={form.regulations || ''} onChange={e => set('regulations', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. IATF 16949, FSSAI, BIS, ISO 27001" />
+            </div>
+          </div>
+        </div>
+
+        {/* ISO 9001 Cl.4.1–4.3 content */}
+        <div><label className="block text-xs text-steel-400 mb-1">Internal issues — SWOT internal factors <span className="text-red-400">*</span></label><textarea maxLength={2000} value={form.internal_issues || ''} onChange={e => set('internal_issues', e.target.value)} disabled={!canEdit} className="input-field w-full h-28 text-sm resize-none" /></div>
+        <div><label className="block text-xs text-steel-400 mb-1">External issues — PESTLE external factors <span className="text-red-400">*</span></label><textarea maxLength={2000} value={form.external_issues || ''} onChange={e => set('external_issues', e.target.value)} disabled={!canEdit} className="input-field w-full h-28 text-sm resize-none" /></div>
+        <div><label className="block text-xs text-steel-400 mb-1">QMS scope — products, services, sites <span className="text-red-400">*</span></label><textarea maxLength={2000} value={form.scope || ''} onChange={e => set('scope', e.target.value)} disabled={!canEdit} className="input-field w-full h-24 text-sm resize-none" /></div>
+        <div><label className="block text-xs text-steel-400 mb-1">Justified exclusions (Cl.8 only, if any)</label><textarea maxLength={500} value={form.exclusions || ''} onChange={e => set('exclusions', e.target.value)} disabled={!canEdit} className="input-field w-full h-16 text-sm resize-none" /></div>
         <div className="flex items-center gap-3">
           {canEdit && <button onClick={save} disabled={saving} className="btn-primary text-sm"><Save size={13} /> Save</button>}
           {nextModule && <button onClick={() => navigate(nextModule.path)} className="btn-secondary text-sm flex items-center gap-1.5">
