@@ -4,6 +4,7 @@ import { CheckCircle2, Circle, AlertCircle, ChevronRight, Award, TrendingUp, Ale
 import PageHeader from '../../components/PageHeader'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { getQMSContext, getStakeholders, getQMSPolicy, getObjectives, getChanges, getCompetence, getDocuments, getFindings, getOperational, getDesign, getAuditSchedule, getImprovements } from '../../lib/supabase'
+import { BarChart3, ClipboardList } from 'lucide-react'
 
 // ─── Weighted minimums by org size ─────────────────────────
 // Source: ISO 9001:2015 implementation guidance, not mandated by standard
@@ -192,16 +193,33 @@ export default function QMSLanding() {
         </div>
       )}
 
-      {/* KPI / Cl.9.1 link */}
-      <button onClick={() => navigate('/reporting/kpi')}
-        className="w-full flex items-center gap-3 card mb-4 hover:border-navy-500 transition-colors">
-        <TrendingUp size={16} className="text-teal-400 flex-shrink-0" />
-        <div className="text-left flex-1">
-          <div className="text-sm font-medium text-white">Cl.9.1 — Monitor & Measure</div>
-          <div className="text-xs text-steel-500">KPI Dashboard — track quality objectives against targets</div>
-        </div>
-        <ChevronRight size={14} className="text-steel-600 flex-shrink-0" />
-      </button>
+      {/* Quick actions — gap analysis + conduct audit + KPI */}
+      <div className="grid grid-cols-3 gap-3 mb-4">
+        <button onClick={() => navigate('/fieldwork/gap-analysis')}
+          className="flex items-center gap-2 card p-3 hover:border-navy-500 transition-colors">
+          <BarChart3 size={14} className="text-amber-audit flex-shrink-0" />
+          <div className="text-left min-w-0">
+            <div className="text-xs font-medium text-white">Gap Analysis</div>
+            <div className="text-xs text-steel-500">Cl.4–10 RAG</div>
+          </div>
+        </button>
+        <button onClick={() => navigate('/conduct')}
+          className="flex items-center gap-2 card p-3 hover:border-navy-500 transition-colors">
+          <ClipboardList size={14} className="text-blue-400 flex-shrink-0" />
+          <div className="text-left min-w-0">
+            <div className="text-xs font-medium text-white">Conduct Audit</div>
+            <div className="text-xs text-steel-500">ISO 19011</div>
+          </div>
+        </button>
+        <button onClick={() => navigate('/reporting/kpi')}
+          className="flex items-center gap-2 card p-3 hover:border-navy-500 transition-colors">
+          <TrendingUp size={14} className="text-teal-400 flex-shrink-0" />
+          <div className="text-left min-w-0">
+            <div className="text-xs font-medium text-white">KPI Dashboard</div>
+            <div className="text-xs text-steel-500">Cl.9.1</div>
+          </div>
+        </button>
+      </div>
 
       {/* Module list */}
       <div className="space-y-2">

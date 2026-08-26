@@ -114,6 +114,11 @@ export default function ReviewLanding() {
         ))}
       </div>
 
+      <button onClick={() => navigate('/qms')}
+        className="mt-4 w-full flex items-center justify-center gap-2 text-xs text-amber-audit hover:text-amber-300 transition-colors py-2 border border-amber-800/30 rounded-xl">
+        Go to QMS Implementation tracker <ChevronRight size={12} />
+      </button>
+
       <button onClick={() => navigate('/fieldwork/gap-analysis')}
         className="mt-4 w-full flex items-center justify-center gap-2 text-xs text-steel-400 hover:text-white transition-colors py-2">
         Start with Gap Analysis — baseline your current QMS <ChevronRight size={12} />

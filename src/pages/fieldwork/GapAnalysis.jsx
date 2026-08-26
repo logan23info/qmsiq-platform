@@ -4,6 +4,7 @@ import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
 import { useNavigate } from 'react-router-dom'
 import { getGapAnalysis, upsertGapAnalysis } from '../../lib/supabase'
+import { gapItemToQMSPath } from '../../lib/qmsRuntime'
 import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import { Save, RefreshCw, ArrowRight } from 'lucide-react'
@@ -167,12 +168,38 @@ export default function GapAnalysis() {
             </div>
           </div>
           <div className="ml-auto flex gap-2">
-            <div className="flex items-center justify-between mb-4 p-3 bg-amber-900/20 border border-amber-800/40 rounded-xl">
-        <div className="text-xs text-steel-300">Red or Amber clauses? Go to Implementation to address them.</div>
-        <button onClick={() => navigate('/qms')} className="btn-secondary text-xs flex items-center gap-1.5">
-          Implement Your QMS <ArrowRight size={11} />
-        </button>
-      </div>
+            {/* Show Red/Amber clauses with direct links to their QMS module */}
+      {(() => {
+        const gaps = Object.entries(ratings)
+          .filter(([, v]) => v === 'red' || v === 'amber')
+          .map(([id, rating]) => {
+            const section = clauses.find(s => s.items.some(i => i.id === id))
+            const item = section?.items.find(i => i.id === id)
+            return item ? { id, ref: item.ref, text: item.text, rating, path: gapItemToQMSPath(item.ref) } : null
+          }).filter(Boolean).slice(0, 6)
+        if (!gaps.length) return null
+        return (
+          <div className="mb-4 border border-amber-800/40 bg-amber-900/10 rounded-xl overflow-hidden">
+            <div className="px-3 py-2 border-b border-amber-800/40 flex items-center justify-between">
+              <span className="text-xs font-medium text-amber-400">{gaps.length} gap{gaps.length > 1 ? 's' : ''} need implementation action</span>
+              <button onClick={() => navigate('/qms')} className="text-xs text-steel-500 hover:text-white flex items-center gap-1">
+                Overview <ArrowRight size={10} />
+              </button>
+            </div>
+            <div className="p-2 space-y-1">
+              {gaps.map(g => (
+                <button key={g.id} onClick={() => navigate(g.path)}
+                  className="w-full flex items-center gap-2 text-left px-2 py-1.5 rounded-lg hover:bg-amber-900/20 transition-colors group">
+                  <span className={`w-2 h-2 rounded-full flex-shrink-0 ${g.rating === 'red' ? 'bg-red-400' : 'bg-amber-400'}`} />
+                  <span className="text-xs text-steel-400 flex-shrink-0">Cl.{g.ref}</span>
+                  <span className="text-xs text-steel-300 truncate flex-1">{g.text}</span>
+                  <ArrowRight size={10} className="text-steel-600 group-hover:text-amber-400 flex-shrink-0" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )
+      })()}
       <ExportMenu type="gap" gapRatings={ratings} gapNotes={notes} programme={activeProgramme} />
             <button onClick={reset} className="btn-secondary text-xs py-1.5">
               <RefreshCw size={12} /> Reset

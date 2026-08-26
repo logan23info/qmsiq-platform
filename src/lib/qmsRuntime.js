@@ -188,3 +188,44 @@ export const SEVERITY_COLORS = {
   Low: 'text-emerald-400',
   'N/A': 'text-steel-500',
 }
+
+// ─── Clause → QMS module path mapping ────────────────────────
+// Single source of truth — used by GapAnalysis, FindingRegister, CAPATracker
+const CLAUSE_TO_QMS_PATH = {
+  '4.1': '/qms/context', '4.2': '/qms/context',
+  '4.3': '/qms/context', '4.4': '/qms/context',
+  '5.2': '/qms/policy',
+  '6.2': '/qms/objectives',
+  '6.3': '/qms/changes',
+  '7.2': '/qms/competence',
+  '7.5': '/qms/documents',
+  '8.1': '/qms/operational',
+  '8.3': '/qms/design',
+  '8.4': '/qms/operational',
+  '9.2': '/qms/audit-schedule',
+  '9.3': '/reporting/management-review',
+  '10.2': '/reporting/capa',
+  '10.3': '/qms/improvements',
+}
+
+/**
+ * Maps a clause reference string to a QMS module path.
+ * Handles formats: "6.2", "Cl.6.2", "cl6.2", "ISO 9001 Cl.6.2", "cl6"
+ * Falls back to /qms (landing) if no match.
+ */
+export function clauseToQMSPath(ref) {
+  if (!ref) return '/qms'
+  // Extract digits.digits pattern — e.g. "6.2" from "Cl.6.2" or "cl6.2"
+  const match = String(ref).match(/(\d+)\.?(\d*)/)
+  if (!match) return '/qms'
+  const key = match[2] ? `${match[1]}.${match[2]}` : match[1]
+  return CLAUSE_TO_QMS_PATH[key] || '/qms'
+}
+
+/**
+ * Maps a gap analysis item ref (e.g. "4.2") to a QMS path.
+ * Same logic — separate export for clarity at call site.
+ */
+export function gapItemToQMSPath(ref) {
+  return clauseToQMSPath(ref)
+}
