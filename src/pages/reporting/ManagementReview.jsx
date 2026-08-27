@@ -66,8 +66,17 @@ export default function ManagementReview() {
     if (!activeProgramme || !user) return
     setSaving(true)
     try {
-      const payload = { ...reviewForm, completed_inputs: completedInputs, status: 'Complete' }
-      const { id: _i, programme_id: _p, user_id: _u, created_at: _c, updated_at: _u2, ...clean } = payload
+      // Sanitise payload — convert empty strings to null for date columns, strip DB-managed fields
+      const sanitise = (obj) => Object.fromEntries(
+        Object.entries(obj).map(([k, v]) => [k, v === '' ? null : v])
+      )
+      const { id: _i, programme_id: _p, user_id: _u, created_at: _c, updated_at: _u2, ai_generated: _ag, ...rest } = reviewForm
+      const clean = sanitise({
+        ...rest,
+        completed_inputs: completedInputs,
+        action_items: reviewForm.action_items || [],
+        status: 'Complete',
+      })
       if (savedReview) {
         const updated = await updateMgmtReview(savedReview.id, clean)
         setSavedReview(updated)
