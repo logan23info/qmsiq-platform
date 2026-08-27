@@ -31,7 +31,7 @@ const outputs = [
 export default function ManagementReview() {
   const { activeProgramme } = useProgramme()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [findings, setFindings] = useState([])
   const [savedReview, setSavedReview] = useState(null)
   const [reviewForm, setReviewForm] = useState({ review_date: new Date().toISOString().slice(0,10), chair: '', attendees: '', decisions: '', next_review_date: '', action_items: [] })
