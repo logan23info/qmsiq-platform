@@ -146,7 +146,7 @@ export default function PBCList() {
                     <td className="py-2.5 px-3 text-white max-w-xs truncate">{item.description}</td>
                     <td className="py-2.5 px-3"><span className={`badge ${phaseColors[item.phase] || 'badge-steel'}`}>{item.phase}</span></td>
                     <td className="py-2.5 px-3"><span className={`badge ${item.priority === 'High' ? 'bg-red-900/30 text-red-300' : item.priority === 'Medium' ? 'bg-amber-900/30 text-amber-300' : 'badge-steel'}`}>{item.priority}</span></td>
-                    <td className="py-2.5 px-3"><select className="input-field py-0.5 text-xs w-28" value={item.status} disabled={updatingId === item.id} onChange={e => updateStatus(item.id, e.target.value)}><option>Not Started</option><option>Pending</option><option>Received</option></select></td>
+                    <td className="py-2.5 px-3"><select className="input-field py-0.5 text-xs w-28" value={item.status} disabled={updatingId === item.id} onChange={e => updateStatus(item.id, e.target.value)}><option>Not Started</option><option>Requested</option><option>Pending</option><option>Received</option></select></td>
                     <td className="py-2.5 px-3"><button onClick={() => handleDelete(item.id, item.pbc_ref)} aria-label="Delete item" className="text-steel-500 hover:text-red-400 transition-colors"><Trash2 size={13} /></button></td>
                   </tr>
                 ))}

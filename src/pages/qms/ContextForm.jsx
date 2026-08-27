@@ -24,7 +24,7 @@ export default function ContextForm() {
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.4.1–4.3']
   const { isReviewer } = useTeam()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [form, setForm] = useState(EMPTY)
   const [saving, setSaving] = useState(false)
   const isOwner = activeProgramme?.user_id === user?.id

@@ -25,7 +25,7 @@ export default function StakeholderRegister() {
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.4.2']
   const { isLead, isReviewer, canDelete } = useTeam()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [rows, setRows] = useState([])
   const [form, setForm] = useState(EMPTY)
   const [editing, setEditing] = useState(null)

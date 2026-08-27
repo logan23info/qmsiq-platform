@@ -54,7 +54,7 @@ export function useQMSContext(clause, programmeId) {
 
   useEffect(() => {
     const deps = MODULE_DEPS[clause] || []
-    if (!programmeId || !deps.length) return
+    if (!programmeId || !deps.length) { setPriorContext(null); setPriorLoading(false); return }
     setPriorLoading(true)
     const fetches = {}
     if (deps.includes('ctx')) fetches.ctx = getQMSContext(programmeId)

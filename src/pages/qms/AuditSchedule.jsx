@@ -21,7 +21,7 @@ export default function AuditSchedule() {
   const navigate = useNavigate()
   const { isReviewer } = useTeam()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [rows, setRows] = useState([])
   const [form, setForm] = useState(EMPTY)
   const [editing, setEditing] = useState(null)

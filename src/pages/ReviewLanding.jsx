@@ -65,9 +65,10 @@ export default function ReviewLanding() {
         badges={['ISO 9001', 'Cl.9', 'Cl.10']}
       />
 
-      {/* Live snapshot */}
       {activeProgramme && stats && (
-        <div className="grid grid-cols-4 gap-3 mb-6">
+        <div className="mb-6">
+        <p className="text-xs text-steel-500 mb-2 italic">Stats for: {activeProgramme.name || activeProgramme.programme_id}</p>
+        <div className="grid grid-cols-4 gap-3">
           {[
             { label: 'Open findings', value: stats.openFindings, color: stats.openFindings > 0 ? 'text-red-400' : 'text-emerald-400', path: '/fieldwork/findings' },
             { label: 'Major NCs', value: stats.majorNC, color: stats.majorNC > 0 ? 'text-red-400' : 'text-steel-400', path: '/fieldwork/findings' },
@@ -80,6 +81,7 @@ export default function ReviewLanding() {
               <div className="text-xs text-steel-400">{s.label}</div>
             </button>
           ))}
+        </div>
         </div>
       )}
 

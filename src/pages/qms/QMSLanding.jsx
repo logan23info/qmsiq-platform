@@ -47,7 +47,7 @@ function statusIcon(count, single, data, min) {
 function certScore(counts, data, findings, orgSize) {
   const min = MINIMUMS[orgSize] || DEFAULT_MIN
   const checks = [
-    { label: 'Context & Scope defined', pass: counts.context > 0 && data.context?.status === 'Complete' },
+    { label: 'Context & Scope defined', pass: counts.context > 0 },
     { label: 'Quality Policy approved', pass: counts.policy > 0 && (data.policy?.status === 'Complete' || data.policy?.status === 'Approved') },
     { label: 'Minimum stakeholders', pass: counts.stakeholders >= min.stakeholders },
     { label: 'Minimum objectives', pass: counts.objectives >= min.objectives },
@@ -113,7 +113,7 @@ export default function QMSLanding() {
   const moduleStatus = MODULES.map(m => {
     const count = counts[m.id] || 0
     const threshold = m.single ? 1 : (min[m.id] || 1)
-    const meetsMin = m.single ? (count > 0 && (data[m.id]?.status === 'Complete' || data[m.id]?.status === 'Approved' || !m.single)) : count >= threshold
+    const meetsMin = m.single ? count > 0 : count >= threshold
     return { ...m, count, meetsMin: m.single ? (count > 0) : meetsMin }
   })
   const done = moduleStatus.filter(m => m.meetsMin).length

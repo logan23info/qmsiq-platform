@@ -26,7 +26,7 @@ export default function ContinualImprovement() {
   const { priorContext, orgProfile } = useQMSContext(CLAUSE, activeProgramme?.id)
   const { isReviewer } = useTeam()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [rows, setRows] = useState([])
   const [form, setForm] = useState(EMPTY)
   const [editing, setEditing] = useState(null)

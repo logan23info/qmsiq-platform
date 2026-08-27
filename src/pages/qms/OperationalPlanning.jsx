@@ -32,7 +32,7 @@ export default function OperationalPlanning() {
   const nextModule = NEXT_MODULE[CLAUSE]
   const { isReviewer } = useTeam()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [rows, setRows] = useState([])
   const [form, setForm] = useState(EMPTY)
   const [editing, setEditing] = useState(null)

@@ -22,7 +22,7 @@ export default function QualityPolicy() {
   const nextModule = NEXT_MODULE['ISO 9001:2015 Cl.5.2']
   const { isReviewer } = useTeam()
   const { user } = useAuth()
-  const toast = useToast()
+  const { toast } = useToast()
   const [form, setForm] = useState(EMPTY)
   const [saving, setSaving] = useState(false)
   const isOwner = activeProgramme?.user_id === user?.id
