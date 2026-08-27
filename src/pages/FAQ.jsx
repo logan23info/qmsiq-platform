@@ -70,6 +70,17 @@ const sections = [
         a: 'The AI panels on reference pages work from your text inputs only. The AI panels on live pages (Finding Register, CAPA Tracker, KPI Dashboard) can include your live data in the prompt — for example, generating a management review summary using your actual finding counts and CAPA status. This is opt-in per generation.' },
       { q: 'What if the AI is unavailable?',
         a: 'If the AI service is unavailable, you will see a brief error message. All other platform features — live data, reference content, fieldwork tracker, finding register — continue to work normally. The AI is supplementary, not required for the core workflow.' },
+
+      { q: 'What is the difference between Implement Your QMS and Review Your QMS?',
+        a: 'Implement Your QMS is for organisations building a QMS from scratch — it guides you through ISO 9001 Cl.4 to Cl.10 sequentially, with AI-assisted drafting for each clause. Review Your QMS is for ongoing monitoring — KPI tracking, CAPA management, risk register, gap analysis, and management review for an existing QMS.' },
+      { q: 'What are the blind spot modules (Cl.8.3, Cl.9.2, Cl.10.3)?',
+        a: 'Cl.8.3 Design and Development is for organisations that design products or services — distributors and service firms can mark it excluded per Cl.4.3. Cl.9.2 Internal Audit Schedule is your annual audit plan — all clauses must be covered each cycle. Cl.10.3 Continual Improvement is a proactive register of improvement ideas distinct from reactive CAPA.' },
+      { q: 'How does the AI runtime panel work in the Finding Register?',
+        a: 'Select one or more ISO 9001 clauses, describe your observation, and optionally paste relevant procedure text. The AI maps your observation to the clause context, classifies it (Major NC / Minor NC / Observation / OFI), determines root cause, and generates structured corrective actions with SLA days and verification requirements. All output is marked DRAFT and requires human auditor sign-off before becoming an audit record.' },
+      { q: 'What is certification readiness on the Implementation Overview?',
+        a: 'The certification readiness score checks 11 conditions — policy approved, minimum stakeholders, objectives, competence records and documents registered, operational processes defined, audit schedule in place, improvement register maintained, and no open Major NCs. It is indicative only and does not guarantee certification success. All items must be green before booking a certification audit.' },
+      { q: 'How do gap analysis results link to implementation?',
+        a: 'On the Gap Analysis page, any clause rated Red or Amber shows a direct link to its implementation module — Cl.7.2 Red takes you to the Competence Register, Cl.5.2 Amber takes you to the Quality Policy, and so on. This closes the loop between assessment and action.' },
       { q: 'Do I get notified when a CAPA is due?',
         a: 'Yes. The platform sends email reminders to the assigned action owner 7 days before a CAPA due date. Reminders are sent automatically each day for any CAPA in status \'CAPA Raised\' with a due date within the next 7 days. Make sure the action owner field in the CAPA Tracker contains the team member\'s name as registered on the platform.' },
     ]
