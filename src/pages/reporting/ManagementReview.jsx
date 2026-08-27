@@ -31,7 +31,7 @@ const outputs = [
 export default function ManagementReview() {
   const { activeProgramme } = useProgramme()
   const { user } = useAuth()
-  const { toast } = useToast()
+  const toast = useToast()
   const [findings, setFindings] = useState([])
   const [savedReview, setSavedReview] = useState(null)
   const [reviewForm, setReviewForm] = useState({ review_date: new Date().toISOString().slice(0,10), chair: '', attendees: '', decisions: '', next_review_date: '', action_items: [] })
@@ -66,17 +66,8 @@ export default function ManagementReview() {
     if (!activeProgramme || !user) return
     setSaving(true)
     try {
-      // Sanitise payload — convert empty strings to null for date columns, strip DB-managed fields
-      const sanitise = (obj) => Object.fromEntries(
-        Object.entries(obj).map(([k, v]) => [k, v === '' ? null : v])
-      )
-      const { id: _i, programme_id: _p, user_id: _u, created_at: _c, updated_at: _u2, ai_generated: _ag, ...rest } = reviewForm
-      const clean = sanitise({
-        ...rest,
-        completed_inputs: completedInputs,
-        action_items: reviewForm.action_items || [],
-        status: 'Complete',
-      })
+      const payload = { ...reviewForm, completed_inputs: completedInputs, status: 'Complete' }
+      const { id: _i, programme_id: _p, user_id: _u, created_at: _c, updated_at: _u2, ...clean } = payload
       if (savedReview) {
         const updated = await updateMgmtReview(savedReview.id, clean)
         setSavedReview(updated)
