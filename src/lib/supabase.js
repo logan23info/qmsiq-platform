@@ -436,14 +436,19 @@ export async function deleteProgramme(id) {
 
 // Generic helpers — used by all 7 QMS modules
 async function qmsGet(table, programmeId) {
-  const { data } = await supabase.from(table).select('*').eq('programme_id', programmeId).order('created_at')
-  return data || []
+  try {
+    const { data, error } = await supabase.from(table).select('*').eq('programme_id', programmeId).order('created_at')
+    return error ? [] : (data || [])
+  } catch { return [] }
 }
 async function qmsGetOne(table, programmeId) {
-  const { data } = await supabase.from(table).select('*').eq('programme_id', programmeId).maybeSingle()
-  return data
+  try {
+    const { data, error } = await supabase.from(table).select('*').eq('programme_id', programmeId).maybeSingle()
+    return error ? null : data
+  } catch { return null }
 }
 async function qmsUpsertOne(table, programmeId, userId, updates) {
+  updates = await sanitiseRecord(updates)
   // Strip DB-managed columns that should never be in the payload
   const { id: _id, programme_id: _pid, user_id: _uid, created_at: _ca, ...clean } = updates
   const { data, error } = await supabase.from(table).upsert(
@@ -453,16 +458,23 @@ async function qmsUpsertOne(table, programmeId, userId, updates) {
   if (error) throw error
   return data
 }
+async function sanitiseRecord(record) {
+  return Object.fromEntries(
+    Object.entries(record).map(([k, v]) => [k, v === '' ? null : v])
+  )
+}
 async function qmsInsert(table, programmeId, userId, record) {
+  const clean = await sanitiseRecord(record)
   const { data, error } = await supabase.from(table).insert(
-    { programme_id: programmeId, user_id: userId, ...record, updated_at: new Date().toISOString() }
+    { programme_id: programmeId, user_id: userId, ...clean, updated_at: new Date().toISOString() }
   ).select().single()
   if (error) throw error
   return data
 }
 async function qmsUpdate(table, id, updates) {
+  const clean = await sanitiseRecord(updates)
   const { data, error } = await supabase.from(table).update(
-    { ...updates, updated_at: new Date().toISOString() }
+    { ...clean, updated_at: new Date().toISOString() }
   ).eq('id', id).select().single()
   if (error) throw error
   return data

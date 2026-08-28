@@ -22,7 +22,7 @@ function NewPBCModal({ programmeId, userId, onCreated, onClose }) {
   const save = async () => {
     if (!form.description) return
     setSaving(true)
-    try { const item = await createPBCItem({ ...form, user_id: userId, programme_id: programmeId, status: 'Not Started' }); onCreated(item); onClose(); toast('PBC item added — ' + item.pbc_ref) }
+    try { const item = await createPBCItem({ ...form, user_id: userId, programme_id: programmeId, status: 'Not Started' }); onCreated(item); onClose(); toast('PBC item added') }
     catch (e) { toast('Failed: ' + e.message, 'error') }
     setSaving(false)
   }
