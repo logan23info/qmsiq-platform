@@ -4,7 +4,7 @@ import { CheckCircle2 } from 'lucide-react'
 
 const competencyAreas = [
   { area: 'Professional Knowledge', color: 'border-l-blue-500',
-    items: ['ISO 19011:2018 — audit principles, process, and methods', 'ISO 27001:2022 — ISMS requirements (for IS auditors)', 'ISO 9001:2015 — QMS requirements (for QMS auditors)', 'ISO 27002:2022 — controls and implementation guidance', 'Applicable legal and regulatory requirements', 'Industry-specific standards (PCI-DSS, SOC 2, GDPR)'] },
+    items: ['ISO 19011:2018 — audit principles, process, and methods', 'ISO 27001:2022 — ISMS requirements (for IS auditors)', 'ISO 27002:2022 — controls and implementation guidance', 'ISO 27005:2022 — information security risk management', 'Applicable legal and regulatory requirements', 'Industry-specific standards (PCI-DSS, SOC 2, GDPR)'] },
   { area: 'Audit Skills', color: 'border-l-emerald-500',
     items: ['TOD — design gap analysis and documentation review', 'TOI — walkthrough and interview techniques', 'TOE — statistical sampling and re-performance', 'Finding development using 4Cs methodology', 'Evidence evaluation and sufficiency assessment', 'Working paper documentation to professional standard'] },
   { area: 'Personal Attributes', color: 'border-l-purple-500',
@@ -17,7 +17,6 @@ const certifications = [
   { cert: 'ISO 27001 Lead Auditor (LA)', body: 'PECB / BSI / IRCA', relevance: 'Primary certification for IS auditors — covers full audit lifecycle', recommended: true },
   { cert: 'ISO 27001 Lead Implementer (LI)', body: 'PECB / BSI', relevance: 'Useful for understanding ISMS implementation from auditee perspective', recommended: false },
   { cert: 'CISA — Certified IS Auditor', body: 'ISACA', relevance: 'Industry-leading IT audit certification — broad IS audit coverage', recommended: true },
-  { cert: 'ISO 9001 Lead Auditor', body: 'IRCA / CQI', relevance: 'Required for QMS auditors and IMS joint audit teams', recommended: false },
   { cert: 'CISSP', body: 'ISC²', relevance: 'Technical IS expertise — valuable for Technological controls (A.8.x)', recommended: false },
   { cert: 'CIA — Certified Internal Auditor', body: 'IIA', relevance: 'Internal audit methodology — complements IS audit skills', recommended: false },
 ]
@@ -105,7 +104,7 @@ export default function Clause7() {
         systemPrompt="You are an ISO 19011:2018 auditor competence specialist. Generate professional competence assessments, CPD plans, auditor training records, and independence declarations aligned to Clause 7 requirements."
         placeholder="e.g. Generate an auditor competence assessment for a CISA-certified auditor conducting their first ISO 27001 audit"
         contextFields={[
-          { id: 'role', label: 'Auditor Role', type: 'select', options: ['IS Audit Lead', 'IS Audit Team Member', 'Technical Specialist', 'Trainee Auditor', 'IMS Joint Auditor'] },
+          { id: 'role', label: 'Auditor Role', type: 'select', options: ['IS Audit Lead', 'IS Audit Team Member', 'Technical Specialist', 'Trainee Auditor'] },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Competence Assessment', 'CPD Plan', 'Independence Declaration', 'Auditor Training Record', 'Audit Team Competence Matrix', 'Auditor Evaluation Form'] },
           { id: 'context', label: 'Auditor Background', type: 'text', placeholder: 'e.g. 5 years IT audit, CISA certified, first ISO 27001 audit' },
         ]} />

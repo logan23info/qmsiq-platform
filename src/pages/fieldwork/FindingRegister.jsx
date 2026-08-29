@@ -1,26 +1,21 @@
-import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
-import { Plus, AlertTriangle, CheckCircle2, Clock, Loader2, ChevronDown, ChevronUp, Save, Trash2, Search, X, FileDown, ArrowRight } from 'lucide-react'
+import { Plus, AlertTriangle, CheckCircle2, Clock, Loader2, ChevronDown, ChevronUp, Save, Trash2, Search, X, FileDown } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
-import { lazy, Suspense } from 'react'
-const QMSRuntimePanel = lazy(() => import('../../components/QMSRuntimePanel'))
 import { useAuth } from '../../context/AuthContext'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { useNavigate } from 'react-router-dom'
 import { getFindings, createFinding, updateFinding, deleteFinding } from '../../lib/supabase'
-import ExportMenu from '../../components/ExportMenu'
 import { useToast } from '../../components/Toast'
-import { useTeam } from '../../context/TeamContext'
 import ConfirmModal from '../../components/ConfirmModal'
+import AIPanel from '../../components/AIPanel'
 import { exportToCSV, FINDING_COLUMNS } from '../../utils/exportCSV'
 
 const ratingConfig = {
-  'Major NC': 'bg-red-900/40 text-red-300 border-red-700',
-  'Minor NC': 'bg-orange-900/40 text-orange-300 border-orange-700',
-  Observation: 'bg-amber-900/40 text-amber-300 border-amber-700',
-  Advisory: 'bg-navy-700 text-steel-300 border-navy-600',
+  Critical: 'bg-red-900/40 text-red-300 border-red-700',
+  High: 'bg-orange-900/40 text-orange-300 border-orange-700',
+  Medium: 'bg-amber-900/40 text-amber-300 border-amber-700',
+  'Low / Advisory': 'bg-navy-700 text-steel-300 border-navy-600',
 }
-const ratingBorder = { 'Major NC': 'border-l-red-500', 'Minor NC': 'border-l-orange-500', Observation: 'border-l-amber-500', Advisory: 'border-l-navy-600' }
+const ratingBorder = { Critical: 'border-l-red-500', High: 'border-l-orange-500', Medium: 'border-l-amber-500', 'Low / Advisory': 'border-l-navy-600' }
 const statusConfig = {
   Open: { color: 'text-red-400', icon: AlertTriangle },
   'In Progress': { color: 'text-amber-audit', icon: Clock },
@@ -29,7 +24,6 @@ const statusConfig = {
 
 function FindingCard({ finding, onUpdate, onDelete }) {
   const { toast } = useToast()
-  const { canDelete, canEdit, myRole } = useTeam()
   const [expanded, setExpanded] = useState(false)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -107,14 +101,14 @@ function FindingCard({ finding, onUpdate, onDelete }) {
                 <div key={f.key}>
                   <label className="block text-xs text-steel-400 mb-1">{f.label}</label>
                   {f.type === 'textarea'
-                    ? <textarea maxLength={2000} className="textarea-field" rows={2} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
-                    : <input maxLength={200} className="input-field" type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />}
+                    ? <textarea className="textarea-field" rows={2} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
+                    : <input className="input-field" type={f.type} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />}
                 </div>
               ))}
               <div>
                 <label className="block text-xs text-steel-400 mb-1">Status</label>
                 <select className="input-field" value={form.status} onChange={e => setForm(p => ({ ...p, status: e.target.value }))}>
-                  <option>Open</option><option>CAPA Raised</option><option>Verified Effective</option><option>Closed</option>
+                  <option>Open</option><option>In Progress</option><option>Closed</option>
                 </select>
               </div>
               <div className="flex gap-2">
@@ -133,8 +127,7 @@ function FindingCard({ finding, onUpdate, onDelete }) {
 
 function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
   const { toast } = useToast()
-  const { canDelete, canEdit, myRole } = useTeam()
-  const [form, setForm] = useState({ title: '', standard: 'ISO 9001:2015', clause_control: '', rating: 'Minor NC', condition_text: '', criteria_text: '', cause_text: '', consequence_text: '' })
+  const [form, setForm] = useState({ title: '', standard: 'ISO 27001', clause_control: '', rating: 'High', condition_text: '', criteria_text: '', cause_text: '', consequence_text: '' })
   const [saving, setSaving] = useState(false)
 
   const save = async () => {
@@ -158,12 +151,12 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div className="sm:col-span-2">
               <label className="block text-xs text-steel-400 mb-1">Finding Title *</label>
-              <input maxLength={150} className="input-field" placeholder="e.g. User Access Review Gap" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} />
+              <input className="input-field" placeholder="e.g. User Access Review Gap" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} />
             </div>
             <div>
               <label className="block text-xs text-steel-400 mb-1">Rating</label>
               <select className="input-field" value={form.rating} onChange={e => setForm(p => ({ ...p, rating: e.target.value }))}>
-                <option>Major NC</option><option>Minor NC</option><option>Observation</option><option>Advisory</option>
+                <option>Critical</option><option>High</option><option>Medium</option><option>Low / Advisory</option>
               </select>
             </div>
           </div>
@@ -171,12 +164,12 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
             <div>
               <label className="block text-xs text-steel-400 mb-1">Standard</label>
               <select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>
-                {['ISO 9001:2015', 'ISO 19011:2018', 'IMS', 'ISO 14001:2015', 'Other'].map(s => <option key={s}>{s}</option>)}
+                {['ISO 27001', 'ISO 27002', 'ISO 27005', 'ISO 19011'].map(s => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs text-steel-400 mb-1">Clause / Control</label>
-              <input maxLength={100} className="input-field" placeholder="e.g. A.8.2" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} />
+              <input className="input-field" placeholder="e.g. A.8.2" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} />
             </div>
           </div>
           {[
@@ -187,7 +180,7 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1">{f.label}</label>
-              <textarea maxLength={2000} className="textarea-field" rows={2} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
+              <textarea className="textarea-field" rows={2} placeholder={f.ph} value={form[f.key]} onChange={e => setForm(p => ({ ...p, [f.key]: e.target.value }))} />
             </div>
           ))}
           <div className="flex gap-2 pt-2">
@@ -206,7 +199,6 @@ export default function FindingRegister() {
   const { user } = useAuth()
   const { activeProgramme } = useProgramme()
   const { toast } = useToast()
-  const { canDelete, canEdit, myRole } = useTeam()
   const [findings, setFindings] = useState([])
   const [loading, setLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -218,7 +210,7 @@ export default function FindingRegister() {
     if (!activeProgramme) return
     setLoading(true)
     try { setFindings(await getFindings(activeProgramme.id)) }
-    catch (e) { logError(e) }
+    catch (e) { console.error(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -271,12 +263,12 @@ export default function FindingRegister() {
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-48">
             <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-400" />
-            <input maxLength={200} className="input-field pl-8 text-xs py-1.5" placeholder="Search findings, refs, controls..."
+            <input className="input-field pl-8 text-xs py-1.5" placeholder="Search findings, refs, controls..."
               value={search} onChange={e => setSearch(e.target.value)} />
-            {search && <button onClick={() => setSearch('')} aria-label="Clear search" className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
+            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-steel-400 hover:text-steel-200"><X size={12} /></button>}
           </div>
           <div className="flex gap-1.5 flex-wrap">
-            {['All', 'Open', 'CAPA Raised', 'Verified Effective', 'Closed', 'Major NC', 'Minor NC', 'Observation'].map(f => (
+            {['All', 'Open', 'In Progress', 'Closed', 'Critical', 'High', 'Medium'].map(f => (
               <button key={f} onClick={() => setFilter(f)}
                 className={`text-xs px-2.5 py-1 rounded-lg border transition-colors ${filter === f ? 'bg-navy-700 border-steel-400 text-white' : 'bg-navy-800 border-navy-600 text-steel-400 hover:border-steel-400'}`}>
                 {f}
@@ -287,7 +279,7 @@ export default function FindingRegister() {
             disabled={filtered.length === 0} className="btn-secondary text-xs py-1.5">
             <FileDown size={12} /> Export CSV
           </button>
-          <ExportMenu type="findings" data={findings} programme={activeProgramme} /> <button onClick={() => setShowModal(true)} disabled={!activeProgramme || !canEdit} className="btn-primary text-xs py-1.5">
+          <button onClick={() => setShowModal(true)} disabled={!activeProgramme} className="btn-primary text-xs py-1.5">
             <Plus size={13} /> New Finding
           </button>
         </div>
@@ -319,6 +311,20 @@ export default function FindingRegister() {
           ))}
         </div>
       )}
+
+      {/* AI panel for generating findings */}
+      <div className="mt-6">
+        <AIPanel
+          title="AI — Generate Finding (4Cs Framework)"
+          systemPrompt="You are an ISO 27001:2022 IT audit specialist. Generate a complete finding using the 4Cs framework: Condition (what you found — factual observation), Criteria (what the standard/policy requires), Cause (root cause using 5-Why analysis), Consequence (risk or impact if not remediated). Also suggest a rating (Critical/High/Medium/Low), agreed action, and realistic due date. Format clearly with each C on its own line."
+          placeholder="e.g. Generate a High finding for ISO 27001 A.8.8 — no formal patch management process, critical servers unpatched for 180+ days"
+          contextFields={[
+            { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 27001 A.8.8 — Vulnerability Management' },
+            { id: 'observation', label: 'What You Observed', type: 'textarea', placeholder: 'e.g. Patch scan shows 47 critical servers with CVEs > 90 days old. No formal patch schedule exists.' },
+            { id: 'rating', label: 'Expected Rating', type: 'select', options: ['Critical', 'High', 'Medium', 'Low / Advisory'] },
+          ]}
+        />
+      </div>
 
       {confirmDel && <ConfirmModal {...confirmDel} onClose={() => setConfirmDel(null)} />}
       {showModal && (

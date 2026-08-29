@@ -153,7 +153,7 @@ export default function AnnexA() {
         contextFields={[
           { id: 'section', label: 'Annex A Section', type: 'select', options: ['A.1 — Auditor Behaviour Guidance', 'A.2 — Audit Methods Matrix', 'A.3 — Remote Audit Procedure', 'A.4 — Auditee Context Guide', 'A.5 — Risk-Based Audit Plan', 'A.6 — Sampling Justification Template'] },
           { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Financial services, 500 staff, hybrid working', type: 'text' },
-          { id: 'auditType', label: 'Audit Type', type: 'select', options: ['Internal ISO 27001 audit', 'External ISO 27001 audit', 'Remote audit', 'IMS combined audit', 'Supplier second-party audit'] },
+          { id: 'auditType', label: 'Audit Type', type: 'select', options: ['Internal ISO 27001 audit', 'External ISO 27001 audit', 'Remote audit', 'Surveillance audit', 'Supplier second-party audit'] },
         ]}
       />
     </div>

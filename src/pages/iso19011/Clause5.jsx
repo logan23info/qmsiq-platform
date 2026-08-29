@@ -5,11 +5,11 @@ import { CheckCircle2 } from 'lucide-react'
 const elements = [
   { clause: '5.2', title: 'Audit Programme Objectives', color: 'border-l-blue-500',
     desc: 'Establish measurable objectives for the entire audit programme — aligned to management system goals, risk levels, and regulatory requirements.',
-    items: ['Alignment to ISMS/QMS strategic objectives', 'Regulatory and contractual requirements considered', 'Risk appetite and auditee risk levels reflected', 'Available resources and auditor competence assessed', 'Results of previous audits and lessons learned incorporated', 'Changes in the organisation and technology environment'],
+    items: ['Alignment to ISMS strategic objectives', 'Regulatory and contractual requirements considered', 'Risk appetite and auditee risk levels reflected', 'Available resources and auditor competence assessed', 'Results of previous audits and lessons learned incorporated', 'Changes in the organisation and technology environment'],
     artifact: 'Audit Programme Objectives Document' },
   { clause: '5.3', title: 'Audit Programme Risks & Opportunities', color: 'border-l-red-500',
     desc: 'Identify risks and opportunities that could affect the audit programme — resource constraints, auditor availability, access issues, and scope changes.',
-    items: ['Risk: insufficient auditor competence for complex technical areas', 'Risk: auditee unavailability during planned audit window', 'Risk: scope creep beyond agreed boundaries', 'Risk: insufficient evidence obtained to support conclusions', 'Opportunity: combine IS + QMS audits to reduce auditee burden', 'Opportunity: remote audit methods reduce travel costs and time'],
+    items: ['Risk: insufficient auditor competence for complex technical areas', 'Risk: auditee unavailability during planned audit window', 'Risk: scope creep beyond agreed boundaries', 'Risk: insufficient evidence obtained to support conclusions', 'Opportunity: combine Stage 1 documentation review with surveillance planning to reduce auditee burden', 'Opportunity: remote audit methods reduce travel costs and time'],
     artifact: 'Audit Programme Risk Register' },
   { clause: '5.4', title: 'Audit Programme Resources', color: 'border-l-emerald-500',
     desc: 'Determine and provide resources needed — lead auditor, audit team, time, budget, tools, and access to auditee systems.',
@@ -36,7 +36,6 @@ const scheduleTemplate = [
   { area: 'ISO 27002 — Technological Controls', freq: 'Annual', duration: '3 days', risk: 'High', method: 'On-site' },
   { area: 'ISO 27002 — Organizational Controls', freq: 'Annual', duration: '2 days', risk: 'Medium', method: 'Hybrid' },
   { area: 'ISO 27005 — Risk Register Review', freq: 'Semi-annual', duration: '1 day', risk: 'High', method: 'Remote' },
-  { area: 'ISO 9001 — QMS (if IMS)', freq: 'Annual', duration: '2 days', risk: 'Medium', method: 'On-site' },
   { area: 'Supplier Audits (key suppliers)', freq: 'Annual', duration: '1 day each', risk: 'Medium', method: 'On-site' },
 ]
 
@@ -105,7 +104,7 @@ export default function Clause5() {
         contextFields={[
           { id: 'org', label: 'Organisation & Sector', type: 'text', placeholder: 'e.g. UK bank, 500 staff, ISO 27001 certified' },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Annual Audit Programme', 'Audit Programme Objectives', 'Audit Programme Risk Register', 'Resource Plan', 'Individual Audit Mandate', 'Programme Review Report', 'Audit Schedule Template'] },
-          { id: 'standards', label: 'Standards in Scope', type: 'text', placeholder: 'e.g. ISO 27001, ISO 27002, ISO 9001 (IMS)' },
+          { id: 'standards', label: 'Standards in Scope', type: 'text', placeholder: 'e.g. ISO 27001, ISO 27002, ISO 27005' },
         ]} />
     </div>
   )

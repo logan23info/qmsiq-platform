@@ -47,9 +47,9 @@ export default function Clause6Preparation() {
       <AIPanel
         title="Generate Preparation Artifacts"
         systemPrompt="You are an ISO 19011:2018 audit preparation expert. Generate formal audit plans, document adequacy reviews, work assignment matrices, and workpaper preparation guides. All outputs must be structured, professional, and immediately usable by audit teams."
-        placeholder="e.g. Generate a Formal Audit Plan for an ISO 27001 + ISO 9001 IMS audit at a healthcare SaaS company"
+        placeholder="e.g. Generate a Formal Audit Plan for an ISO 27001:2022 ISMS surveillance audit at a healthcare SaaS company"
         contextFields={[
-          { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Healthcare SaaS, ISO 27001 + ISO 9001', type: 'text' },
+          { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Healthcare SaaS, ISO 27001:2022', type: 'text' },
           { id: 'scope', label: 'Audit Scope', placeholder: 'e.g. Full ISMS — 93 Annex A controls', type: 'text' },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Formal Audit Plan', 'Document Adequacy Review Log', 'Work Assignment Matrix', 'Workpaper Preparation Guide', 'Pre-Fieldwork Checklist'] },
         ]}
