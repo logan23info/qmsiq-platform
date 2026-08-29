@@ -1,3 +1,4 @@
+import { log, logError } from '../../lib/logger'
 import { useState, useEffect, useCallback } from 'react'
 import { Plus, CheckCircle2, Circle, AlertTriangle, Clock, Loader2, Save } from 'lucide-react'
 import PageHeader from '../../components/PageHeader'
@@ -5,7 +6,7 @@ import { useAuth } from '../../context/AuthContext'
 import { useToast } from '../../components/Toast'
 import AIPanel from '../../components/AIPanel'
 import { useProgramme } from '../../context/ProgrammeContext'
-import { supabase } from '../../lib/supabase'
+import { getWorkpapers, createWorkpaper, updateWorkpaper } from '../../lib/supabase'
 
 const statusColors = { 'Complete': 'text-emerald-400', 'In Progress': 'text-amber-audit', 'Not Started': 'text-steel-500', 'Exception': 'text-red-400', 'N/A': 'text-steel-600' }
 const phaseConfig = {
@@ -14,30 +15,18 @@ const phaseConfig = {
   TOE: { color: 'bg-emerald-900/40 text-emerald-300 border-emerald-800', label: 'Test of Effectiveness' },
 }
 
-async function getTrackerItems(programmeId) {
-  const { data, error } = await supabase.from('workpapers').select('*').eq('programme_id', programmeId).order('created_at', { ascending: true })
-  if (error) throw error
-  return data
-}
-async function createTrackerItem(item) {
-  const { data, error } = await supabase.from('workpapers').insert(item).select().single()
-  if (error) throw error
-  return data
-}
-async function updateTrackerItem(id, updates) {
-  const { data, error } = await supabase.from('workpapers').update(updates).eq('id', id).select().single()
-  if (error) throw error
-  return data
-}
+const getTrackerItems = (programmeId) => getWorkpapers(programmeId)
+const createTrackerItem = (item) => createWorkpaper(item)
+const updateTrackerItem = (id, updates) => updateWorkpaper(id, updates)
 
 function NewControlModal({ programmeId, userId, onCreated, onClose }) {
-  const [form, setForm] = useState({ title: '', standard: 'ISO 27001', clause_control: '', phase: 'TOD', auditor: '', notes: '' })
+  const [form, setForm] = useState({ title: '', standard: 'ISO 9001:2015', clause_control: '', phase: 'TOD', auditor: '', notes: '' })
   const [saving, setSaving] = useState(false)
   const save = async () => {
     if (!form.title) return
     setSaving(true)
     try { const item = await createTrackerItem({ ...form, user_id: userId, programme_id: programmeId, status: 'Not Started' }); onCreated(item); onClose() }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setSaving(false)
   }
   return (
@@ -48,14 +37,14 @@ function NewControlModal({ programmeId, userId, onCreated, onClose }) {
           <button onClick={onClose} className="text-steel-400 text-lg">×</button>
         </div>
         <div className="p-5 space-y-3">
-          <div><label className="block text-xs text-steel-400 mb-1">Control / Workpaper Title *</label><input className="input-field" placeholder="e.g. A.8.8 — Vulnerability Management" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Control / Workpaper Title *</label><input maxLength={150} className="input-field" placeholder="e.g. A.8.8 — Vulnerability Management" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{['ISO 27001', 'ISO 27002', 'ISO 27005', 'ISO 19011'].map(s => <option key={s}>{s}</option>)}</select></div>
-            <div><label className="block text-xs text-steel-400 mb-1">Clause / Control</label><input className="input-field" placeholder="e.g. A.8.8" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{['ISO 9001:2015', 'ISO 19011:2018', 'IMS', 'Other', 'IMS'].map(s => <option key={s}>{s}</option>)}</select></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Clause / Control</label><input maxLength={100} className="input-field" placeholder="e.g. A.8.8" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}><option>TOD</option><option>TOI</option><option>TOE</option></select></div>
-            <div><label className="block text-xs text-steel-400 mb-1">Assigned Auditor</label><input className="input-field" placeholder="e.g. Lead Auditor" value={form.auditor} onChange={e => setForm(p => ({ ...p, auditor: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Assigned Auditor</label><input maxLength={200} className="input-field" placeholder="e.g. Lead Auditor" value={form.auditor} onChange={e => setForm(p => ({ ...p, auditor: e.target.value }))} /></div>
           </div>
-          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Notes</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
           <div className="flex gap-2 pt-1"><button onClick={save} disabled={saving || !form.title} className="btn-primary flex-1 justify-center">{saving ? <><Loader2 size={14} className="animate-spin" /> Saving...</> : <><Save size={14} /> Add Control</>}</button><button onClick={onClose} className="btn-secondary">Cancel</button></div>
         </div>
       </div>
@@ -78,7 +67,7 @@ export default function FieldworkTracker() {
     if (!activeProgramme) return
     setLoading(true)
     try { setItems(await getTrackerItems(activeProgramme.id)) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setLoading(false)
   }, [activeProgramme])
 
@@ -87,7 +76,7 @@ export default function FieldworkTracker() {
   const updateStatus = async (id, status) => {
     setUpdatingId(id)
     try { const updated = await updateTrackerItem(id, { status }); setItems(prev => prev.map(i => i.id === id ? updated : i)); toast('Status updated to ' + status) }
-    catch (e) { console.error(e) }
+    catch (e) { logError(e) }
     setUpdatingId(null)
   }
 
@@ -190,10 +179,10 @@ export default function FieldworkTracker() {
       <div className="mt-6">
         <AIPanel
           title="AI — Generate Workpaper & Test Steps"
-          systemPrompt="You are an ISO 19011:2018 audit fieldwork specialist. Generate structured workpaper titles, TOD/TOI/TOE test steps, and evidence checklists for specific ISO 27001/27002 controls. Include: workpaper reference naming, testing objective, testing approach per phase, population definition for TOE, sample size justification, and expected evidence."
+          systemPrompt="You are an ISO 19011:2018 audit fieldwork specialist. Generate structured workpaper titles, TOD/TOI/TOE test steps, and evidence checklists for specific ISO 9001:2015 clauses. Include: workpaper reference naming, testing objective, testing approach per phase, population definition for TOE, sample size justification, and expected evidence."
           placeholder="e.g. Generate a complete TOE workpaper for A.8.8 Vulnerability Management — monthly scan results for 6-month period"
           contextFields={[
-            { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 27002 A.8.8 — Vulnerability Management' },
+            { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 9001 Cl. 8.4 — External Provider Control' },
             { id: 'phase', label: 'Phase', type: 'select', options: ['TOD — Test of Design', 'TOI — Test of Implementation', 'TOE — Test of Effectiveness', 'All phases'] },
             { id: 'stack', label: 'Technology / Tool', type: 'text', placeholder: 'e.g. Qualys, Nessus, AWS Inspector, CrowdStrike' },
           ]}
