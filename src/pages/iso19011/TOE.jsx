@@ -120,7 +120,7 @@ export default function TOE() {
         systemPrompt={`You are a senior IT auditor specialising in Test of Operating Effectiveness (TOE) under ISO 19011:2018 and AICPA/IIA sampling standards. Generate detailed sampling workpapers, population definition templates, exception analysis frameworks, and TOE conclusion workpapers. TOE tests consistency of control operation over the audit period using statistical sampling. All outputs must be structured professional workpapers with clear sampling rationale, exception thresholds, and conclusion fields. Reference control frequency and risk level in all sampling decisions.`}
         placeholder="e.g. Generate a TOE sampling workpaper for User Access Review control — monthly frequency, 12 month audit period, Azure AD environment"
         contextFields={[
-          { id: 'control', label: 'Control Being Tested', placeholder: 'e.g. User Access Review — ISO 27002 A.8.2', type: 'text' },
+          { id: 'control', label: 'Control Being Tested', placeholder: 'e.g. Supplier Performance Review — ISO 9001 Cl.8.4', type: 'text' },
           { id: 'frequency', label: 'Control Frequency', type: 'select', options: ['Real-time / Automated', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Annual'] },
           { id: 'period', label: 'Audit Period', placeholder: 'e.g. 1 Jan 2025 – 31 Dec 2025', type: 'text' },
           { id: 'system', label: 'System / Source', placeholder: 'e.g. Azure AD, ServiceNow, Jira', type: 'text' },

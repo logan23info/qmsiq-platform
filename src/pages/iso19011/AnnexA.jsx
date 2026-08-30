@@ -52,11 +52,11 @@ const annexSections = [
   {
     ref: 'A.4', title: 'Understanding auditee context',
     color: 'border-l-emerald-400',
-    desc: 'Guidance on understanding the auditee\'s organisation before and during the audit — feeds directly into ISO 27001 Clause 4 review.',
+    desc: 'Guidance on understanding the auditee\'s organisation before and during the audit — feeds directly into Clause 4 context review.',
     items: [
       'Review organisation structure before audit begins',
       'Understand the business environment and key risks',
-      'Identify key processes and their information security implications',
+      'Identify key processes and their quality management implications',
       'Review previous audit reports and outstanding findings',
       'Understand regulatory and contractual obligations',
     ]
@@ -149,11 +149,11 @@ export default function AnnexA() {
       <AIPanel
         title="Generate Annex A Guidance Documents"
         systemPrompt="You are an ISO 19011:2018 Annex A expert. Generate practical guidance documents based on ISO 19011 Annex A supplemental guidance — covering audit methods selection, remote audit procedures, risk-based audit planning, sampling justifications, and auditee context analysis. All outputs must be structured, professional, and immediately usable in real audit engagements."
-        placeholder="e.g. Generate a Remote Audit Procedure document for conducting ISO 27001 audits via video conferencing"
+        placeholder="e.g. Generate a Remote Audit Procedure document for conducting ISO 9001 audits via video conferencing"
         contextFields={[
           { id: 'section', label: 'Annex A Section', type: 'select', options: ['A.1 — Auditor Behaviour Guidance', 'A.2 — Audit Methods Matrix', 'A.3 — Remote Audit Procedure', 'A.4 — Auditee Context Guide', 'A.5 — Risk-Based Audit Plan', 'A.6 — Sampling Justification Template'] },
           { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Financial services, 500 staff, hybrid working', type: 'text' },
-          { id: 'auditType', label: 'Audit Type', type: 'select', options: ['Internal ISO 27001 audit', 'External ISO 27001 audit', 'Remote audit', 'IMS combined audit', 'Supplier second-party audit'] },
+          { id: 'auditType', label: 'Audit Type', type: 'select', options: ['Internal ISO 9001 audit', 'External ISO 9001 audit', 'Remote audit', 'Supplier second-party audit'] },
         ]}
       />
     </div>

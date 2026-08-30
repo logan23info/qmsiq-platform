@@ -11,7 +11,7 @@ const clause5Elements = [
 export function ISO9001Clause5() {
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 9001:2015" clause="Clause 5" title="Leadership — Quality Management" description="ISO 9001 Clause 5 requires top management to demonstrate leadership and commitment to the QMS — separate from ISO 27001 leadership obligations under an IMS." badges={['QMS Leadership', 'TOD']} />
+      <PageHeader standard="ISO 9001:2015" clause="Clause 5" title="Leadership — Quality Management" description="ISO 9001 Clause 5 requires top management to demonstrate leadership and commitment to the QMS." badges={['QMS Leadership', 'TOD']} />
       <div className="space-y-4 mb-6">
         {clause5Elements.map(el => (
           <div key={el.clause} className="card border-l-4 border-l-emerald-500">
@@ -98,7 +98,7 @@ export function ISO9001Clause8() {
 export function ISO9001Clause9() {
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 9001:2015" clause="Clause 9" title="Customer Satisfaction & Performance" description="ISO 9001 Clause 9 requires specific measurement of customer satisfaction — a unique QMS requirement not present in ISO 27001. Must be tested separately under an IMS." badges={['Customer Satisfaction', 'TOE', 'ISO 27004']} />
+      <PageHeader standard="ISO 9001:2015" clause="Clause 9" title="Customer Satisfaction & Performance" description="ISO 9001 Clause 9 requires specific measurement of customer satisfaction as part of QMS performance monitoring." badges={['Customer Satisfaction', 'TOE']} />
       <div className="card mb-6">
         <h2 className="section-title mb-3">Clause 9.1.2 — Customer Satisfaction (Unique to ISO 9001)</h2>
         <p className="text-sm text-steel-300 mb-4 leading-relaxed">The organisation must monitor customer perceptions of the degree to which needs and expectations have been fulfilled. Methods must be defined for obtaining, monitoring, and reviewing this information.</p>
@@ -122,7 +122,7 @@ export function ISO9001Clause9() {
 export function ISO9001Clause10() {
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 9001:2015" clause="Clause 10" title="CAPA — Quality" description="ISO 9001 Clause 10 CAPA for quality nonconformities — separate from ISO 27001 Clause 10 ISMS CAPA. Both must be maintained independently under an IMS." badges={['Quality CAPA', 'Improvement', 'Audit Closure']} />
+      <PageHeader standard="ISO 9001:2015" clause="Clause 10" title="CAPA — Quality" description="ISO 9001 Clause 10 CAPA for quality nonconformities." badges={['Quality CAPA', 'Improvement', 'Audit Closure']} />
       <div className="card mb-6">
         <h2 className="section-title mb-3">Quality Nonconformity Sources</h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

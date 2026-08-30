@@ -5,15 +5,11 @@ import { useAuth } from '../context/AuthContext'
 import { useProgramme } from '../context/ProgrammeContext'
 import { uploadFile, buildFilePath, getSignedUrl, createWorkpaper } from '../lib/supabase'
 
-const STANDARDS = ['ISO 19011', 'ISO 27001', 'ISO 27002', 'ISO 27005', 'ISO 9001', 'IMS']
+const STANDARDS = ['ISO 19011', 'ISO 9001']
 const PHASES = ['TOD', 'TOI', 'TOE', 'Finding', 'Meeting', 'Report', 'Planning', 'PBC Evidence']
 const CLAUSES = {
   'ISO 19011': ['Clause 4', 'Clause 5', 'Clause 6.2', 'Clause 6.3', 'TOD', 'TOI', 'TOE', 'Findings', 'Meetings', 'Clause 6.5', 'Clause 7'],
-  'ISO 27001': ['Clause 4', 'Clause 5', 'Clause 6', 'Clause 7', 'Clause 8', 'Clause 9', 'Clause 10'],
-  'ISO 27002': ['A.5 Organizational', 'A.6 People', 'A.7 Physical', 'A.8 Technological'],
-  'ISO 27005': ['Asset Register', 'Risk Register', 'Risk Treatment Plan', 'Scenarios'],
   'ISO 9001': ['Clause 5', 'Clause 7', 'Clause 8', 'Clause 9', 'Clause 10'],
-  'IMS': ['Cross-Walk', 'Joint Worksheets'],
 }
 
 const ALLOWED_TYPES = [
@@ -43,7 +39,7 @@ export default function FileUpload({ onUploaded }) {
 
   const [meta, setMeta] = useState({
     title: '',
-    standard: 'ISO 27001',
+    standard: 'ISO 9001',
     clause_control: '',
     phase: 'TOD',
     auditor: '',
@@ -118,7 +114,7 @@ export default function FileUpload({ onUploaded }) {
 
       setUploaded({ ...wp, file_path: filePath })
       setFile(null)
-      setMeta({ title: '', standard: 'ISO 27001', clause_control: '', phase: 'TOD', auditor: '', notes: '' })
+      setMeta({ title: '', standard: 'ISO 9001', clause_control: '', phase: 'TOD', auditor: '', notes: '' })
       if (fileRef.current) fileRef.current.value = ''
       onUploaded?.(wp)
 

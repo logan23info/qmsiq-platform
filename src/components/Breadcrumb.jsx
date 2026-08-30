@@ -13,12 +13,7 @@ function getLabel(pathname) {
 
 const sectionPaths = {
   'ISO 19011 — Audit Methodology': '/iso19011/clause4',
-  'ISO 27000 — Terminology': '/iso27000',
-  'ISO 27001 — ISMS': '/iso27001/clause4',
-  'ISO 27002 — Controls': '/iso27002/organizational',
-  'ISO 27005 — Risk': '/iso27005/assets',
   'ISO 9001 — QMS': '/iso9001/clause5',
-  'IMS Cross-Walk': '/ims/crosswalk',
   'Fieldwork Operations': '/fieldwork/tracker',
   'Reporting & Governance': '/reporting/builder',
   'Platform': '/',

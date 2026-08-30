@@ -6,12 +6,12 @@ const todElements = [
   {
     title: 'Control Objective Library',
     desc: 'Each control must have a stated objective before design adequacy can be assessed. Maps control intent to business risk.',
-    steps: ['Define control objective in measurable terms', 'Link objective to specific risk(s) it mitigates', 'Identify relevant ISO 27002 clause reference', 'Document expected control output/evidence'],
+    steps: ['Define control objective in measurable terms', 'Link objective to specific risk(s) it mitigates', 'Identify relevant ISO 9001 clause reference', 'Document expected control output/evidence'],
   },
   {
     title: 'Design Gap Analyzer',
-    desc: 'AI-powered review of policy documents to flag missing mandatory controls against ISO 27002 requirements before fieldwork begins.',
-    steps: ['Upload or paste policy/procedure document', 'AI maps content to 27002 control requirements', 'Gap report generated per theme', 'Prioritised remediation recommendations produced'],
+    desc: 'AI-powered review of procedure documents to flag missing mandatory controls against ISO 9001 requirements before fieldwork begins.',
+    steps: ['Upload or paste policy/procedure document', 'AI maps content to ISO 9001 control requirements', 'Gap report generated per theme', 'Prioritised remediation recommendations produced'],
   },
   {
     title: 'Control Architecture Review',
@@ -115,7 +115,7 @@ export default function TOD() {
         systemPrompt={`You are a senior IT auditor specialising in Test of Design (TOD) under ISO 19011:2018 Clause 6.4. Generate detailed, professional TOD workpapers, interview guides, and design assessment templates. All outputs must follow professional audit workpaper standards. Use structured formats with clear headings, control references, and conclusion fields. Be specific to the control, sector, and technology stack provided. TOD assesses whether a control is properly designed to mitigate its stated risk — not whether it operates.`}
         placeholder="e.g. Generate a TOD interview guide for Access Control Policy covering user provisioning, periodic access review, and privileged access management"
         contextFields={[
-          { id: 'control', label: 'Control / Policy Being Tested', placeholder: 'e.g. Access Control Policy — User Provisioning (ISO 27002 A.8.2)', type: 'text' },
+          { id: 'control', label: 'Control / Policy Being Tested', placeholder: 'e.g. Supplier Approval Procedure — Vendor Qualification (ISO 9001 Cl.8.4)', type: 'text' },
           { id: 'sector', label: 'Organisation / Sector', placeholder: 'e.g. Financial services, cloud-based infrastructure', type: 'text' },
           { id: 'risk', label: 'Risk Being Mitigated', placeholder: 'e.g. Unauthorised access to customer data', type: 'text' },
           { id: 'artifact', label: 'TOD Artifact Required', type: 'select', options: [

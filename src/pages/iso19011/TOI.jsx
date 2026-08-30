@@ -82,7 +82,7 @@ export default function TOI() {
         systemPrompt={`You are a senior IT auditor specialising in Test of Implementation (TOI) under ISO 19011:2018. Generate detailed walkthrough scripts, implementation interview guides, and evidence capture templates. TOI tests whether a control is actually in operation — using one walkthrough instance. All outputs must be structured, professional audit workpapers. Include specific questions, evidence items, and auditor instruction notes. Tailor to the control, system, and sector provided.`}
         placeholder="e.g. Generate a walkthrough script for testing the Patch Management control in an Azure environment"
         contextFields={[
-          { id: 'control', label: 'Control Being Tested', placeholder: 'e.g. Patch Management — ISO 27002 A.8.8', type: 'text' },
+          { id: 'control', label: 'Control Being Tested', placeholder: 'e.g. Calibration Management — ISO 9001 Cl.7.1.5', type: 'text' },
           { id: 'system', label: 'System / Technology', placeholder: 'e.g. Azure, Active Directory, AWS IAM', type: 'text' },
           { id: 'sector', label: 'Organisation / Sector', placeholder: 'e.g. Healthcare SaaS, 300 employees', type: 'text' },
           { id: 'artifact', label: 'TOI Artifact Required', type: 'select', options: [

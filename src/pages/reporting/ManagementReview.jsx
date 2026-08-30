@@ -13,7 +13,7 @@ const inputs = [
   { id: 'audit-results', label: 'Results of Audits', icon: FileText, desc: 'Internal audit findings and external audit outcomes from the period under review.' },
   { id: 'interested-parties', label: 'Issues of Interested Parties', icon: BarChart2, desc: 'Feedback from customers, regulators, certification bodies, and other stakeholders.' },
   { id: 'risk-performance', label: 'Risk & Opportunity Performance', icon: AlertTriangle, desc: 'Status of risks and opportunities identified in quality management risk assessment.' },
-  { id: 'isms-performance', label: 'QMS Performance', icon: TrendingUp, desc: 'Measurement results, KPIs, and monitoring metrics against security objectives.' },
+  { id: 'qms-performance', label: 'QMS Performance', icon: TrendingUp, desc: 'Measurement results, KPIs, and monitoring metrics against quality objectives.' },
   { id: 'nc-corrective', label: 'Nonconformities & Corrective Actions', icon: CheckCircle2, desc: 'Status of all nonconformities and the effectiveness of corrective actions taken.' },
   { id: 'previous-actions', label: 'Follow-up from Previous Reviews', icon: CheckCircle2, desc: 'Actions agreed at the last management review and their current status.' },
   { id: 'changes', label: 'Changes Affecting QMS', icon: BarChart2, desc: 'Changes in external/internal context, technology, regulatory, and business environment.' },

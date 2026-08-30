@@ -68,7 +68,6 @@ const navTooltips = {
   '/iso9001/clause9': 'QMS performance — customer satisfaction, internal audit, management review',
   '/iso9001/clause10': 'QMS improvement — nonconformity, CAPA, continual improvement',
 
-  '/ims/worksheets': 'Joint audit worksheets — change management, vendor, SDLC',
   '/fieldwork/pbc': '⭐ PBC evidence tracker — tag by phase, domain, track receipt',
   '/fieldwork/tracker': '⭐ TOD/TOI/TOE progress per control with completion bar',
   '/fieldwork/findings': '⭐ Live finding register — 4Cs, ratings, management response',

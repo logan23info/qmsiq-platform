@@ -68,10 +68,10 @@ export default function Clause6Initiation() {
       <AIPanel
         title="Generate Initiation Artifacts"
         systemPrompt="You are an ISO 19011:2018 audit initiation expert. Generate professional audit initiation documents: lead auditor appointment letters, feasibility assessments, initial contact templates, and terms of reference. Be concise, structured, and ready-to-use. Use professional audit language with clear sections."
-        placeholder="e.g. Generate a Lead Auditor Appointment Letter for an ISO 27001 internal audit at a fintech company"
+        placeholder="e.g. Generate a Lead Auditor Appointment Letter for an ISO 9001 internal audit at a manufacturing company"
         contextFields={[
-          { id: 'org', label: 'Organisation & Sector', placeholder: 'e.g. Fintech Ltd, 400 employees, ISO 27001 scope', type: 'text' },
-          { id: 'lead', label: 'Lead Auditor Name & Credentials', placeholder: 'e.g. John Smith, CISA, ISO 27001 LA', type: 'text' },
+          { id: 'org', label: 'Organisation & Sector', placeholder: 'e.g. Manufacturing Ltd, 400 employees, ISO 9001 scope', type: 'text' },
+          { id: 'lead', label: 'Lead Auditor Name & Credentials', placeholder: 'e.g. John Smith, ASQ CQA, ISO 9001 LA', type: 'text' },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Lead Auditor Appointment Letter', 'Feasibility Assessment', 'Auditee Initial Contact Letter', 'Terms of Reference', 'Full Initiation Package'] },
         ]}
       />

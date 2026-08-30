@@ -5,7 +5,7 @@ import { CheckCircle2 } from 'lucide-react'
 const elements = [
   { clause: '5.2', title: 'Audit Programme Objectives', color: 'border-l-blue-500',
     desc: 'Establish measurable objectives for the entire audit programme — aligned to management system goals, risk levels, and regulatory requirements.',
-    items: ['Alignment to ISMS/QMS strategic objectives', 'Regulatory and contractual requirements considered', 'Risk appetite and auditee risk levels reflected', 'Available resources and auditor competence assessed', 'Results of previous audits and lessons learned incorporated', 'Changes in the organisation and technology environment'],
+    items: ['Alignment to QMS strategic objectives', 'Regulatory and contractual requirements considered', 'Risk appetite and auditee risk levels reflected', 'Available resources and auditor competence assessed', 'Results of previous audits and lessons learned incorporated', 'Changes in the organisation and process environment'],
     artifact: 'Audit Programme Objectives Document' },
   { clause: '5.3', title: 'Audit Programme Risks & Opportunities', color: 'border-l-red-500',
     desc: 'Identify risks and opportunities that could affect the audit programme — resource constraints, auditor availability, access issues, and scope changes.',
@@ -30,13 +30,10 @@ const elements = [
 ]
 
 const scheduleTemplate = [
-  { area: 'ISO 27001 — Full ISMS Cl.4–7', freq: 'Annual', duration: '3 days', risk: 'High', method: 'On-site' },
-  { area: 'ISO 27001 — Operations (Cl.8)', freq: 'Annual', duration: '2 days', risk: 'High', method: 'On-site' },
-  { area: 'ISO 27001 — Performance (Cl.9)', freq: 'Annual', duration: '1 day', risk: 'Medium', method: 'Remote' },
-  { area: 'ISO 27002 — Technological Controls', freq: 'Annual', duration: '3 days', risk: 'High', method: 'On-site' },
-  { area: 'ISO 27002 — Organizational Controls', freq: 'Annual', duration: '2 days', risk: 'Medium', method: 'Hybrid' },
-  { area: 'ISO 27005 — Risk Register Review', freq: 'Semi-annual', duration: '1 day', risk: 'High', method: 'Remote' },
-  { area: 'ISO 9001 — QMS (if IMS)', freq: 'Annual', duration: '2 days', risk: 'Medium', method: 'On-site' },
+  { area: 'ISO 9001 — Full QMS Cl.4–7', freq: 'Annual', duration: '3 days', risk: 'High', method: 'On-site' },
+  { area: 'ISO 9001 — Operations (Cl.8)', freq: 'Annual', duration: '2 days', risk: 'High', method: 'On-site' },
+  { area: 'ISO 9001 — Performance (Cl.9)', freq: 'Annual', duration: '1 day', risk: 'Medium', method: 'Remote' },
+  { area: 'ISO 9001 — Risk Register Review', freq: 'Semi-annual', duration: '1 day', risk: 'High', method: 'Remote' },
   { area: 'Supplier Audits (key suppliers)', freq: 'Annual', duration: '1 day each', risk: 'Medium', method: 'On-site' },
 ]
 
@@ -101,11 +98,11 @@ export default function Clause5() {
 
       <AIPanel title="Generate Audit Programme Documents"
         systemPrompt="You are an ISO 19011:2018 Clause 5 audit programme management specialist. Generate professional audit programme documents including objectives, annual schedules, resource plans, risk registers, and programme review reports. Align to ISO 19011:2018 Clause 5 requirements."
-        placeholder="e.g. Generate a 12-month ISO 27001 internal audit programme for a 500-person financial services firm"
+        placeholder="e.g. Generate a 12-month ISO 9001 internal audit programme for a 500-person manufacturing firm"
         contextFields={[
-          { id: 'org', label: 'Organisation & Sector', type: 'text', placeholder: 'e.g. UK bank, 500 staff, ISO 27001 certified' },
+          { id: 'org', label: 'Organisation & Sector', type: 'text', placeholder: 'e.g. UK manufacturer, 500 staff, ISO 9001 certified' },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Annual Audit Programme', 'Audit Programme Objectives', 'Audit Programme Risk Register', 'Resource Plan', 'Individual Audit Mandate', 'Programme Review Report', 'Audit Schedule Template'] },
-          { id: 'standards', label: 'Standards in Scope', type: 'text', placeholder: 'e.g. ISO 27001, ISO 27002, ISO 9001 (IMS)' },
+          { id: 'standards', label: 'Standards in Scope', type: 'text', placeholder: 'e.g. ISO 9001, ISO 19011' },
         ]} />
     </div>
   )

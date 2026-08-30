@@ -60,10 +60,6 @@ const SupplierAudit = lazy_(() => import('./pages/fieldwork/SupplierAudit'))
 const ProgrammesOverview = lazy_(() => import('./pages/ProgrammesOverview'))
 const Team = lazy_(() => import('./pages/Team'))
 
-// IMS
-const IMSCrosswalk = lazy_(() => import('./pages/ims/AllPages').then(m => ({ default: m.IMSCrosswalk })))
-const IMSWorksheets = lazy_(() => import('./pages/ims/AllPages').then(m => ({ default: m.IMSWorksheets })))
-
 // Fieldwork
 const PBCList = lazy_(() => import('./pages/fieldwork/PBCList'))
 const FieldworkTracker = lazy_(() => import('./pages/fieldwork/FieldworkTracker'))
@@ -169,11 +165,6 @@ function AppShell() {
                 <Route path="/surveillance" element={<SurveillanceAudit />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/programmes" element={<ProgrammesOverview />} />
-
-                {/* IMS */}
-                <Route path="/ims" element={<Navigate to="/ims/crosswalk" replace />} />
-                <Route path="/ims/crosswalk" element={<IMSCrosswalk />} />
-                <Route path="/ims/worksheets" element={<IMSWorksheets />} />
 
                 {/* Fieldwork */}
                 <Route path="/fieldwork" element={<Navigate to="/fieldwork/tracker" replace />} />

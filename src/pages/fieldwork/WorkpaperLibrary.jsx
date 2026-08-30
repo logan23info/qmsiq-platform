@@ -8,7 +8,7 @@ import { getWorkpapers, createWorkpaper, deleteWorkpaper, deleteWorkpaperRecord,
 import { useToast } from '../../components/Toast'
 import ConfirmModal from '../../components/ConfirmModal'
 
-const STANDARDS = ['ISO 19011', 'ISO 27001', 'ISO 27002', 'ISO 27005', 'ISO 9001', 'IMS', 'General']
+const STANDARDS = ['ISO 19011', 'ISO 9001', 'General']
 const PHASES = ['Pre-Audit', 'TOD', 'TOI', 'TOE', 'Finding', 'Meeting', 'Report', 'General']
 const ACCEPTED = '.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.png,.jpg,.jpeg'
 

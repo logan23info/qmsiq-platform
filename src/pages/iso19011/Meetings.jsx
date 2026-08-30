@@ -65,7 +65,7 @@ export default function Meetings() {
       <AIPanel
         title="Generate Meeting Documents"
         systemPrompt="You are an ISO 19011:2018 audit meeting facilitation expert. Generate professional opening meeting agendas, closing meeting agendas, attendance registers, meeting minutes, and disputed findings process documents. All outputs should be ready to use in real audit engagements. Include timing estimates, facilitation notes, and ISO 19011 clause references."
-        placeholder="e.g. Generate an opening meeting agenda for an ISO 27001 internal audit at a financial services company"
+        placeholder="e.g. Generate an opening meeting agenda for an ISO 9001 internal audit at a manufacturing company"
         contextFields={[
           { id: 'org', label: 'Organisation', placeholder: 'e.g. Acme Financial Ltd', type: 'text' },
           { id: 'date', label: 'Audit Date', placeholder: 'e.g. 25 August 2026', type: 'text' },

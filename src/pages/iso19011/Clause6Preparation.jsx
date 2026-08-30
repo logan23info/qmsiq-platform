@@ -3,7 +3,7 @@ import AIPanel from '../../components/AIPanel'
 import { CheckCircle2 } from 'lucide-react'
 
 const elements = [
-  { clause: '6.3.2', title: 'Document Adequacy Review', desc: 'Pre-fieldwork review of ISMS documentation to assess completeness before on-site work begins.', items: ['ISMS policy suite reviewed for completeness', 'SoA completeness and currency checked', 'Risk register reviewed', 'Previous audit reports assessed'], artifact: 'Document Adequacy Review Log' },
+  { clause: '6.3.2', title: 'Document Adequacy Review', desc: 'Pre-fieldwork review of QMS documentation to assess completeness before on-site work begins.', items: ['QMS procedure suite reviewed for completeness', 'Process documentation completeness and currency checked', 'Risk register reviewed', 'Previous audit reports assessed'], artifact: 'Document Adequacy Review Log' },
   { clause: '6.3.3', title: 'Formal Audit Plan', desc: 'Master document governing the entire audit — objectives, scope, criteria, schedule, methods, and team.', items: ['Audit objectives clearly stated', 'Scope and boundaries defined', 'Audit criteria (standards) referenced', 'Schedule and resource plan included'], artifact: 'Formal Audit Plan' },
   { clause: '6.3.4', title: 'Work Assignment Matrix', desc: 'Maps each auditor to specific controls or clause areas — prevents duplication, ensures full coverage.', items: ['Controls assigned per auditor', 'Hours allocated per area', 'Dependencies identified', 'Review and sign-off roles assigned'], artifact: 'Work Assignment Matrix' },
   { clause: '6.3.5', title: 'Workpaper Preparation', desc: 'Standardised setup of all audit workpapers before fieldwork — templates, naming, filing structure.', items: ['Workpaper templates prepared', 'Naming convention applied', 'Filing structure established', 'Master index created in advance'], artifact: 'Workpaper Preparation Guide' },
@@ -47,10 +47,10 @@ export default function Clause6Preparation() {
       <AIPanel
         title="Generate Preparation Artifacts"
         systemPrompt="You are an ISO 19011:2018 audit preparation expert. Generate formal audit plans, document adequacy reviews, work assignment matrices, and workpaper preparation guides. All outputs must be structured, professional, and immediately usable by audit teams."
-        placeholder="e.g. Generate a Formal Audit Plan for an ISO 27001 + ISO 9001 IMS audit at a healthcare SaaS company"
+        placeholder="e.g. Generate a Formal Audit Plan for an ISO 9001 audit at a healthcare devices company"
         contextFields={[
-          { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Healthcare SaaS, ISO 27001 + ISO 9001', type: 'text' },
-          { id: 'scope', label: 'Audit Scope', placeholder: 'e.g. Full ISMS — 93 Annex A controls', type: 'text' },
+          { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Healthcare devices manufacturer, ISO 9001', type: 'text' },
+          { id: 'scope', label: 'Audit Scope', placeholder: 'e.g. Full QMS — Clauses 4–10', type: 'text' },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Formal Audit Plan', 'Document Adequacy Review Log', 'Work Assignment Matrix', 'Workpaper Preparation Guide', 'Pre-Fieldwork Checklist'] },
         ]}
       />

@@ -107,10 +107,10 @@ export default function Clause4() {
       <AIPanel
         title="Generate Clause 4 Artifacts"
         systemPrompt={`You are a senior ISO 19011:2018 audit methodology expert. Generate precise, professional audit artifacts based on the 7 principles of auditing (Clause 4). All outputs must be structured, practical, and ready for use in real audit engagements. Use professional audit language. Format outputs with clear sections and numbered items where appropriate. Focus on the specific artifact type requested.`}
-        placeholder="e.g. Generate an Independence and Conflict of Interest Declaration form for an IT auditor conducting an ISO 27001 audit at a financial institution"
+        placeholder="e.g. Generate an Independence and Conflict of Interest Declaration form for a QMS auditor conducting an ISO 9001 audit at a manufacturing company"
         contextFields={[
           { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Financial services firm, 500 employees', type: 'text' },
-          { id: 'auditType', label: 'Audit Type', placeholder: 'e.g. Internal ISO 27001 audit, Second-party supplier audit', type: 'text' },
+          { id: 'auditType', label: 'Audit Type', placeholder: 'e.g. Internal ISO 9001 audit, Second-party supplier audit', type: 'text' },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: [
             'Auditor Ethics & Integrity Declaration',
             'Finding Presentation Standard',

@@ -3,7 +3,7 @@ import AIPanel from '../../components/AIPanel'
 
 const fourcS = [
   { c: 'C1 — Condition', color: 'border-l-blue-400', badge: 'bg-blue-900/40 text-blue-300', desc: 'What the auditor found. The factual observation based on evidence gathered during TOD, TOI, or TOE.', example: 'User access reviews were not performed for 7 of 25 sampled accounts during the audit period (Q1–Q3 2025).' },
-  { c: 'C2 — Criteria', color: 'border-l-emerald-400', badge: 'bg-emerald-900/40 text-emerald-300', desc: 'What should be happening — the standard, policy, or control requirement measured against.', example: 'ISO 27002 A.8.2 requires periodic access rights review. Company Access Control Policy §4.3 mandates quarterly reviews.' },
+  { c: 'C2 — Criteria', color: 'border-l-emerald-400', badge: 'bg-emerald-900/40 text-emerald-300', desc: 'What should be happening — the standard, policy, or process requirement measured against.', example: 'ISO 9001 Clause 8.5.1 requires controlled production conditions. Company Production Control Procedure §4.3 mandates in-process checks.' },
   { c: 'C3 — Cause', color: 'border-l-amber-400', badge: 'bg-amber-900/40 text-amber-300', desc: 'Why the gap exists — the root cause, not the symptom. Use 5-Why analysis for systemic findings.', example: 'No automated workflow exists to trigger quarterly reviews. Process relies on manual calendar reminders which were not actioned.' },
   { c: 'C4 — Consequence', color: 'border-l-red-400', badge: 'bg-red-900/40 text-red-300', desc: 'The risk or impact. What could happen if this finding is not remediated.', example: 'Unauthorised or excessive access may remain undetected, increasing risk of data breach or insider threat incident.' },
 ]
@@ -51,7 +51,7 @@ export default function Findings() {
         placeholder="e.g. Patch management logs show 23 servers not patched within the 30-day policy requirement during Q3"
         contextFields={[
           { id: 'observation', label: 'Audit Observation (what you found)', placeholder: 'Describe the gap or issue observed during testing', type: 'text' },
-          { id: 'control', label: 'Control / Policy Reference', placeholder: 'e.g. ISO 27002 A.8.8, Company Patch Policy §3.2', type: 'text' },
+          { id: 'control', label: 'Process / Policy Reference', placeholder: 'e.g. ISO 9001 Clause 8.5.1, Company Production Control Procedure §3.2', type: 'text' },
           { id: 'impact', label: 'Potential Risk / Impact', placeholder: 'e.g. Exploitable vulnerabilities, regulatory penalty', type: 'text' },
           { id: 'rating', label: 'Preliminary Rating', type: 'select', options: ['Critical', 'High', 'Medium', 'Low / Advisory'] },
         ]}

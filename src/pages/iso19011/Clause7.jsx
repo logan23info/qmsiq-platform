@@ -4,7 +4,7 @@ import { CheckCircle2 } from 'lucide-react'
 
 const competencyAreas = [
   { area: 'Professional Knowledge', color: 'border-l-blue-500',
-    items: ['ISO 19011:2018 — audit principles, process, and methods', 'ISO 27001:2022 — ISMS requirements (for IS auditors)', 'ISO 9001:2015 — QMS requirements (for QMS auditors)', 'ISO 27002:2022 — controls and implementation guidance', 'Applicable legal and regulatory requirements', 'Industry-specific standards (PCI-DSS, SOC 2, GDPR)'] },
+    items: ['ISO 19011:2018 — audit principles, process, and methods', 'ISO 9001:2015 — QMS requirements', 'Applicable legal and regulatory requirements', 'Industry-specific standards (IATF 16949, AS9100, ISO 13485)'] },
   { area: 'Audit Skills', color: 'border-l-emerald-500',
     items: ['TOD — design gap analysis and documentation review', 'TOI — walkthrough and interview techniques', 'TOE — statistical sampling and re-performance', 'Finding development using 4Cs methodology', 'Evidence evaluation and sufficiency assessment', 'Working paper documentation to professional standard'] },
   { area: 'Personal Attributes', color: 'border-l-purple-500',
@@ -14,8 +14,8 @@ const competencyAreas = [
 ]
 
 const certifications = [
-  { cert: 'ISO 27001 Lead Auditor (LA)', body: 'PECB / BSI / IRCA', relevance: 'Primary certification for IS auditors — covers full audit lifecycle', recommended: true },
-  { cert: 'ISO 27001 Lead Implementer (LI)', body: 'PECB / BSI', relevance: 'Useful for understanding ISMS implementation from auditee perspective', recommended: false },
+  { cert: 'ISO 9001 Lead Auditor (LA)', body: 'PECB / BSI / IRCA', relevance: 'Primary certification for QMS auditors — covers full audit lifecycle', recommended: true },
+  { cert: 'ISO 9001 Lead Implementer (LI)', body: 'PECB / BSI', relevance: 'Useful for understanding QMS implementation from auditee perspective', recommended: false },
   { cert: 'CISA — Certified IS Auditor', body: 'ISACA', relevance: 'Industry-leading IT audit certification — broad IS audit coverage', recommended: true },
   { cert: 'ISO 9001 Lead Auditor', body: 'IRCA / CQI', relevance: 'Required for QMS auditors and IMS joint audit teams', recommended: false },
   { cert: 'CISSP', body: 'ISC²', relevance: 'Technical IS expertise — valuable for Technological controls (A.8.x)', recommended: false },
@@ -23,8 +23,8 @@ const certifications = [
 ]
 
 const competencyMatrix = [
-  { role: 'IS Audit Lead', tod: '✅ Required', toi: '✅ Required', toe: '✅ Required', report: '✅ Required', cert: 'ISO 27001 LA or CISA' },
-  { role: 'IS Audit Team Member', tod: '✅ Required', toi: '✅ Required', toe: '⚠️ Supervised', report: '⚠️ Supervised', cert: 'ISO 27001 LA (in progress)' },
+  { role: 'QMS Audit Lead', tod: '✅ Required', toi: '✅ Required', toe: '✅ Required', report: '✅ Required', cert: 'ISO 9001 LA or ASQ CQA' },
+  { role: 'QMS Audit Team Member', tod: '✅ Required', toi: '✅ Required', toe: '⚠️ Supervised', report: '⚠️ Supervised', cert: 'ISO 9001 LA (in progress)' },
   { role: 'Technical Specialist', tod: '⚠️ Supervised', toi: '✅ Required', toe: '✅ Required', report: '⚠️ Supervised', cert: 'CISSP / CISA' },
   { role: 'Trainee Auditor', tod: '⚠️ Supervised', toi: '⚠️ Supervised', toe: '⚠️ Supervised', report: '⚠️ Supervised', cert: 'None required' },
 ]
@@ -103,11 +103,11 @@ export default function Clause7() {
 
       <AIPanel title="Generate Competence Documentation"
         systemPrompt="You are an ISO 19011:2018 auditor competence specialist. Generate professional competence assessments, CPD plans, auditor training records, and independence declarations aligned to Clause 7 requirements."
-        placeholder="e.g. Generate an auditor competence assessment for a CISA-certified auditor conducting their first ISO 27001 audit"
+        placeholder="e.g. Generate an auditor competence assessment for an ASQ-certified auditor conducting their first ISO 9001 audit"
         contextFields={[
           { id: 'role', label: 'Auditor Role', type: 'select', options: ['IS Audit Lead', 'IS Audit Team Member', 'Technical Specialist', 'Trainee Auditor', 'IMS Joint Auditor'] },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Competence Assessment', 'CPD Plan', 'Independence Declaration', 'Auditor Training Record', 'Audit Team Competence Matrix', 'Auditor Evaluation Form'] },
-          { id: 'context', label: 'Auditor Background', type: 'text', placeholder: 'e.g. 5 years IT audit, CISA certified, first ISO 27001 audit' },
+          { id: 'context', label: 'Auditor Background', type: 'text', placeholder: 'e.g. 5 years quality audit, ASQ CQA certified, first ISO 9001 audit' },
         ]} />
     </div>
   )
