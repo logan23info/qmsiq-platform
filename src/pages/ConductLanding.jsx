@@ -51,7 +51,7 @@ export default function ConductLanding() {
     <div className="max-w-3xl">
       <PageHeader
         title="Conduct an Audit"
-        subtitle="ISO 19011:2018 — Independent audit methodology"
+        subtitle="ISO 19011:2026 — Independent audit methodology"
         badges={['ISO 19011', 'TOD/TOI/TOE', '4Cs Framework']}
       />
 

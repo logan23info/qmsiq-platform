@@ -31,9 +31,9 @@ function NewPBCModal({ programmeId, userId, onCreated, onClose }) {
       <div className="bg-navy-900 border border-navy-600 rounded-2xl w-full max-w-lg">
         <div className="p-5 border-b border-navy-700 flex items-center justify-between"><h2 className="font-semibold text-white">New PBC Evidence Request</h2><button onClick={onClose} className="text-steel-400 text-lg">×</button></div>
         <div className="p-5 space-y-3">
-          <div><label className="block text-xs text-steel-400 mb-1">Evidence Required *</label><input maxLength={300} className="input-field" placeholder="e.g. IS Awareness Training completion records" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Evidence Required *</label><input maxLength={300} className="input-field" placeholder="e.g. Quality Awareness Training completion records" value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Control Reference</label><input maxLength={200} className="input-field" placeholder="e.g. A.6.3" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Control Reference</label><input maxLength={200} className="input-field" placeholder="e.g. Clause 8.4" value={form.control_ref} onChange={e => setForm(p => ({ ...p, control_ref: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}><option>TOD</option><option>TOI</option><option>TOE</option><option>PBC Evidence</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Domain</label><select className="input-field" value={form.domain} onChange={e => setForm(p => ({ ...p, domain: e.target.value }))}>{['Governance','Planning','Risk','Organizational','People','Physical','Technological','Quality','Improvement'].map(d => <option key={d}>{d}</option>)}</select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Priority</label><select className="input-field" value={form.priority} onChange={e => setForm(p => ({ ...p, priority: e.target.value }))}><option>High</option><option>Medium</option><option>Low</option></select></div>
@@ -162,7 +162,7 @@ export default function PBCList() {
       <div className="mt-6">
         <AIPanel
           title="AI — Generate PBC Evidence List"
-          systemPrompt="You are an ISO 19011:2018 audit fieldwork specialist. Generate comprehensive PBC (Provided By Client) evidence lists for specific controls, clauses, or audit phases. Include evidence type, format, period covered, and responsible party. Organised by TOD, TOI, and TOE phases."
+          systemPrompt="You are an ISO 19011:2026 audit fieldwork specialist. Generate comprehensive PBC (Provided By Client) evidence lists for specific controls, clauses, or audit phases. Include evidence type, format, period covered, and responsible party. Organised by TOD, TOI, and TOE phases."
           placeholder="e.g. Generate a PBC evidence list for ISO 9001 Clause 8 — Operations covering Cl.8.4, 8.5, 8.7 for a 12-month audit period"
           contextFields={[
             { id: 'scope', label: 'Audit Scope / Controls', type: 'text', placeholder: 'e.g. ISO 9001 Cl. 8 — Operations, Supplier Control, Production' },

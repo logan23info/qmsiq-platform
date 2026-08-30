@@ -19,7 +19,7 @@ export default function Findings() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 6.4.5"
         title="Finding Development — 4Cs Framework"
         description="Every audit finding must be structured using the 4Cs: Condition, Criteria, Cause, and Consequence. A finding missing any one of the 4Cs is incomplete and cannot be formally reported."
@@ -47,7 +47,7 @@ export default function Findings() {
       </div>
       <AIPanel
         title="Generate Audit Finding (4Cs)"
-        systemPrompt="You are an ISO 19011:2018 audit finding development expert. Generate complete, professional audit findings using the 4Cs framework: Condition (what is), Criteria (what should be), Cause (root cause — use 5-Why), Consequence (impact and risk). Also generate finding rating justifications. Findings must be factual, evidence-based, professionally worded, and immediately reportable."
+        systemPrompt="You are an ISO 19011:2026 audit finding development expert. Generate complete, professional audit findings using the 4Cs framework: Condition (what is), Criteria (what should be), Cause (root cause — use 5-Why), Consequence (impact and risk). Also generate finding rating justifications. Findings must be factual, evidence-based, professionally worded, and immediately reportable."
         placeholder="e.g. Patch management logs show 23 servers not patched within the 30-day policy requirement during Q3"
         contextFields={[
           { id: 'observation', label: 'Audit Observation (what you found)', placeholder: 'Describe the gap or issue observed during testing', type: 'text' },

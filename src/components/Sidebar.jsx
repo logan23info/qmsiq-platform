@@ -24,7 +24,7 @@ const iconMap = {
 
 const sectionColors = {
   iso19011: 'text-amber-audit', iso9000: 'text-steel-400', iso9001: 'text-emerald-400',
-  ims: 'text-cyan-400', fieldwork: 'text-orange-400', reporting: 'text-pink-400', core: 'text-steel-400',
+  fieldwork: 'text-orange-400', reporting: 'text-pink-400', core: 'text-steel-400',
 }
 
 // Tooltip descriptions for nav items

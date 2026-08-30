@@ -24,7 +24,7 @@ export default function TOI() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 6.4"
         title="TOI — Test of Implementation"
         description="Has the control actually been put into practice? TOI confirms that the control designed in TOD is actually operating in the organisation. It uses walkthroughs, system demonstrations, and single transaction traces to confirm implementation — not consistency over time."
@@ -79,7 +79,7 @@ export default function TOI() {
 
       <AIPanel
         title="Generate TOI Artifacts"
-        systemPrompt={`You are a senior IT auditor specialising in Test of Implementation (TOI) under ISO 19011:2018. Generate detailed walkthrough scripts, implementation interview guides, and evidence capture templates. TOI tests whether a control is actually in operation — using one walkthrough instance. All outputs must be structured, professional audit workpapers. Include specific questions, evidence items, and auditor instruction notes. Tailor to the control, system, and sector provided.`}
+        systemPrompt={`You are a senior IT auditor specialising in Test of Implementation (TOI) under ISO 19011:2026. Generate detailed walkthrough scripts, implementation interview guides, and evidence capture templates. TOI tests whether a control is actually in operation — using one walkthrough instance. All outputs must be structured, professional audit workpapers. Include specific questions, evidence items, and auditor instruction notes. Tailor to the control, system, and sector provided.`}
         placeholder="e.g. Generate a walkthrough script for testing the Patch Management control in an Azure environment"
         contextFields={[
           { id: 'control', label: 'Control Being Tested', placeholder: 'e.g. Calibration Management — ISO 9001 Cl.7.1.5', type: 'text' },

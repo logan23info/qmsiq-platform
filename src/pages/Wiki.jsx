@@ -8,7 +8,7 @@ const sections = [
     title: 'What is QMSiQ?',
     content: `QMSiQ is a Quality Management Audit Platform built around two distinct but connected activities: conducting audits and reviewing your QMS.
 
-Conducting an audit means independently verifying that your organisation's quality management processes conform to ISO 9001:2015 requirements — using ISO 19011:2018 audit methodology. The output is findings: nonconformities and observations, formally documented using the 4Cs framework.
+Conducting an audit means independently verifying that your organisation's quality management processes conform to ISO 9001:2015 requirements — using ISO 19011:2026 audit methodology. The output is findings: nonconformities and observations, formally documented using the 4Cs framework.
 
 Reviewing your QMS means assessing whether your quality management system is working effectively — using gap analysis, risk registers, KPI monitoring, CAPA tracking, and management review. The output is actions and improvements.
 
@@ -49,7 +49,7 @@ Both activities live in one platform because they feed each other. Audit finding
     title: 'ISO 9001 vs ISO 19011 — the difference',
     content: `ISO 9001:2015 specifies WHAT your organisation must do to manage quality — the requirements for a quality management system. It tells you that you must conduct internal audits (Cl. 9.2), manage risks (Cl. 6.1), and review performance (Cl. 9.3).
 
-ISO 19011:2018 specifies HOW to conduct management system audits — the methodology. It covers audit principles, programme management, conducting audits, and auditor competence. It applies to any management system audit, including ISO 9001 internal audits.
+ISO 19011:2026 specifies HOW to conduct management system audits — the methodology. It covers audit principles, programme management, conducting audits, and auditor competence. It applies to any management system audit, including ISO 9001 internal audits.
 
 In QMSiQ:
 • The Conduct an Audit sections are governed by ISO 19011
@@ -65,7 +65,7 @@ In QMSiQ:
         ['Output', 'Findings: Major NC / Minor NC / Observation', 'Actions: CAPA, improvements, decisions'],
         ['Who does it', 'Independent auditor — no self-audit', 'Quality manager, management team'],
         ['Evidence', 'Objective evidence required per finding', 'Data analysis, trends, judgement'],
-        ['Standard', 'ISO 19011:2018', 'ISO 9001:2015 Cl.9 & 10'],
+        ['Standard', 'ISO 19011:2026', 'ISO 9001:2015 Cl.9 & 10'],
         ['Frequency', 'Planned — annual programme', 'Ongoing — year-round monitoring'],
         ['In QMSiQ', 'Conduct an Audit sections', 'Review Your QMS sections'],
       ]

@@ -56,7 +56,7 @@ function NewRiskModal({ programmeId, userId, onCreated, onClose }) {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Controls Applied</label><input maxLength={200} className="input-field" placeholder="e.g. A.8.7, A.8.8" value={form.controls_applied} onChange={e => setForm(p => ({ ...p, controls_applied: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Controls Applied</label><input maxLength={200} className="input-field" placeholder="e.g. Cl.8.5.1, Cl.8.7 Nonconforming Outputs" value={form.controls_applied} onChange={e => setForm(p => ({ ...p, controls_applied: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Treatment</label><select className="input-field" value={form.treatment} onChange={e => setForm(p => ({ ...p, treatment: e.target.value }))}><option>Mitigate</option><option>Accept</option><option>Transfer</option><option>Avoid</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Risk Owner</label><input maxLength={100} className="input-field" placeholder="e.g. CISO" value={form.risk_owner} onChange={e => setForm(p => ({ ...p, risk_owner: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Review Date</label><input className="input-field" type="date" value={form.review_date} onChange={e => setForm(p => ({ ...p, review_date: e.target.value }))} /></div>

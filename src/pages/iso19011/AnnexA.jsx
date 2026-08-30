@@ -6,13 +6,15 @@ const annexSections = [
   {
     ref: 'A.1', title: 'General guidance for auditors',
     color: 'border-l-amber-audit',
-    desc: 'Supplemental guidance for auditors on applying ISO 19011 principles across different types of management system audits.',
+    desc: 'Supplemental guidance for auditors on applying ISO 19011 principles across different types of management system audits. New in the 2026 edition: structured guidance on selecting the right audit method up front.',
     items: [
       'Auditor behaviour and professionalism in all audit situations',
       'Handling sensitive or confidential information during fieldwork',
       'Managing difficult audit situations — hostile auditees, access denial',
       'Documenting verbal evidence from interviews consistently',
       'Maintaining objectivity when auditing familiar processes',
+      'On-site vs remote vs hybrid method selection — documented in the audit programme, not decided ad hoc',
+      'Technology feasibility assessment before committing to remote activities — bandwidth, hardware/software, time zones, platform security',
     ]
   },
   {
@@ -37,16 +39,18 @@ const annexSections = [
     ]
   },
   {
-    ref: 'A.3', title: 'Remote audit guidance',
+    ref: 'A.3', title: 'Remote and hybrid audit guidance',
     color: 'border-l-purple-400',
-    desc: 'ISO 19011 Annex A.3 provides specific guidance for conducting audits remotely — increasingly common since 2020.',
+    desc: 'Significantly expanded in ISO 19011:2026 (drawing on ISO/IEC TS 17012:2024) — on-site, remote, and hybrid are now treated as equally valid options considered at every stage of the audit lifecycle, not an Annex-only afterthought.',
     items: [
       'Pre-audit technology check — video conferencing, screen sharing capability',
       'Secure evidence transfer protocols — encrypted file sharing only',
       'Remote observation techniques — screen share for system demos',
-      'Managing connectivity issues — backup communication plan',
+      'Managing connectivity issues — backup communication and contingency plan',
       'Remote signing of attendance registers and documents',
       'Limitations of remote auditing — physical security cannot be observed remotely',
+      'Audit location now includes virtual locations — where information is available to the team, physical or virtual',
+      'Platform/ICT security assessed as part of method selection, not just logistics',
     ]
   },
   {
@@ -64,10 +68,13 @@ const annexSections = [
   {
     ref: 'A.5', title: 'Risk-based audit approach',
     color: 'border-l-red-400',
-    desc: 'Detailed guidance on applying a risk-based approach to audit planning — allocating more time and scrutiny to higher-risk areas.',
+    desc: 'Detailed guidance on applying a risk-based approach to audit planning — allocating more time and scrutiny to higher-risk areas. ISO 19011:2026 adds concrete risk categories beyond process risk.',
     items: [
       'Higher-risk areas receive more audit time and deeper testing',
       'Risk factors: complexity, regulatory impact, previous findings, change activity',
+      'New in 2026: technology/platform security risk factored into method selection',
+      'New in 2026: auditor availability risk considered in programme scheduling',
+      'New in 2026: verify the auditee has assessed whether climate change is a relevant context issue',
       'Risk-based sampling: larger samples for high-risk controls',
       'Risk-based scheduling: critical controls tested earlier in audit',
       'Document risk rationale for all scope and sampling decisions',
@@ -92,10 +99,10 @@ export default function AnnexA() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Annex A"
         title="Annex A — Supplemental Guidance"
-        description="ISO 19011 Annex A provides additional guidance beyond the main clauses — covering auditor behaviour, audit methods, remote auditing, auditee context, risk-based approaches, and sampling. Informative, not mandatory — but highly recommended practice."
+        description="ISO 19011 Annex A provides additional guidance beyond the main clauses — covering auditor behaviour, audit methods, remote/hybrid auditing, auditee context, risk-based approaches, and sampling. Informative, not mandatory — but highly recommended practice. The 2026 edition also acknowledges emerging AI and data-analytics tools in audit planning and sampling, without prescriptive requirements."
         badges={['Supplemental', 'Informative', 'Best Practice']}
       />
 
@@ -148,7 +155,7 @@ export default function AnnexA() {
 
       <AIPanel
         title="Generate Annex A Guidance Documents"
-        systemPrompt="You are an ISO 19011:2018 Annex A expert. Generate practical guidance documents based on ISO 19011 Annex A supplemental guidance — covering audit methods selection, remote audit procedures, risk-based audit planning, sampling justifications, and auditee context analysis. All outputs must be structured, professional, and immediately usable in real audit engagements."
+        systemPrompt="You are an ISO 19011:2026 Annex A expert. Generate practical guidance documents based on ISO 19011 Annex A supplemental guidance — covering audit methods selection, remote audit procedures, risk-based audit planning, sampling justifications, and auditee context analysis. All outputs must be structured, professional, and immediately usable in real audit engagements."
         placeholder="e.g. Generate a Remote Audit Procedure document for conducting ISO 9001 audits via video conferencing"
         contextFields={[
           { id: 'section', label: 'Annex A Section', type: 'select', options: ['A.1 — Auditor Behaviour Guidance', 'A.2 — Audit Methods Matrix', 'A.3 — Remote Audit Procedure', 'A.4 — Auditee Context Guide', 'A.5 — Risk-Based Audit Plan', 'A.6 — Sampling Justification Template'] },

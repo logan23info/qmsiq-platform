@@ -37,10 +37,10 @@ function NewControlModal({ programmeId, userId, onCreated, onClose }) {
           <button onClick={onClose} className="text-steel-400 text-lg">×</button>
         </div>
         <div className="p-5 space-y-3">
-          <div><label className="block text-xs text-steel-400 mb-1">Control / Workpaper Title *</label><input maxLength={150} className="input-field" placeholder="e.g. A.8.8 — Vulnerability Management" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Control / Workpaper Title *</label><input maxLength={150} className="input-field" placeholder="e.g. Cl.8.5.1 — Control of Production" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} /></div>
           <div className="grid grid-cols-2 gap-3">
-            <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{['ISO 9001:2015', 'ISO 19011:2018', 'IMS', 'Other', 'IMS'].map(s => <option key={s}>{s}</option>)}</select></div>
-            <div><label className="block text-xs text-steel-400 mb-1">Clause / Control</label><input maxLength={100} className="input-field" placeholder="e.g. A.8.8" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{['ISO 9001:2015', 'ISO 19011:2026', 'Other'].map(s => <option key={s}>{s}</option>)}</select></div>
+            <div><label className="block text-xs text-steel-400 mb-1">Clause / Control</label><input maxLength={100} className="input-field" placeholder="e.g. Cl.8.5.1" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}><option>TOD</option><option>TOI</option><option>TOE</option></select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Assigned Auditor</label><input maxLength={200} className="input-field" placeholder="e.g. Lead Auditor" value={form.auditor} onChange={e => setForm(p => ({ ...p, auditor: e.target.value }))} /></div>
           </div>
@@ -179,8 +179,8 @@ export default function FieldworkTracker() {
       <div className="mt-6">
         <AIPanel
           title="AI — Generate Workpaper & Test Steps"
-          systemPrompt="You are an ISO 19011:2018 audit fieldwork specialist. Generate structured workpaper titles, TOD/TOI/TOE test steps, and evidence checklists for specific ISO 9001:2015 clauses. Include: workpaper reference naming, testing objective, testing approach per phase, population definition for TOE, sample size justification, and expected evidence."
-          placeholder="e.g. Generate a complete TOE workpaper for A.8.8 Vulnerability Management — monthly scan results for 6-month period"
+          systemPrompt="You are an ISO 19011:2026 audit fieldwork specialist. Generate structured workpaper titles, TOD/TOI/TOE test steps, and evidence checklists for specific ISO 9001:2015 clauses. Include: workpaper reference naming, testing objective, testing approach per phase, population definition for TOE, sample size justification, and expected evidence."
+          placeholder="e.g. Generate a complete TOE workpaper for Cl.8.5.1 Control of Production — monthly in-process check results for 6-month period"
           contextFields={[
             { id: 'control', label: 'Control / Clause', type: 'text', placeholder: 'e.g. ISO 9001 Cl. 8.4 — External Provider Control' },
             { id: 'phase', label: 'Phase', type: 'select', options: ['TOD — Test of Design', 'TOI — Test of Implementation', 'TOE — Test of Effectiveness', 'All phases'] },

@@ -9,7 +9,7 @@ const elements = [
     artifact: 'Audit Programme Objectives Document' },
   { clause: '5.3', title: 'Audit Programme Risks & Opportunities', color: 'border-l-red-500',
     desc: 'Identify risks and opportunities that could affect the audit programme — resource constraints, auditor availability, access issues, and scope changes.',
-    items: ['Risk: insufficient auditor competence for complex technical areas', 'Risk: auditee unavailability during planned audit window', 'Risk: scope creep beyond agreed boundaries', 'Risk: insufficient evidence obtained to support conclusions', 'Opportunity: combine IS + QMS audits to reduce auditee burden', 'Opportunity: remote audit methods reduce travel costs and time'],
+    items: ['Risk: insufficient auditor competence for complex technical areas', 'Risk: auditee unavailability during planned audit window', 'Risk: scope creep beyond agreed boundaries', 'Risk: insufficient evidence obtained to support conclusions', 'New in 2026 — Risk: technology/platform security when remote methods are used', 'New in 2026 — Risk: auditor availability affecting programme continuity', 'Opportunity: combine related QMS audits to reduce auditee burden', 'Opportunity: remote and hybrid audit methods reduce travel costs and time'],
     artifact: 'Audit Programme Risk Register' },
   { clause: '5.4', title: 'Audit Programme Resources', color: 'border-l-emerald-500',
     desc: 'Determine and provide resources needed — lead auditor, audit team, time, budget, tools, and access to auditee systems.',
@@ -17,7 +17,7 @@ const elements = [
     artifact: 'Audit Programme Resource Plan' },
   { clause: '5.5', title: 'Audit Programme Implementation', color: 'border-l-purple-500',
     desc: 'Schedule individual audits within the programme — prioritising higher-risk areas and maintaining auditor independence.',
-    items: ['Annual audit schedule produced and communicated to management', 'Higher-risk areas receive more frequent or in-depth audits', 'Auditor independence maintained — no self-review', 'Individual audit mandates issued (scope, criteria, dates, team)', 'Coordination with auditee to minimise operational disruption', 'Remote and on-site audit methods selected per context'],
+    items: ['Annual audit schedule produced and communicated to management', 'Higher-risk areas receive more frequent or in-depth audits', 'Auditor independence maintained — no self-review', 'Individual audit mandates issued (scope, criteria, dates, team)', 'Coordination with auditee to minimise operational disruption', 'New in 2026 — On-site, remote, and hybrid method explicitly documented in the programme description, not decided ad hoc', 'New in 2026 — Technology feasibility assessed for any remote activity: bandwidth, hardware/software, time zones, platform security'],
     artifact: 'Annual Audit Schedule + Individual Audit Mandates' },
   { clause: '5.6', title: 'Audit Programme Monitoring & Review', color: 'border-l-amber-500',
     desc: 'Monitor progress, identify deviations, and review the programme at planned intervals to ensure its continuing effectiveness.',
@@ -40,7 +40,7 @@ const scheduleTemplate = [
 export default function Clause5() {
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 19011:2018" clause="Clause 5" title="Clause 5 — Audit Programme Management"
+      <PageHeader standard="ISO 19011:2026" clause="Clause 5" title="Clause 5 — Audit Programme Management"
         description="ISO 19011 Clause 5 covers managing the overall audit programme — setting objectives, identifying programme risks, allocating resources, implementing the annual schedule, monitoring progress, and maintaining records."
         badges={['Programme Management', 'Pre-Audit', 'Annual Planning']} />
 
@@ -97,7 +97,7 @@ export default function Clause5() {
       </div>
 
       <AIPanel title="Generate Audit Programme Documents"
-        systemPrompt="You are an ISO 19011:2018 Clause 5 audit programme management specialist. Generate professional audit programme documents including objectives, annual schedules, resource plans, risk registers, and programme review reports. Align to ISO 19011:2018 Clause 5 requirements."
+        systemPrompt="You are an ISO 19011:2026 Clause 5 audit programme management specialist. Generate professional audit programme documents including objectives, annual schedules, resource plans, risk registers, and programme review reports. Align to ISO 19011:2026 Clause 5 requirements."
         placeholder="e.g. Generate a 12-month ISO 9001 internal audit programme for a 500-person manufacturing firm"
         contextFields={[
           { id: 'org', label: 'Organisation & Sector', type: 'text', placeholder: 'e.g. UK manufacturer, 500 staff, ISO 9001 certified' },

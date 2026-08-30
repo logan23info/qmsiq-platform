@@ -84,7 +84,7 @@ export function exportReportPDF({ report, findings, programme }) {
         <div class="cover-meta-row"><span class="cover-meta-label">Audit scope</span><span class="cover-meta-value">${report.scope || programme?.scope || 'ISO 9001:2015 — all clauses'}</span></div>
         <div class="cover-meta-row"><span class="cover-meta-label">Lead auditor</span><span class="cover-meta-value">${report.leadAuditor || programme?.lead_auditor || '—'}</span></div>
         <div class="cover-meta-row"><span class="cover-meta-label">Report date</span><span class="cover-meta-value">${date}</span></div>
-        <div class="cover-meta-row"><span class="cover-meta-label">Standard</span><span class="cover-meta-value">ISO 9001:2015 · ISO 19011:2018</span></div>
+        <div class="cover-meta-row"><span class="cover-meta-label">Standard</span><span class="cover-meta-value">ISO 9001:2015 · ISO 19011:2026</span></div>
       </div>
     </div>
     <div class="cover-bottom">
@@ -95,7 +95,7 @@ export function exportReportPDF({ report, findings, programme }) {
   <!-- Executive Summary -->
   <div class="section-page">
     <h1>1. Executive Summary</h1>
-    ${report.executiveSummary ? `<p>${report.executiveSummary}</p>` : '<p>This report presents the findings from the ISO 9001:2015 internal quality management system audit conducted in accordance with ISO 19011:2018 guidelines.</p>'}
+    ${report.executiveSummary ? `<p>${report.executiveSummary}</p>` : '<p>This report presents the findings from the ISO 9001:2015 internal quality management system audit conducted in accordance with ISO 19011:2026 guidelines.</p>'}
 
     <!-- Finding stats -->
     <div class="stats">
@@ -121,7 +121,7 @@ export function exportReportPDF({ report, findings, programme }) {
 
     <h2>2. Audit Scope & Methodology</h2>
     <p><strong>Scope:</strong> ${report.scope || 'ISO 9001:2015 — all applicable clauses'}</p>
-    <p><strong>Methodology:</strong> Audit conducted per ISO 19011:2018 using a combination of document review (Test of Design), process walkthrough (Test of Implementation), and evidence sampling (Test of Effectiveness). Findings documented using the 4Cs framework (Condition, Criteria, Cause, Consequence).</p>
+    <p><strong>Methodology:</strong> Audit conducted per ISO 19011:2026 using a combination of document review (Test of Design), process walkthrough (Test of Implementation), and evidence sampling (Test of Effectiveness). Findings documented using the 4Cs framework (Condition, Criteria, Cause, Consequence).</p>
     ${report.methodology ? `<p>${report.methodology}</p>` : ''}
   </div>
 

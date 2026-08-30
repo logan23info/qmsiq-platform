@@ -171,12 +171,12 @@ function NewFindingModal({ programmeId, userId, onCreated, onClose }) {
             <div>
               <label className="block text-xs text-steel-400 mb-1">Standard</label>
               <select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>
-                {['ISO 9001:2015', 'ISO 19011:2018', 'IMS', 'ISO 14001:2015', 'Other'].map(s => <option key={s}>{s}</option>)}
+                {['ISO 9001:2015', 'ISO 19011:2026', 'ISO 14001:2026', 'Other'].map(s => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div>
               <label className="block text-xs text-steel-400 mb-1">Clause / Control</label>
-              <input maxLength={100} className="input-field" placeholder="e.g. A.8.2" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} />
+              <input maxLength={100} className="input-field" placeholder="e.g. Clause 8.5" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} />
             </div>
           </div>
           {[

@@ -82,7 +82,7 @@ function UploadModal({ onClose, programme, user, onUploaded }) {
             <div><label className="block text-xs text-steel-400 mb-1">Standard</label><select className="input-field" value={form.standard} onChange={e => setForm(p => ({ ...p, standard: e.target.value }))}>{STANDARDS.map(s => <option key={s}>{s}</option>)}</select></div>
             <div><label className="block text-xs text-steel-400 mb-1">Phase</label><select className="input-field" value={form.phase} onChange={e => setForm(p => ({ ...p, phase: e.target.value }))}>{PHASES.map(p => <option key={p}>{p}</option>)}</select></div>
           </div>
-          <div><label className="block text-xs text-steel-400 mb-1">Clause / Control (optional)</label><input maxLength={100} className="input-field" placeholder="e.g. A.8.8, Clause 5.3" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
+          <div><label className="block text-xs text-steel-400 mb-1">Clause / Control (optional)</label><input maxLength={100} className="input-field" placeholder="e.g. Clause 5.3, Clause 8.5" value={form.clause_control} onChange={e => setForm(p => ({ ...p, clause_control: e.target.value }))} /></div>
           <div><label className="block text-xs text-steel-400 mb-1">Notes (optional)</label><textarea maxLength={2000} className="textarea-field" rows={2} value={form.notes} onChange={e => setForm(p => ({ ...p, notes: e.target.value }))} /></div>
 
           <div className="flex gap-2">

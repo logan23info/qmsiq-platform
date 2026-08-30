@@ -201,8 +201,8 @@ Generate a complete, professional ${selectedSection?.label} section. Use the act
             { key: 'org', label: 'Organisation', placeholder: 'e.g. ABC Financial Services Ltd' },
             { key: 'sector', label: 'Sector', placeholder: 'e.g. Financial services, 500 employees' },
             { key: 'period', label: 'Audit Period', placeholder: 'e.g. 1 January – 31 December 2025' },
-            { key: 'lead_auditor', label: 'Lead Auditor', placeholder: 'e.g. Logan, CIA, CISA' },
-            { key: 'standards', label: 'Standards Audited', placeholder: 'e.g. ISO 9001:2015, ISO 19011:2018' },
+            { key: 'lead_auditor', label: 'Lead Auditor', placeholder: 'e.g. Logan, CIA, ASQ CQA' },
+            { key: 'standards', label: 'Standards Audited', placeholder: 'e.g. ISO 9001:2015, ISO 19011:2026' },
           ].map(f => (
             <div key={f.key}>
               <label className="block text-xs text-steel-400 mb-1">{f.label}</label>

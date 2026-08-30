@@ -215,7 +215,7 @@ export default function FileUpload({ onUploaded }) {
 
           <div>
             <label className="block text-xs text-steel-400 mb-1">Auditor</label>
-            <input maxLength={200} className="input-field" placeholder="e.g. John Smith, CISA" value={meta.auditor} onChange={e => setMeta(p => ({ ...p, auditor: e.target.value }))} />
+            <input maxLength={200} className="input-field" placeholder="e.g. John Smith, ASQ CQA" value={meta.auditor} onChange={e => setMeta(p => ({ ...p, auditor: e.target.value }))} />
           </div>
 
           <div>

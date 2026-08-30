@@ -4,7 +4,7 @@ import { CheckCircle2 } from 'lucide-react'
 
 const reportSections = [
   { title: 'Executive Summary', items: ['Overall audit conclusion', 'Scope covered and period', 'Key findings summary by rating', 'QMS effectiveness opinion'] },
-  { title: 'Scope & Methodology', items: ['Standards and criteria referenced', 'Audit period and team', 'Testing methodology (TOD/TOI/TOE)', 'Limitations and caveats noted'] },
+  { title: 'Scope & Methodology', items: ['Standards and criteria referenced', 'Audit period and team', 'Testing methodology (TOD/TOI/TOE)', 'Limitations and caveats noted', 'New in 2026 — audit method per activity stated (on-site/remote/hybrid) and how each item of evidence was obtained'] },
   { title: 'Conformity Findings', items: ['Evidence of well-designed controls', 'Areas of strength observed', 'Positive observations noted', 'Best practice highlighted'] },
   { title: 'Nonconformity Findings', items: ['4Cs per finding (Condition/Criteria/Cause/Consequence)', 'Finding rating (Critical/High/Medium/Low)', 'Management response captured', 'Agreed remediation target date'] },
 ]
@@ -22,7 +22,7 @@ export default function Clause65Reporting() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 6.5–6.6"
         title="Audit Reporting & Follow-Up"
         description="Formal requirements for producing, distributing, and following up on audit reports — including CAPA closure verification under Clause 6.6."
@@ -60,7 +60,7 @@ export default function Clause65Reporting() {
       </div>
       <AIPanel
         title="Generate Reporting Artifacts"
-        systemPrompt="You are an ISO 19011:2018 audit reporting expert. Generate professional audit reports, executive summaries, nonconformity reports, management response trackers, report distribution protocols, and follow-up procedures. Audit reports must include: executive summary, scope, methodology, findings with 4Cs, management responses, and audit conclusions. Use clear professional language."
+        systemPrompt="You are an ISO 19011:2026 audit reporting expert. Generate professional audit reports, executive summaries, nonconformity reports, management response trackers, report distribution protocols, and follow-up procedures. Audit reports must include: executive summary, scope, methodology, findings with 4Cs, management responses, and audit conclusions. Use clear professional language."
         placeholder="e.g. Generate an executive summary for an ISO 9001 audit with 2 High and 3 Medium findings"
         contextFields={[
           { id: 'org', label: 'Organisation / Audit Scope', placeholder: 'e.g. Acme Ltd — ISO 9001 QMS internal audit', type: 'text' },

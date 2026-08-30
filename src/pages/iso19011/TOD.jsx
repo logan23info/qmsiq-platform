@@ -55,7 +55,7 @@ export default function TOD() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 6.4"
         title="TOD — Test of Design"
         description="Does the control exist and is it properly designed to mitigate the stated risk? TOD is the first testing phase — it must be completed before TOI or TOE can begin. A design failure means the control cannot be effective regardless of how well it operates."
@@ -112,7 +112,7 @@ export default function TOD() {
 
       <AIPanel
         title="Generate TOD Artifacts"
-        systemPrompt={`You are a senior IT auditor specialising in Test of Design (TOD) under ISO 19011:2018 Clause 6.4. Generate detailed, professional TOD workpapers, interview guides, and design assessment templates. All outputs must follow professional audit workpaper standards. Use structured formats with clear headings, control references, and conclusion fields. Be specific to the control, sector, and technology stack provided. TOD assesses whether a control is properly designed to mitigate its stated risk — not whether it operates.`}
+        systemPrompt={`You are a senior IT auditor specialising in Test of Design (TOD) under ISO 19011:2026 Clause 6.4. Generate detailed, professional TOD workpapers, interview guides, and design assessment templates. All outputs must follow professional audit workpaper standards. Use structured formats with clear headings, control references, and conclusion fields. Be specific to the control, sector, and technology stack provided. TOD assesses whether a control is properly designed to mitigate its stated risk — not whether it operates.`}
         placeholder="e.g. Generate a TOD interview guide for Access Control Policy covering user provisioning, periodic access review, and privileged access management"
         contextFields={[
           { id: 'control', label: 'Control / Policy Being Tested', placeholder: 'e.g. Supplier Approval Procedure — Vendor Qualification (ISO 9001 Cl.8.4)', type: 'text' },

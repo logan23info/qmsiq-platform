@@ -7,7 +7,7 @@ const sections = [
     label: 'Platform basics', color: 'border-l-amber-400',
     items: [
       { q: 'What is QMSiQ?',
-        a: 'QMSiQ is a Quality Management Audit Platform serving two connected purposes. First, conducting audits — using ISO 19011:2018 methodology to independently verify ISO 9001:2015 conformity. Second, reviewing your QMS — using gap analysis, risk registers, CAPA tracking, KPI dashboards, and management review to assess and improve quality performance. Both activities are in one platform because audit findings feed into CAPA, which feeds into management review.' },
+        a: 'QMSiQ is a Quality Management Audit Platform serving two connected purposes. First, conducting audits — using ISO 19011:2026 methodology to independently verify ISO 9001:2015 conformity. Second, reviewing your QMS — using gap analysis, risk registers, CAPA tracking, KPI dashboards, and management review to assess and improve quality performance. Both activities are in one platform because audit findings feed into CAPA, which feeds into management review.' },
       { q: 'What is the difference between "Conduct an Audit" and "Review Your QMS"?',
         a: 'Conducting an audit is an independent verification activity — you gather objective evidence, test controls using TOD/TOI/TOE, and document findings (Major NC, Minor NC, Observation) using the 4Cs framework. The output is a formal audit report. Reviewing your QMS is a management activity — you assess readiness using gap analysis, monitor risks and KPIs, track corrective actions, and prepare management review packs. The output is decisions, actions, and improvements. Audit finds the problem. Review closes the loop.' },
       { q: 'What do the nav sections mean?',

@@ -58,7 +58,7 @@ export default function Clause4() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 4"
         title="Principles of Auditing"
         description="The 7 principles that form the basis of all audit activity. Every audit conducted under this platform must be anchored to these principles. They define what makes audit conclusions reliable, fair, and defensible."
@@ -106,7 +106,7 @@ export default function Clause4() {
 
       <AIPanel
         title="Generate Clause 4 Artifacts"
-        systemPrompt={`You are a senior ISO 19011:2018 audit methodology expert. Generate precise, professional audit artifacts based on the 7 principles of auditing (Clause 4). All outputs must be structured, practical, and ready for use in real audit engagements. Use professional audit language. Format outputs with clear sections and numbered items where appropriate. Focus on the specific artifact type requested.`}
+        systemPrompt={`You are a senior ISO 19011:2026 audit methodology expert. Generate precise, professional audit artifacts based on the 7 principles of auditing (Clause 4). All outputs must be structured, practical, and ready for use in real audit engagements. Use professional audit language. Format outputs with clear sections and numbered items where appropriate. Focus on the specific artifact type requested.`}
         placeholder="e.g. Generate an Independence and Conflict of Interest Declaration form for a QMS auditor conducting an ISO 9001 audit at a manufacturing company"
         contextFields={[
           { id: 'org', label: 'Organisation / Sector', placeholder: 'e.g. Financial services firm, 500 employees', type: 'text' },

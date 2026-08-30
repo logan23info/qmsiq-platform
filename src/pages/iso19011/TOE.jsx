@@ -33,7 +33,7 @@ export default function TOE() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 6.4"
         title="TOE — Test of Operating Effectiveness"
         description="Has the control operated consistently over the audit period? TOE tests whether a control that was designed (TOD) and implemented (TOI) has continued to operate effectively across the full audit window — typically 6 to 12 months. It uses statistical sampling, exception analysis, and multi-period evidence review."
@@ -117,7 +117,7 @@ export default function TOE() {
 
       <AIPanel
         title="Generate TOE Artifacts"
-        systemPrompt={`You are a senior IT auditor specialising in Test of Operating Effectiveness (TOE) under ISO 19011:2018 and AICPA/IIA sampling standards. Generate detailed sampling workpapers, population definition templates, exception analysis frameworks, and TOE conclusion workpapers. TOE tests consistency of control operation over the audit period using statistical sampling. All outputs must be structured professional workpapers with clear sampling rationale, exception thresholds, and conclusion fields. Reference control frequency and risk level in all sampling decisions.`}
+        systemPrompt={`You are a senior IT auditor specialising in Test of Operating Effectiveness (TOE) under ISO 19011:2026 and AICPA/IIA sampling standards. Generate detailed sampling workpapers, population definition templates, exception analysis frameworks, and TOE conclusion workpapers. TOE tests consistency of control operation over the audit period using statistical sampling. All outputs must be structured professional workpapers with clear sampling rationale, exception thresholds, and conclusion fields. Reference control frequency and risk level in all sampling decisions.`}
         placeholder="e.g. Generate a TOE sampling workpaper for User Access Review control — monthly frequency, 12 month audit period, Azure AD environment"
         contextFields={[
           { id: 'control', label: 'Control Being Tested', placeholder: 'e.g. Supplier Performance Review — ISO 9001 Cl.8.4', type: 'text' },

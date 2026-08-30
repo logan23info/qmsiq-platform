@@ -140,7 +140,7 @@ export default function SurveillanceAudit() {
       {/* Surveillance checklist */}
       <div className="card mb-6">
         <h2 className="section-title mb-3">Surveillance Audit Checklist — Mandatory Focus Areas</h2>
-        <p className="text-xs text-steel-400 mb-4">Items marked <span className="text-red-400 font-semibold">Mandatory</span> must be covered in every surveillance audit per IAF MD 1:2018 guidance.</p>
+        <p className="text-xs text-steel-400 mb-4">Items marked <span className="text-red-400 font-semibold">Mandatory</span> must be covered in every surveillance audit per IAF MD 1:2023 guidance.</p>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead><tr className="border-b border-navy-700 bg-navy-800/50">
@@ -166,7 +166,7 @@ export default function SurveillanceAudit() {
       </div>
 
       <AIPanel title="Generate Surveillance & Audit Artifacts"
-        systemPrompt="You are an ISO 9001:2015 surveillance and certification audit specialist. Generate surveillance audit plans, recertification checklists, internal audit reports, supplier audit reports, and management review packs. Align to ISO 19011:2018 methodology and IAF MD 1:2018 surveillance audit requirements."
+        systemPrompt="You are an ISO 9001:2015 surveillance and certification audit specialist. Generate surveillance audit plans, recertification checklists, internal audit reports, supplier audit reports, and management review packs. Align to ISO 19011:2026 methodology and IAF MD 1:2023 surveillance audit requirements."
         placeholder="e.g. Generate a surveillance audit plan for Year 1 following ISO 9001 initial certification of a 200-staff manufacturing company"
         contextFields={[
           { id: 'org', label: 'Organisation & Sector', type: 'text', placeholder: 'e.g. UK manufacturer, 200 staff, ISO 9001 certified 2024' },

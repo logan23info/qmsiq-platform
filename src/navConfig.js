@@ -15,7 +15,7 @@ export const navSections = [
   {
     id: 'audit-methodology', label: 'Conduct an Audit — Methodology',
     items: [
-      { id: '19011-cl4', label: 'Clause 4 — Principles', path: '/iso19011/clause4', icon: 'Shield', tooltip: '7 principles of auditing per ISO 19011:2018' },
+      { id: '19011-cl4', label: 'Clause 4 — Principles', path: '/iso19011/clause4', icon: 'Shield', tooltip: '7 principles of auditing per ISO 19011:2026' },
       { id: '19011-cl5', label: 'Clause 5 — Programme Mgmt', path: '/iso19011/clause5', icon: 'CalendarDays', tooltip: 'Audit programme objectives, resources, scheduling and monitoring' },
       { id: '19011-cl6-init', label: 'Clause 6.2 — Initiation', path: '/iso19011/clause6-initiation', icon: 'PlayCircle', tooltip: 'Audit initiation — mandate, scope, team assignment, feasibility' },
       { id: '19011-cl6-prep', label: 'Clause 6.3 — Preparation', path: '/iso19011/clause6-preparation', icon: 'ClipboardList', tooltip: 'Audit preparation — document review, audit plan, work assignments' },

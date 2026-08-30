@@ -20,7 +20,7 @@ export default function Meetings() {
   return (
     <div className="max-w-5xl mx-auto">
       <PageHeader
-        standard="ISO 19011:2018"
+        standard="ISO 19011:2026"
         clause="Clause 6.4.2 & 6.4.7"
         title="Opening & Closing Meetings"
         description="Both meetings are mandatory under ISO 19011. The opening meeting sets expectations and scope. The closing meeting presents findings before the formal report is issued — giving the auditee opportunity to respond."
@@ -64,7 +64,7 @@ export default function Meetings() {
       </div>
       <AIPanel
         title="Generate Meeting Documents"
-        systemPrompt="You are an ISO 19011:2018 audit meeting facilitation expert. Generate professional opening meeting agendas, closing meeting agendas, attendance registers, meeting minutes, and disputed findings process documents. All outputs should be ready to use in real audit engagements. Include timing estimates, facilitation notes, and ISO 19011 clause references."
+        systemPrompt="You are an ISO 19011:2026 audit meeting facilitation expert. Generate professional opening meeting agendas, closing meeting agendas, attendance registers, meeting minutes, and disputed findings process documents. All outputs should be ready to use in real audit engagements. Include timing estimates, facilitation notes, and ISO 19011 clause references."
         placeholder="e.g. Generate an opening meeting agenda for an ISO 9001 internal audit at a manufacturing company"
         contextFields={[
           { id: 'org', label: 'Organisation', placeholder: 'e.g. Acme Financial Ltd', type: 'text' },

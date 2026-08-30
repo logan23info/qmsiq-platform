@@ -65,7 +65,6 @@ function detectContext() {
   let standard = 'General', phase = 'TOD', clause = ''
   if (path.includes('iso19011')) standard = 'ISO 19011'
   else if (path.includes('iso9001')) standard = 'ISO 9001'
-  else if (path.includes('ims')) standard = 'IMS'
   else if (path.includes('reporting')) standard = 'Reporting'
   else if (path.includes('fieldwork')) standard = 'Fieldwork'
   if (path.includes('/tod')) { phase = 'TOD'; clause = 'TOD' }

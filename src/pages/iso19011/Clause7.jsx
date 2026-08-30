@@ -4,35 +4,36 @@ import { CheckCircle2 } from 'lucide-react'
 
 const competencyAreas = [
   { area: 'Professional Knowledge', color: 'border-l-blue-500',
-    items: ['ISO 19011:2018 — audit principles, process, and methods', 'ISO 9001:2015 — QMS requirements', 'Applicable legal and regulatory requirements', 'Industry-specific standards (IATF 16949, AS9100, ISO 13485)'] },
+    items: ['ISO 19011:2026 — audit principles, process, and methods', 'ISO 9001:2015 — QMS requirements', 'Applicable legal and regulatory requirements', 'Industry-specific standards (IATF 16949, AS9100, ISO 13485)'] },
   { area: 'Audit Skills', color: 'border-l-emerald-500',
     items: ['TOD — design gap analysis and documentation review', 'TOI — walkthrough and interview techniques', 'TOE — statistical sampling and re-performance', 'Finding development using 4Cs methodology', 'Evidence evaluation and sufficiency assessment', 'Working paper documentation to professional standard'] },
   { area: 'Personal Attributes', color: 'border-l-purple-500',
     items: ['Ethical — fair, truthful, sincere, honest, discreet', 'Open-minded — willing to consider alternative ideas', 'Diplomatic — tactful in dealing with auditees', 'Observant — actively aware of physical surroundings', 'Perceptive — aware of and able to understand situations', 'Versatile — adapt readily to different contexts'] },
   { area: 'Communication', color: 'border-l-amber-500',
     items: ['Structured interview techniques — open vs closed questions', 'Active listening — confirm understanding, avoid assumption', 'Clear verbal communication of findings', 'Professional written reporting — concise and objective', 'Presentation of findings to management', 'Handling hostile or uncooperative auditees'] },
+  { area: 'Digital & Remote Audit Competence (new in ISO 19011:2026)', color: 'border-l-sky-500',
+    items: ['Ability to use digital audit tools, video conferencing platforms, and cloud-based document systems effectively', 'Understanding of remote and hybrid audit methods — when each is appropriate per Annex A.1', 'Ability to evaluate risks and opportunities associated with digital tools and platform security', 'Verifying completeness and currency of digital/virtual evidence', 'Continuing professional development addressing remote audit techniques and technology risk'] },
 ]
 
 const certifications = [
-  { cert: 'ISO 9001 Lead Auditor (LA)', body: 'PECB / BSI / IRCA', relevance: 'Primary certification for QMS auditors — covers full audit lifecycle', recommended: true },
+  { cert: 'ISO 9001 Lead Auditor (LA)', body: 'PECB / BSI / IRCA / CQI', relevance: 'Primary certification for QMS auditors — covers full audit lifecycle', recommended: true },
   { cert: 'ISO 9001 Lead Implementer (LI)', body: 'PECB / BSI', relevance: 'Useful for understanding QMS implementation from auditee perspective', recommended: false },
-  { cert: 'CISA — Certified IS Auditor', body: 'ISACA', relevance: 'Industry-leading IT audit certification — broad IS audit coverage', recommended: true },
-  { cert: 'ISO 9001 Lead Auditor', body: 'IRCA / CQI', relevance: 'Required for QMS auditors and IMS joint audit teams', recommended: false },
-  { cert: 'CISSP', body: 'ISC²', relevance: 'Technical IS expertise — valuable for Technological controls (A.8.x)', recommended: false },
-  { cert: 'CIA — Certified Internal Auditor', body: 'IIA', relevance: 'Internal audit methodology — complements IS audit skills', recommended: false },
+  { cert: 'ASQ CQA — Certified Quality Auditor', body: 'ASQ', relevance: 'Industry-recognised quality-auditing certification — broad QMS audit coverage', recommended: true },
+  { cert: 'ASQ CQE — Certified Quality Engineer', body: 'ASQ', relevance: 'Technical quality-engineering depth — valuable for process/technical audit areas', recommended: false },
+  { cert: 'CIA — Certified Internal Auditor', body: 'IIA', relevance: 'Internal audit methodology — complements QMS audit skills', recommended: false },
 ]
 
 const competencyMatrix = [
   { role: 'QMS Audit Lead', tod: '✅ Required', toi: '✅ Required', toe: '✅ Required', report: '✅ Required', cert: 'ISO 9001 LA or ASQ CQA' },
   { role: 'QMS Audit Team Member', tod: '✅ Required', toi: '✅ Required', toe: '⚠️ Supervised', report: '⚠️ Supervised', cert: 'ISO 9001 LA (in progress)' },
-  { role: 'Technical Specialist', tod: '⚠️ Supervised', toi: '✅ Required', toe: '✅ Required', report: '⚠️ Supervised', cert: 'CISSP / CISA' },
+  { role: 'Technical Specialist', tod: '⚠️ Supervised', toi: '✅ Required', toe: '✅ Required', report: '⚠️ Supervised', cert: 'ASQ CQE or sector-specific (IATF 16949, ISO 13485)' },
   { role: 'Trainee Auditor', tod: '⚠️ Supervised', toi: '⚠️ Supervised', toe: '⚠️ Supervised', report: '⚠️ Supervised', cert: 'None required' },
 ]
 
 export default function Clause7() {
   return (
     <div className="max-w-5xl mx-auto">
-      <PageHeader standard="ISO 19011:2018" clause="Clause 7" title="Clause 7 — Auditor Competence"
+      <PageHeader standard="ISO 19011:2026" clause="Clause 7" title="Clause 7 — Auditor Competence"
         description="ISO 19011 Clause 7 defines the knowledge, skills, and personal attributes required of auditors and audit team leaders. Competence must be demonstrated, not just claimed — and maintained through continual professional development."
         badges={['Auditor Competence', 'CPD', 'Pre-Audit']} />
 
@@ -102,10 +103,10 @@ export default function Clause7() {
       </div>
 
       <AIPanel title="Generate Competence Documentation"
-        systemPrompt="You are an ISO 19011:2018 auditor competence specialist. Generate professional competence assessments, CPD plans, auditor training records, and independence declarations aligned to Clause 7 requirements."
+        systemPrompt="You are an ISO 19011:2026 auditor competence specialist. Generate professional competence assessments, CPD plans, auditor training records, and independence declarations aligned to Clause 7 requirements."
         placeholder="e.g. Generate an auditor competence assessment for an ASQ-certified auditor conducting their first ISO 9001 audit"
         contextFields={[
-          { id: 'role', label: 'Auditor Role', type: 'select', options: ['IS Audit Lead', 'IS Audit Team Member', 'Technical Specialist', 'Trainee Auditor', 'IMS Joint Auditor'] },
+          { id: 'role', label: 'Auditor Role', type: 'select', options: ['QMS Audit Lead', 'QMS Audit Team Member', 'Technical Specialist', 'Trainee Auditor'] },
           { id: 'artifact', label: 'Artifact Required', type: 'select', options: ['Competence Assessment', 'CPD Plan', 'Independence Declaration', 'Auditor Training Record', 'Audit Team Competence Matrix', 'Auditor Evaluation Form'] },
           { id: 'context', label: 'Auditor Background', type: 'text', placeholder: 'e.g. 5 years quality audit, ASQ CQA certified, first ISO 9001 audit' },
         ]} />

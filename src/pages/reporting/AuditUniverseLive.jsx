@@ -122,7 +122,7 @@ export default function AuditUniverseLive() {
       <div className="mt-6">
         <AIPanel
           title="AI — Generate Annual Audit Plan"
-          systemPrompt="You are an ISO 19011:2018 audit programme specialist. Generate detailed annual audit plans, audit schedules, resource plans, and individual audit mandates. Align to ISO 19011 Clause 5 programme management requirements. Include risk-based prioritisation."
+          systemPrompt="You are an ISO 19011:2026 audit programme specialist. Generate detailed annual audit plans, audit schedules, resource plans, and individual audit mandates. Align to ISO 19011 Clause 5 programme management requirements. Include risk-based prioritisation."
           placeholder="e.g. Generate a 12-month risk-based audit schedule for an ISO 9001 certified manufacturer with 8 audit areas"
           contextFields={[
             { id: 'areas', label: 'Audit Areas', type: 'textarea', placeholder: 'List your audit areas from the universe above...' },

@@ -144,7 +144,7 @@ export default function AuthPage() {
         </div>
 
         <div className="text-center mt-6 text-xs text-steel-500">
-          ISO 9001 · ISO 19011 · IMS
+          ISO 9001 · ISO 19011
         </div>
       </div>
     </div>
