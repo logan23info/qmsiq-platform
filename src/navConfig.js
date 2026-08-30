@@ -69,6 +69,7 @@ export const navSections = [
       { id: '9001-cl8', label: 'Clause 8 — Operations', path: '/iso9001/clause8', icon: 'Settings', tooltip: 'Operational planning, customer requirements, supplier control, production' },
       { id: '9001-cl9', label: 'Clause 9 — Performance', path: '/iso9001/clause9', icon: 'TrendingUp', tooltip: 'Customer satisfaction, KPIs, internal audit, management review' },
       { id: '9001-cl10', label: 'Clause 10 — Improvement', path: '/iso9001/clause10', icon: 'RefreshCw', tooltip: 'Nonconformity, corrective action, continual improvement' },
+      { id: '9001-annex', label: 'Annex A & B — Clarification', path: '/iso9001/annex', icon: 'BookOpen', tooltip: 'Informative guidance — structure/terminology clarification and related ISO/TC 176 standards' },
     ]
   },
   {

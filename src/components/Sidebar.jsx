@@ -67,6 +67,7 @@ const navTooltips = {
   '/iso9001/clause8': 'QMS operations — product/service requirements, SDLC, supplier control',
   '/iso9001/clause9': 'QMS performance — customer satisfaction, internal audit, management review',
   '/iso9001/clause10': 'QMS improvement — nonconformity, CAPA, continual improvement',
+  '/iso9001/annex': 'Informative — structure/terminology clarification (Annex A) and related standards (Annex B)',
 
   '/fieldwork/pbc': '⭐ PBC evidence tracker — tag by phase, domain, track receipt',
   '/fieldwork/tracker': '⭐ TOD/TOI/TOE progress per control with completion bar',

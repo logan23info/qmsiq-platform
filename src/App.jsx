@@ -52,6 +52,7 @@ const ISO9001Clause7 = lazy_(() => import('./pages/iso9001/AllClauses').then(m =
 const ISO9001Clause8 = lazy_(() => import('./pages/iso9001/AllClauses').then(m => ({ default: m.ISO9001Clause8 })))
 const ISO9001Clause9 = lazy_(() => import('./pages/iso9001/AllClauses').then(m => ({ default: m.ISO9001Clause9 })))
 const ISO9001Clause10 = lazy_(() => import('./pages/iso9001/AllClauses').then(m => ({ default: m.ISO9001Clause10 })))
+const ISO9001AnnexAB = lazy_(() => import('./pages/iso9001/AnnexAB'))
 
 // Surveillance & Audit Types
 const SurveillanceAudit = lazy_(() => import('./pages/surveillance/SurveillanceAudit'))
@@ -160,6 +161,7 @@ function AppShell() {
                 <Route path="/iso9001/clause8" element={<ISO9001Clause8 />} />
                 <Route path="/iso9001/clause9" element={<ISO9001Clause9 />} />
                 <Route path="/iso9001/clause10" element={<ISO9001Clause10 />} />
+                <Route path="/iso9001/annex" element={<ISO9001AnnexAB />} />
 
                 {/* Surveillance */}
                 <Route path="/surveillance" element={<SurveillanceAudit />} />
