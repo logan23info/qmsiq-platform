@@ -100,7 +100,7 @@ export default function ContextForm() {
             </div>
             <div>
               <label className="block text-xs text-steel-400 mb-1">Applicable regulations / standards</label>
-              <input maxLength={200} value={form.regulations || ''} onChange={e => set('regulations', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. IATF 16949, FSSAI, BIS, ISO 27001" />
+              <input maxLength={200} value={form.regulations || ''} onChange={e => set('regulations', e.target.value)} disabled={!canEdit} className="input-field w-full text-sm" placeholder="e.g. IATF 16949, FSSAI, BIS, ISO 13485" />
             </div>
           </div>
         </div>
